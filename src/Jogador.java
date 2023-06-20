@@ -1,10 +1,10 @@
-public class JOGADOR {
+public class Jogador {
     private String nome;
     private int pontuação;
     private boolean vez;
     //private PECA Peça;
 
-    public JOGADOR(String Nome){
+    public Jogador(String Nome){
         this.nome = Nome;
     }
 }
