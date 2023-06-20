@@ -1,8 +1,8 @@
-public class Jogo {
+public class JOGO {
     public static void main(String[] args) throws Exception {
+        TABULEIRO tabuleiro = new TABULEIRO();
+        JOGADOR jogador = new JOGADOR("Player");
 
-
-        new Tabuleiro();
-        System.out.println("Hello, World!");
+        jogador.RegistrarPeca(tabuleiro);
     }
 }

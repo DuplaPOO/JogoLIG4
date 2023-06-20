@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class Tabuleiro {
+public class TABULEIRO {
 
     int[][] tabuleiro = {{0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0},
@@ -14,14 +14,25 @@ public class Tabuleiro {
     private int[] colunas;
     private int[] fileiras;
 
-    public Tabuleiro(){
-        for (int i = 0; i < 6 ; i++) {
+    public TABULEIRO(){
+        ImprimirTabuleiro();
+    }
+
+    public void ImprimirTabuleiro(){
+        for (int i = 0; i < 7 ; i++) {
             for (int j = 0; j < 7; j++) {
                 System.out.print(tabuleiro[i][j] + "\t");
             }
             System.out.println("");
 
         }
+    }
 
+    public int[][] getTabuleiro() {
+        return tabuleiro;
+    }
+
+    public void setTabuleiro(int fileira, int coluna, int valor){
+        tabuleiro[fileira][coluna] = valor;
     }
 }
