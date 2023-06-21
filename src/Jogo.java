@@ -1,15 +1,36 @@
 public class Jogo {
-        Tabuleiro tabuleiro = new Tabuleiro();
-        private int vez = 1;
-        Jogador jogador1= new Jogador("Player 1");
-        Jogador jogador2= new Jogador("Player 2");
+    Tabuleiro tabuleiro = new Tabuleiro();
+    private int jogadas;
+    Jogador jogador1= new Jogador("Lucas",1);
+    Jogador jogador2= new Jogador("Arthur",-1);
 
 
-        public Jogo(){
-            jogador1.registrarPeca(tabuleiro);
+    public Jogo(){
+            this.jogadas=1;
+            IniciarPartida();
 
           // while (jogar()); **************
     }
+
+
+    public void IniciarPartida(){
+        while(jogadas<=42){
+            jogador1.registrarPeca(tabuleiro);
+            if(jogador1.VerificarPontoHorizontal(tabuleiro) == true || jogador1.VerificarPontoHorizontal(tabuleiro) == true || jogador1.VerificarDiagonal1(tabuleiro) == true || jogador1.VerificarDiagonal2(tabuleiro) == true){
+                System.out.println("Player 1 venceu");
+                break;
+            }
+            jogador2.registrarPeca(tabuleiro);
+            if(jogador2.VerificarPontoHorizontal(tabuleiro) == true || jogador2.VerificarPontoHorizontal(tabuleiro) == true || jogador2.VerificarDiagonal1(tabuleiro) == true || jogador2.VerificarDiagonal2(tabuleiro) == true){
+                System.out.println("Player 2 venceu");
+                break;
+            }
+            jogadas+=2;
+            }
+        tabuleiro.zerarTabuleiro(jogadas);
+    }
+
+
     /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         public boolean jogar(){
             if(ganhou()==0 ) {

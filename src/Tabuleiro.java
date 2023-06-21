@@ -13,7 +13,7 @@ public class Tabuleiro {
 
 
     public Tabuleiro(){
-        criarTabuleiro();
+        ImprimirTabuleiro();
     }
 
     public void zerarTabuleiro(int zerar){
@@ -29,7 +29,9 @@ public class Tabuleiro {
         
     }
 
-    public void criarTabuleiro(){
+    public void ImprimirTabuleiro(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         for (int i = 0; i < tabuleiro.length ; i++) {
             for (int j = 0; j < tabuleiro[i].length; j++) {
                 System.out.print(tabuleiro[i][j] + "\t");
