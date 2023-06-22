@@ -1,5 +1,8 @@
 public class Jogo {
+
     Tabuleiro tabuleiro = new Tabuleiro();
+
+
     private int jogadas;
     Jogador jogador1= new Jogador("Lucas",1);
     Jogador jogador2= new Jogador("Arthur",-1);
@@ -7,22 +10,23 @@ public class Jogo {
 
     public Jogo(){
             this.jogadas=1;
-            IniciarPartida();
-
+            iniciarPartida();
           // while (jogar()); **************
     }
 
 
-    public void IniciarPartida(){
+
+    public void iniciarPartida(){
         while(jogadas<=42){
+
             jogador1.registrarPeca(tabuleiro);
-            if(jogador1.VerificarPontoHorizontal(tabuleiro) == true || jogador1.VerificarPontoHorizontal(tabuleiro) == true || jogador1.VerificarDiagonal1(tabuleiro) == true || jogador1.VerificarDiagonal2(tabuleiro) == true){
+            if(ganhou()==1){
                 System.out.println("Player 1 venceu");
                 break;
             }
             jogador2.registrarPeca(tabuleiro);
-            if(jogador2.VerificarPontoHorizontal(tabuleiro) == true || jogador2.VerificarPontoHorizontal(tabuleiro) == true || jogador2.VerificarDiagonal1(tabuleiro) == true || jogador2.VerificarDiagonal2(tabuleiro) == true){
-                System.out.println("Player 2 venceu");
+            if (ganhou()==-1){
+                System.out.println("Player 2 Venceu");
                 break;
             }
             jogadas+=2;
@@ -30,60 +34,17 @@ public class Jogo {
         tabuleiro.zerarTabuleiro(jogadas);
     }
 
-
-    /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        public boolean jogar(){
-            if(ganhou()==0 ) {
-                if(vez ==1 ){
-                    jogador1.registrarPeca(tabuleiro);
-                } else{
-                    jogador2.registrarPeca(tabuleiro);
-                }
-
-                if(tabuleiro.tabuleiroCompleto()){
-                    System.out.println("Tabuleiro completo");
-                    return false;
-                }
-                vez++;
-                return true;
-
-            } else {
-                if(ganhou() == 1 ){
-                    System.out.println("Player 1 ganhou");
-                } else {
-                    System.out.println("Player 2 ganhou");
-                }
-            }
-
-
-        }
-
-     -----------------------------------------------------------------------------------------------*/
-
-        /*    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         public int ganhou(){
-            if(tabuleiro.checaLinhas() == 1){
+            if(tabuleiro.verificarPontoVertical(tabuleiro)==true||tabuleiro.verificarPontoHorizontal(tabuleiro) == true || tabuleiro.verificarPontoHorizontal(tabuleiro) == true || tabuleiro.verificarDiagonal1(tabuleiro) == true || tabuleiro.verificarDiagonal2(tabuleiro) == true){
                 return 1;
             }
-            if(tabuleiro.checaColunas() == 1){
-                return 1;
-            }
-            if(tabuleiro.checaDiagonias()==1){
-                return 1;
-            }
-            if(tabuleiro.checaLinhas() == -1){
-                return -1;
-            }
-            if(tabuleiro.checaColunas() == -1){
-                return -1;
-            }
-            if(tabuleiro.checaDiagonias()== -1){
+            if(tabuleiro.verificarPontoVertical(tabuleiro) == true||tabuleiro.verificarPontoHorizontal(tabuleiro) == true || tabuleiro.verificarPontoHorizontal(tabuleiro) == true || tabuleiro.verificarDiagonal1(tabuleiro) == true || tabuleiro.verificarDiagonal2(tabuleiro) == true){
                 return -1;
             } else  {
                 return 0;
             }
         }
---------------------------------------------------------------------------------------------*/
+
 
 
 }
