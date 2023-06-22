@@ -1,6 +1,6 @@
 public class Tabuleiro {
 
-    int[][] tabuleiro = {{0, 0, 0, 0, 0, 0, 0},
+    private int[][] tabuleiro = {{0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0},
@@ -31,8 +31,7 @@ public class Tabuleiro {
         
     }
     public void imprimirTabuleiro(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        LimparTela();
         for (int i = 0; i < tabuleiro.length ; i++) {
             for (int j = 0; j < tabuleiro[i].length; j++) {
                 System.out.print(tabuleiro[i][j] + "\t");
@@ -52,8 +51,10 @@ public class Tabuleiro {
         }
         return true;
     }
-    public int checarLinhas(Tabuleiro tabuleiro, int x) {
-        int[][] A = tabuleiro.getTabuleiro();
+
+    //VER SE JÁ TEM UMA PEÇA NA POSIÇÃO(PEÇA EM CIMA DE PEÇA)
+    public int checarLinhas(int x) {
+        int[][] A = this.tabuleiro;
         int linha;
         for (linha = 0; linha < 6; linha++) {
             int i1 = A[linha][x];
@@ -68,8 +69,8 @@ public class Tabuleiro {
         return --linha;
     }
 
-    public boolean verificarPontoHorizontal(Tabuleiro tabuleiro) {
-        int[][] A = tabuleiro.getTabuleiro();
+    public boolean verificarPontoHorizontal() {
+        int[][] A = this.tabuleiro;
         for (int linha = 0; linha < A.length; linha++) {
             for (int coluna = 0; coluna < A[linha].length-3; coluna++) {
                 int peca1 = A[linha][coluna];
@@ -87,8 +88,8 @@ public class Tabuleiro {
             return false;
         }
     }
-    public boolean verificarPontoVertical(Tabuleiro tabuleiro) {
-        int[][] A = tabuleiro.getTabuleiro();
+    public boolean verificarPontoVertical() {
+        int[][] A = this.tabuleiro;
         for (int linha = 0; linha < A.length - 3; linha++) {
             for (int coluna = 0; coluna < A[linha].length-3; coluna++) {
                 int peca1 = A[linha][coluna];
@@ -106,8 +107,8 @@ public class Tabuleiro {
             return false;
         }
     }
-    public boolean verificarDiagonal1(Tabuleiro tabuleiro){
-        int[][] A = tabuleiro.getTabuleiro();
+    public boolean verificarDiagonal1(){
+        int[][] A = this.tabuleiro;
 
         for (int linha = 0; linha < A.length - 3; linha++) {
             for (int coluna = 0; coluna < A[linha].length-3; coluna++) {
@@ -126,8 +127,8 @@ public class Tabuleiro {
             return false;
         }
     }
-    public boolean verificarDiagonal2(Tabuleiro tabuleiro){
-        int[][] A = tabuleiro.getTabuleiro();
+    public boolean verificarDiagonal2(){
+        int[][] A = this.tabuleiro;
 
         for (int linha = A.length - 1; linha >= 3; linha--) {
             for (int coluna = 0; coluna < A[linha].length - 3; coluna++) {
@@ -150,11 +151,10 @@ public class Tabuleiro {
         return pontuacao;
     }
     public int[][] getTabuleiro() {
-        return tabuleiro;
+        return this.tabuleiro;
     }
 
     public void setTabuleiro(int fileira, int coluna, int valor){
-
             tabuleiro[fileira][coluna] = valor;
     }
 
@@ -163,6 +163,11 @@ public class Tabuleiro {
     }
     public void setZerar(int zerar) {
         this.zerar = zerar;
+    }
+
+    public void LimparTela(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
 }

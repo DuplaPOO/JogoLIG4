@@ -35,10 +35,10 @@ public class Jogo {
     }
 
         public int ganhou(){
-            if(tabuleiro.verificarPontoVertical(tabuleiro)==true||tabuleiro.verificarPontoHorizontal(tabuleiro) == true || tabuleiro.verificarPontoHorizontal(tabuleiro) == true || tabuleiro.verificarDiagonal1(tabuleiro) == true || tabuleiro.verificarDiagonal2(tabuleiro) == true){
+            if(tabuleiro.verificarPontoVertical()==true||tabuleiro.verificarPontoHorizontal() == true || tabuleiro.verificarPontoHorizontal() == true || tabuleiro.verificarDiagonal1() == true || tabuleiro.verificarDiagonal2() == true){
                 return 1;
             }
-            if(tabuleiro.verificarPontoVertical(tabuleiro) == true||tabuleiro.verificarPontoHorizontal(tabuleiro) == true || tabuleiro.verificarPontoHorizontal(tabuleiro) == true || tabuleiro.verificarDiagonal1(tabuleiro) == true || tabuleiro.verificarDiagonal2(tabuleiro) == true){
+            if(tabuleiro.verificarPontoVertical() == true||tabuleiro.verificarPontoHorizontal() == true || tabuleiro.verificarPontoHorizontal() == true || tabuleiro.verificarDiagonal1() == true || tabuleiro.verificarDiagonal2() == true){
                 return -1;
             } else  {
                 return 0;
