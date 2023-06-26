@@ -4,41 +4,46 @@ public class Jogo {
 
 
     private int jogadas;
-    Jogador jogador1= new Jogador("Lucas",1);
-    Jogador jogador2= new Jogador("Arthur",-1);
+    Jogador jogador1= new Jogador("Lucas",new Peca(1));
+    Jogador jogador2= new Jogador("Arthur",new Peca(-1));
 
 
     public Jogo(){
             this.jogadas=1;
-            iniciarPartida();
+            JogarPartida();
           // while (jogar()); **************
+    }
+
+    public static void main(String[] args) {
+        new Jogo();
     }
 
 
 
-    public void iniciarPartida(){
+    public void JogarPartida(){
         while(jogadas<=42){
 
             jogador1.registrarPeca(tabuleiro);
-            if(ganhou()==1){
+            if(Ganhou()==1){
                 System.out.println("Player 1 venceu");
                 break;
             }
             jogador2.registrarPeca(tabuleiro);
-            if (ganhou()==-1){
+            if (Ganhou()==-1){
                 System.out.println("Player 2 Venceu");
                 break;
             }
             jogadas+=2;
             }
-        tabuleiro.zerarTabuleiro(jogadas);
+            jogadas = 1;
+        tabuleiro.zerarTabuleiro();
     }
 
-        public int ganhou(){
-            if(tabuleiro.verificarPontoVertical()==true||tabuleiro.verificarPontoHorizontal() == true || tabuleiro.verificarPontoHorizontal() == true || tabuleiro.verificarDiagonal1() == true || tabuleiro.verificarDiagonal2() == true){
+        public int Ganhou(){
+            if(tabuleiro.VerificarVertical()==true||tabuleiro.VerificarHorizontal() == true || tabuleiro.VerificarHorizontal() == true || tabuleiro.VerificarDiagonal1() == true || tabuleiro.VerificarDiagonal2() == true){
                 return 1;
             }
-            if(tabuleiro.verificarPontoVertical() == true||tabuleiro.verificarPontoHorizontal() == true || tabuleiro.verificarPontoHorizontal() == true || tabuleiro.verificarDiagonal1() == true || tabuleiro.verificarDiagonal2() == true){
+            if(tabuleiro.VerificarVertical() == true||tabuleiro.VerificarHorizontal() == true || tabuleiro.VerificarHorizontal() == true || tabuleiro.VerificarDiagonal1() == true || tabuleiro.VerificarDiagonal2() == true){
                 return -1;
             } else  {
                 return 0;
