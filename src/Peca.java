@@ -13,15 +13,15 @@ public class Peca {
         return String.valueOf(this.valor);
     }
 
-    public void ZerarPeca(){
+    public void zerarPeca(){
         this.valor = 0;
     }
 
-    public int GetPeca(){
+    public int getPeca(){
         return this.valor;
     }
 
-    public void SetPeca(int valor){
+    public void setPeca(int valor){
         this.valor = valor;
     }
 

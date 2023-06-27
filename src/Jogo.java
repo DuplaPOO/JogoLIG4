@@ -10,7 +10,7 @@ public class Jogo {
 
     public Jogo(){
             this.jogadas=1;
-            JogarPartida();
+            jogarPartida();
           // while (jogar()); **************
     }
 
@@ -20,7 +20,7 @@ public class Jogo {
 
 
 
-    public void JogarPartida(){
+    public void jogarPartida(){
         while(jogadas<=42){
 
             jogador1.registrarPeca(tabuleiro);
@@ -40,10 +40,10 @@ public class Jogo {
     }
 
         public int Ganhou(){
-            if(tabuleiro.VerificarVertical()==true||tabuleiro.VerificarHorizontal() == true || tabuleiro.VerificarHorizontal() == true || tabuleiro.VerificarDiagonal1() == true || tabuleiro.VerificarDiagonal2() == true){
+            if(tabuleiro.verificarVertical()==true||tabuleiro.verificarHorizontal() == true || tabuleiro.verificarHorizontal() == true || tabuleiro.verificarDiagonal1() == true || tabuleiro.verificarDiagonal2() == true){
                 return 1;
             }
-            if(tabuleiro.VerificarVertical() == true||tabuleiro.VerificarHorizontal() == true || tabuleiro.VerificarHorizontal() == true || tabuleiro.VerificarDiagonal1() == true || tabuleiro.VerificarDiagonal2() == true){
+            if(tabuleiro.verificarVertical() == true||tabuleiro.verificarHorizontal() == true || tabuleiro.verificarHorizontal() == true || tabuleiro.verificarDiagonal1() == true || tabuleiro.verificarDiagonal2() == true){
                 return -1;
             } else  {
                 return 0;

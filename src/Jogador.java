@@ -30,7 +30,7 @@ public class Jogador {
                 continue;
             }
 
-            int checador = tabuleiro.ColisaoDePecas(coluna-1);
+            int checador = tabuleiro.colisaoDePecas(coluna-1);
 
             //ISSO PODERIA SER UM MÉTODO DE VERIFICAÇÃO:
             if(checador == -1){
