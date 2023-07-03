@@ -8,7 +8,6 @@ public class Tabuleiro {
                 tabuleiro[i][j] = new Peca();
             }
         }
-        imprimirTabuleiro();
     }
     
 
@@ -131,8 +130,8 @@ public class Tabuleiro {
         return this.tabuleiro;
     }
 
-    public void setTabuleiro(int fileira, int coluna, Peca valor){
-            tabuleiro[fileira][coluna]=valor;
+    public void setTabuleiro(int linha, int coluna, Peca valor){
+            tabuleiro[linha][coluna]=valor;
     }
 
     public void limparTela(){
@@ -141,5 +140,6 @@ public class Tabuleiro {
     }
 
     
+
 
 }

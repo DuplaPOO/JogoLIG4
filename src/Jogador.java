@@ -4,8 +4,9 @@ import java.util.Scanner;
 public class Jogador {
 
     private String nome;
-    private Peca peca; //Considerando por enquanto 2 tipos de peça: "1" e "-1"
+    private Peca peca; 
     private int vitorias;
+    private int coluna;
 
     public Jogador(String nome, Peca peca){
         this.nome = nome;
@@ -17,7 +18,7 @@ public class Jogador {
             System.out.println("Player: " +this.nome+ " | Historico de vitórias: " + this.vitorias );
             System.out.print("Digite a coluna: ");
             Scanner scanner = new Scanner(System.in);
-            int coluna = scanner.nextInt();
+            this.coluna = scanner.nextInt();
             Peca CopiaDoTabuleiro[][] = tabuleiro.getTabuleiro();
             //ISSO PODERIA SER UM MÉTODO DE VERIFICAÇÃO:
             if(coluna > CopiaDoTabuleiro[0].length){
@@ -47,14 +48,33 @@ public class Jogador {
                 break;
             }
         }
-        }
-
-
-
-
-
-
-
     }
+
+    public void modificarPecasVizinhas(Tabuleiro tabuleiro){
+        Peca[][] tab = tabuleiro.getTabuleiro();
+        int linha = tabuleiro.colisaoDePecas(coluna-1);
+        if(linha != 5){
+            linha += 1;
+        }
+        Peca posicao = tab[linha][coluna-1];
+        if(coluna !=1){
+            Peca posicaoEsquerda = tab[linha][coluna-2];
+            if(posicao.getPeca() != posicaoEsquerda.getPeca() && posicaoEsquerda.getPeca() != 0){
+                tabuleiro.setTabuleiro(linha, coluna-2, this.peca);
+            }
+        }
+        
+        if(coluna!= tab[0].length){
+            Peca posicaoDireita = tab[linha][coluna];
+            if(posicao.getPeca() != posicaoDireita.getPeca() && posicaoDireita.getPeca() != 0){
+                tabuleiro.setTabuleiro(linha, coluna, this.peca);
+            }
+        }
+        tabuleiro.imprimirTabuleiro();
+    }
+
+
+
+}
 
 
