@@ -1,30 +1,16 @@
 public class Peca {
-    private int valor;
+    private String cor;
 
-    public Peca(int valor){
-        this.valor = valor;
+    public Peca() {
+        this.cor = null;
+    }
+     public String getCor(){
+        return this.cor;
+     }
+
+    public void setCor(String cor){
+        this.cor = cor;
     }
 
-    public Peca(){
-        this.valor = 0;
-    }
-
-    public String toString(){
-        return String.valueOf(this.valor);
-    }
-
-    public void zerarPeca(){
-        this.valor = 0;
-    }
-
-    public int getPeca(){
-        return this.valor;
-    }
-
-    public void setPeca(int valor){
-        this.valor = valor;
-    }
-
-    //A ideia é o tabuleiro deixar de ser uma matriz int, para ser uma matriz Peça
 
 }

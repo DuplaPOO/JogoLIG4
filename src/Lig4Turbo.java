@@ -1,4 +1,4 @@
-public class Lig4Turbo extends Jogo{
+/*public class Lig4Turbo extends Lig4Jogo {
     
 
 
@@ -29,4 +29,4 @@ public class Lig4Turbo extends Jogo{
         jogadas = 1;
         tabuleiro.zerarTabuleiro();
     }
-}
+}*/

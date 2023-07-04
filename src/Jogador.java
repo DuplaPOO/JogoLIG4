@@ -1,10 +1,11 @@
+/*
 import java.util.Scanner;
 
 
 public class Jogador {
 
     private String nome;
-    private Peca peca; 
+    private Peca peca;
     private int vitorias;
     private int coluna;
 
@@ -24,7 +25,7 @@ public class Jogador {
             if(coluna > CopiaDoTabuleiro[0].length){
                 try {
                     System.out.println( "Coluna invalida, digite de novo(1 a 7)");
-                    Thread.sleep(1000); 
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -37,7 +38,7 @@ public class Jogador {
             if(checador == -1){
                 try {
                     System.out.println( "A Coluna ja está cheia, digite outro numero");
-                    Thread.sleep(1000); 
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -63,7 +64,7 @@ public class Jogador {
                 tabuleiro.setTabuleiro(linha, coluna-2, this.peca);
             }
         }
-        
+
         if(coluna!= tab[0].length){
             Peca posicaoDireita = tab[linha][coluna];
             if(posicao.getPeca() != posicaoDireita.getPeca() && posicaoDireita.getPeca() != 0){
@@ -76,5 +77,4 @@ public class Jogador {
 
 
 }
-
-
+*/

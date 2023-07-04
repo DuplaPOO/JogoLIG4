@@ -1,69 +1,65 @@
 public class Tabuleiro {
 
-    private Peca[][] tabuleiro = new Peca[6][7];
-
+    public static final int linhas = 6;
+    public static final int colunas = 7;
+    private Peca[][] tabuleiro = new Peca[linhas][colunas];
     public Tabuleiro(){
-        for (int i = 0; i < tabuleiro.length; i++) {
-            for (int j = 0; j < tabuleiro[i].length; j++) {
-                tabuleiro[i][j] = new Peca();
+        for (int i = 0; i < linhas; i++) {
+            for (int j = 0; j < colunas; j++) {
+                tabuleiro[i][j] = null;
             }
         }
-    }
-    
-
-
-    public void zerarTabuleiro(){
-        for (int i = 0; i < tabuleiro.length ; i++) {
-            for (int j = 0; j < tabuleiro[i].length; j++) {
-                tabuleiro[i][j].zerarPeca();
-            }
-        }
-        
     }
     public void imprimirTabuleiro(){
-        limparTela();
-        for (int i = 0; i < tabuleiro.length ; i++) {
-            for (int j = 0; j < tabuleiro[i].length; j++) {
-                System.out.print(tabuleiro[i][j] + "\t");
-            }
-            System.out.println("");
-        }
-    }
 
-    /*
-    public boolean tabuleiroCompleto(){
-        for (int i = 0; i < tabuleiro.length ; i++) {
-            for (int j = 0; j <tabuleiro[i].length ; j++) {
-                if(tabuleiro[i][j] == 0){
-                    return false;
+        System.out.println();
+
+        for (int i = 0; i < linhas ; i++) {
+            System.out.print("|");
+            for (int j = 0; j < colunas; j++) {
+                if(tabuleiro[i][j] == null){
+                    System.out.print(" ");
                 } else {
-
+                    System.out.print(tabuleiro[i][j].getCor());
                 }
+                System.out.print("|");
             }
+            System.out.println();
         }
-        return true;
-    } */
 
+        System.out.println();
 
-
-    //VER SE JÁ TEM UMA PEÇA NA POSIÇÃO(PEÇA EM CIMA DE PEÇA)
-    public int colisaoDePecas(int coluna) {
-        Peca[][] A = this.tabuleiro;
-        int linha;
-        for (linha = 0; linha < 6; linha++) {
-            Peca i1 = A[linha][coluna];
-            if (i1.getPeca() == 1 || i1.getPeca() == -1) {
-                break;
-            }
-            if(A[0][coluna].getPeca() == 1 || A[0][coluna].getPeca() == -1 ){
-                System.out.println("coluna cheia, digite outra coluna");
-                return 0;
-            }
-        }
-        return --linha;
     }
+    //TROUXE O REGISTRAR PEÇA DO JOGADOR PARA O TABULEIRO, O JOGADOR APENAS REALIZA A JOGADA, MAS O TABULEIRO QUE REGISTRA
+    public boolean registrarPeca(int colunaAdicionar, String cor) {
 
-    public boolean verificarHorizontal() {
+        if (colunaAdicionar >= 0 && colunaAdicionar < colunas) {
+            if (tabuleiro[0][colunaAdicionar] == null) {
+                boolean pecaAdicionar = false;
+                for (int i = linhas - 1; i >= 0; i--) {
+                    if (tabuleiro[i][colunaAdicionar] == null) {
+                        tabuleiro[i][colunaAdicionar] = new Peca();
+                        tabuleiro[i][colunaAdicionar].setCor(cor);
+                        pecaAdicionar = true;
+                        break;
+                    }
+                }
+                return pecaAdicionar;
+            } else {
+                //linha cheia
+                System.out.println("++++++++++++++++++");
+                System.out.println("COLUNA ESTÁ CHEIA");
+                System.out.println("++++++++++++++++++");
+                return false;
+            }
+        } else {
+            System.out.println("++++++++++++++++++++++");
+            System.out.println("DIGITE UM NUMERO DE 1 A 7");
+            System.out.println("++++++++++++++++++++++");
+            return false;
+        }
+    }
+    public boolean verificarHorizontal( String corVencendo) {
         Peca[][] A = this.tabuleiro;
         for (int linha = 0; linha < A.length; linha++) {
             for (int coluna = 0; coluna < A[linha].length-3; coluna++) {
@@ -71,14 +67,16 @@ public class Tabuleiro {
                 Peca peca2 = A[linha][coluna + 1];
                 Peca peca3 = A[linha][coluna + 2];
                 Peca peca4 = A[linha][coluna + 3];
-                if(peca1.getPeca() != 0 && peca1.getPeca() == peca2.getPeca() && peca2.getPeca() == peca3.getPeca() && peca3.getPeca() == peca4.getPeca()){
+                if (peca1 != null && peca2 != null && peca3 != null && peca4 != null &&
+                        peca1.getCor().equals(corVencendo) && peca2.getCor().equals(corVencendo) && peca3.getCor().equals(corVencendo)) {
                     return true;
                 }
+
             }
         }
         return false;
     }
-    public boolean verificarVertical() {
+    public boolean verificarVertical(String corVencendo) {
         Peca[][] A = this.tabuleiro;
         for (int linha = 0; linha < A.length - 3; linha++) {
             for (int coluna = 0; coluna < A[linha].length-3; coluna++) {
@@ -86,14 +84,16 @@ public class Tabuleiro {
                 Peca peca2 = A[linha + 1][coluna];
                 Peca peca3 = A[linha + 2][coluna];
                 Peca peca4 = A[linha + 3][coluna];
-                if(peca1.getPeca() != 0 && peca1.getPeca() == peca2.getPeca() && peca2.getPeca() == peca3.getPeca() && peca3.getPeca() == peca4.getPeca()){
+                if (peca1 != null && peca2 != null && peca3 != null && peca4 != null &&
+                        peca1.getCor().equals(corVencendo) && peca2.getCor().equals(corVencendo) && peca3.getCor().equals(corVencendo)) {
                     return true;
                 }
+
             }
         }
         return false;
     }
-    public boolean verificarDiagonal1(){
+    public boolean verificarDiagonal1(String corVencendo){
         Peca[][] A = this.tabuleiro;
 
         for (int linha = 0; linha < A.length - 3; linha++) {
@@ -102,14 +102,16 @@ public class Tabuleiro {
                 Peca peca2 = A[linha + 1][coluna + 1];
                 Peca peca3 = A[linha + 2][coluna + 2];
                 Peca peca4 = A[linha + 3][coluna + 3];
-                if(peca1.getPeca() != 0 && peca1.getPeca() == peca2.getPeca() && peca2.getPeca() == peca3.getPeca() && peca3.getPeca() == peca4.getPeca()){
+                if (peca1 != null && peca2 != null && peca3 != null && peca4 != null &&
+                        peca1.getCor().equals(corVencendo) && peca2.getCor().equals(corVencendo) && peca3.getCor().equals(corVencendo)) {
                     return true;
                 }
+
             }
         }
         return false;
     }
-    public boolean verificarDiagonal2(){
+    public boolean verificarDiagonal2(String corVencendo){
         Peca[][] A = this.tabuleiro;
 
         for (int linha = A.length - 1; linha >= 3; linha--) {
@@ -118,26 +120,36 @@ public class Tabuleiro {
                 Peca peca2 = A[linha - 1][coluna + 1];
                 Peca peca3 = A[linha - 2][coluna + 2];
                 Peca peca4 = A[linha - 3][coluna + 3];
-                if(peca1.getPeca() != 0 && peca1.getPeca() == peca2.getPeca() && peca2.getPeca() == peca3.getPeca() && peca3.getPeca() == peca4.getPeca()){
+                if (peca1 != null && peca2 != null && peca3 != null && peca4 != null &&
+                        peca1.getCor().equals(corVencendo) && peca2.getCor().equals(corVencendo) && peca3.getCor().equals(corVencendo)) {
                     return true;
                 }
+
             }
         }
         return false;
     }
-
-    public Peca[][] getTabuleiro() {
-        return this.tabuleiro;
+    public boolean verificarGanhandor(String corVencendo){
+        if(verificarVertical(corVencendo)==true|| verificarHorizontal(corVencendo) == true || verificarDiagonal1(corVencendo) == true || verificarDiagonal2(corVencendo) == true){
+            return true;
+        }
+        else  {
+            return false;
+        }
     }
-
-    public void setTabuleiro(int linha, int coluna, Peca valor){
-            tabuleiro[linha][coluna]=valor;
-    }
-
     public void limparTela(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+    public void zerarTabuleiro(){
+        for (int i = 0; i < tabuleiro.length ; i++) {
+            for (int j = 0; j < tabuleiro[i].length; j++) {
+                tabuleiro[i][j] = new Peca();
+            }
+        }
+
+    }
+
 
     
 
