@@ -3,22 +3,26 @@ import java.util.Scanner;
 
 public class Lig4Jogo {
     protected Tabuleiro tabuleiro;
-    private final String cor1;
-    private final String cor2;
-
-    private boolean jogador;  // true = vez do jogador 1 // false= vez do jogador2
+    protected final String cor1;
+    protected final String cor2;
+    protected Jogador[] jogadores = null;
+    protected boolean jogador;  // true = vez do jogador 1 // false= vez do jogador2
+    protected int jogadas;
     //private Lig4Turbo lig4Turbo;
 
     public Lig4Jogo(String cor1, String cor2){
         this.tabuleiro = new Tabuleiro();
         this.cor1 = cor1;
         this.cor2 = cor2;
+        this.jogadas = 0;
         jogador = (new Random()).nextBoolean();
+        jogarPartida();
     }
-    public void jogarPartida(){
-        boolean jogando = true;
 
-        while (jogando){
+
+    public void jogarPartida(){
+        while (true){
+            limparTela();
             tabuleiro.imprimirTabuleiro();
             String cor;
             if(jogador){
@@ -37,8 +41,12 @@ public class Lig4Jogo {
 
 
             boolean pecaAdicionada = tabuleiro.registrarPeca(coluna, cor);
+            limparTela();
+            tabuleiro.imprimirTabuleiro();
 
             if(pecaAdicionada){
+                jogadas++;
+                
                 if(checarVencedor()){
                     if(jogador){
                         System.out.println("Jogador da cor 1 venceu");
@@ -48,7 +56,11 @@ public class Lig4Jogo {
                         break;
                     }
                 }
-                jogador =! jogador;
+                if(this.jogadas >= 42){
+                    break;
+                }
+                jogador = !jogador;
+                
             }
         }
     }
@@ -63,7 +75,10 @@ public class Lig4Jogo {
         return tabuleiro.verificarGanhandor(corVencedora);
 
     }
-    public void menu(){
+
+
+/* 
+    public int menu(){
         tabuleiro.limparTela();
         System.out.println("1 - Partida Normal");
         System.out.println("2 - Lig4 turbo");
@@ -74,28 +89,25 @@ public class Lig4Jogo {
         tabuleiro.limparTela();
         System.out.print("Jogador 1: ");
         String nome1 = scanner.nextLine();
-        //addJogador(new Jogador(nome1, new Peca(1)));
+        addJogador(new Jogador(nome1));
         System.out.println("");
         System.out.print("Jogador 2: ");
         String nome2 = scanner.nextLine();
-        //addJogador(new Jogador(nome2, new Peca(-1)));
+        addJogador(new Jogador(nome2));
+        
 
-        switch(opcao){
-            case 1:
-                jogarPartida();
-                break;
-            case 2 :
-                //jogarLig4Turbo();
-                break;
-        }
-        scanner.close();
+
+
+        return opcao;
+
+        
     }
 
+*/
 
 
 
 
-/*
     public void addJogador(Jogador jogador) {
         if(jogadores == null){
             jogadores = new Jogador[1];
@@ -109,7 +121,7 @@ public class Lig4Jogo {
             jogadores = novoArray;
         }
     }
-
+/*
     public void jogarLig4Turbo(){
         while(jogadas<=42){
             jogadores[0].registrarPeca(tabuleiro);
@@ -131,5 +143,18 @@ public class Lig4Jogo {
     }
 
 */
+
+    public void limparTela(){
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+        }
+
+    public void pausarTela(int segundos) {
+            try {
+                Thread.sleep(segundos * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
 }

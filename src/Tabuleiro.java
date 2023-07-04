@@ -3,6 +3,7 @@ public class Tabuleiro {
     public static final int linhas = 6;
     public static final int colunas = 7;
     private Peca[][] tabuleiro = new Peca[linhas][colunas];
+    
     public Tabuleiro(){
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunas; j++) {
@@ -10,9 +11,9 @@ public class Tabuleiro {
             }
         }
     }
-    public void imprimirTabuleiro(){
 
-        System.out.println();
+
+    public void imprimirTabuleiro(){
 
         for (int i = 0; i < linhas ; i++) {
             System.out.print("|");
@@ -38,15 +39,14 @@ public class Tabuleiro {
                 boolean pecaAdicionar = false;
                 for (int i = linhas - 1; i >= 0; i--) {
                     if (tabuleiro[i][colunaAdicionar] == null) {
-                        tabuleiro[i][colunaAdicionar] = new Peca();
-                        tabuleiro[i][colunaAdicionar].setCor(cor);
+                        tabuleiro[i][colunaAdicionar] = new Peca(cor);
                         pecaAdicionar = true;
                         break;
                     }
                 }
                 return pecaAdicionar;
             } else {
-                //linha cheia
+                //coluna cheia
                 System.out.println("++++++++++++++++++");
                 System.out.println("COLUNA ESTÁ CHEIA");
                 System.out.println("++++++++++++++++++");
@@ -59,7 +59,35 @@ public class Tabuleiro {
             return false;
         }
     }
-    public boolean verificarHorizontal( String corVencendo) {
+
+
+    public void modificarPecasVizinhas(String cor, int coluna){
+        int i;
+        for (i = 0; i <= 5; i++) {
+                    if (tabuleiro[i][coluna] != null) {
+                        break;
+                    }
+                }
+        int linha = i;
+        Peca posicao = tabuleiro[linha][coluna];
+        if(coluna !=0){
+            Peca posicaoEsquerda = tabuleiro[linha][coluna-1];
+            if(posicaoEsquerda != null){
+                posicaoEsquerda.setCor(cor);
+            }
+        }
+
+        if(coluna != tabuleiro[0].length-1){
+            Peca posicaoDireita = tabuleiro[linha][coluna+1];
+            if(posicaoDireita != null){
+                posicaoDireita.setCor(cor);
+            }
+        }
+    }
+
+
+
+    public boolean verificarHorizontal(String corVencendo) {
         Peca[][] A = this.tabuleiro;
         for (int linha = 0; linha < A.length; linha++) {
             for (int coluna = 0; coluna < A[linha].length-3; coluna++) {
@@ -137,10 +165,8 @@ public class Tabuleiro {
             return false;
         }
     }
-    public void limparTela(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+
+
     public void zerarTabuleiro(){
         for (int i = 0; i < tabuleiro.length ; i++) {
             for (int j = 0; j < tabuleiro[i].length; j++) {
@@ -150,8 +176,6 @@ public class Tabuleiro {
 
     }
 
-
-    
 
 
 }
