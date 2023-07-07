@@ -1,3 +1,5 @@
+package jogo;
+
 import java.util.Scanner;
 
 public class Lig4Turbo extends Lig4Jogo {
@@ -38,9 +40,9 @@ public class Lig4Turbo extends Lig4Jogo {
                 if(checarVencedor()){
                     tabuleiro.imprimirTabuleiro();
                     if(jogador){
-                        System.out.println("Jogador" +cor1 +"venceu");
+                        System.out.println("componentes.Jogador" +cor1 +"venceu");
                     } else {
-                        System.out.println("Jogador" +cor2 + "venceu");
+                        System.out.println("componentes.Jogador" +cor2 + "venceu");
                     }
 
                     System.out.println("Quer jogar novamente entre os mesmo jogadores?");

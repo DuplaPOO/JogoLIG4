@@ -1,3 +1,5 @@
+package componentes;
+
 public class Tabuleiro {
 
     public static final int linhas = 6;

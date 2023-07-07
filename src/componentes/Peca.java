@@ -1,3 +1,5 @@
+package componentes;
+
 public class Peca {
     private String cor;
     

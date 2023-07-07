@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import jogo.Lig4Jogo;
 
 public class Main {
 

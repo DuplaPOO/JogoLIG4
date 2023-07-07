@@ -1,3 +1,8 @@
+package jogo;
+
+import componentes.Jogador;
+import componentes.Tabuleiro;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -8,7 +13,7 @@ public class Lig4Jogo {
     protected Jogador[] jogadores = null;
     protected boolean jogador;  // true = vez do jogador 1 // false= vez do jogador2
     protected int jogadas;
-    //private Lig4Turbo lig4Turbo;
+    //private jogo.Lig4Turbo lig4Turbo;
 
     public Lig4Jogo(String cor1, String cor2){
         this.tabuleiro = new Tabuleiro();
@@ -45,9 +50,9 @@ public class Lig4Jogo {
                 if(checarVencedor()){
                     tabuleiro.imprimirTabuleiro();
                     if(jogador){
-                        System.out.println("Jogador " +cor1 +" venceu");
+                        System.out.println("componentes.Jogador " +cor1 +" venceu");
                     } else {
-                        System.out.println("Jogador " +cor2 + " venceu");
+                        System.out.println("componentes.Jogador " +cor2 + " venceu");
                     }
 
                     System.out.println("Quer jogar novamente entre os mesmo jogadores?");
@@ -129,13 +134,13 @@ public class Lig4Jogo {
         scanner.nextLine();
 
         tabuleiro.limparTela();
-        System.out.print("Jogador 1: ");
+        System.out.print("componentes.Jogador 1: ");
         String nome1 = scanner.nextLine();
-        addJogador(new Jogador(nome1));
+        addJogador(new componentes.Jogador(nome1));
         System.out.println("");
-        System.out.print("Jogador 2: ");
+        System.out.print("componentes.Jogador 2: ");
         String nome2 = scanner.nextLine();
-        addJogador(new Jogador(nome2));
+        addJogador(new componentes.Jogador(nome2));
         return opcao;
     }
 
