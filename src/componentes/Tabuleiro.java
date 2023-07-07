@@ -4,7 +4,7 @@ public class Tabuleiro {
 
     public static final int linhas = 6;
     public static final int colunas = 7;
-    private Peca[][] tabuleiro = new Peca[linhas][colunas];
+    protected Peca[][] tabuleiro = new Peca[linhas][colunas];
     
     public Tabuleiro(){
         for (int i = 0; i < linhas; i++) {
@@ -63,33 +63,8 @@ public class Tabuleiro {
     }
 
 
-    public void modificarPecasVizinhas(String cor, int coluna){
-        int i;
-        for (i = 0; i <= 5; i++) {
-                    if (tabuleiro[i][coluna] != null) {
-                        break;
-                    }
-                }
-        int linha = i;
-        Peca posicao = tabuleiro[linha][coluna];
-        if(coluna !=0){
-            Peca posicaoEsquerda = tabuleiro[linha][coluna-1];
-            if(posicaoEsquerda != null){
-                posicaoEsquerda.setCor(cor);
-            }
-        }
-
-        if(coluna != tabuleiro[0].length-1){
-            Peca posicaoDireita = tabuleiro[linha][coluna+1];
-            if(posicaoDireita != null){
-                posicaoDireita.setCor(cor);
-            }
-        }
-    }
-
-
-
-    public boolean verificarHorizontal(String corVencendo) {
+    
+    private boolean verificarHorizontal() {
         Peca[][] A = this.tabuleiro;
         for (int linha = 0; linha < A.length; linha++) {
             for (int coluna = 0; coluna < A[linha].length-3; coluna++) {
@@ -97,8 +72,8 @@ public class Tabuleiro {
                 Peca peca2 = A[linha][coluna + 1];
                 Peca peca3 = A[linha][coluna + 2];
                 Peca peca4 = A[linha][coluna + 3];
-                if (peca1 != null && peca2 != null && peca3 != null && peca4 != null &&
-                        peca1.getCor().equals(corVencendo) && peca2.getCor().equals(corVencendo) && peca3.getCor().equals(corVencendo)) {
+                if (peca1 != null && peca2 != null && peca3 != null && peca4 != null && peca1.getCor().equals(peca2.getCor()) && peca2.getCor().equals(peca3.getCor()) && peca3.getCor().equals(peca4.getCor())) {
+                    return true;
 
                 }
 
@@ -106,7 +81,7 @@ public class Tabuleiro {
         }
         return false;
     }
-    public boolean verificarVertical(String corVencendo) {
+    private boolean verificarVertical() {
         Peca[][] A = this.tabuleiro;
         for (int linha = 0; linha < A.length - 3; linha++) {
             for (int coluna = 0; coluna < A[linha].length-3; coluna++) {
@@ -114,8 +89,7 @@ public class Tabuleiro {
                 Peca peca2 = A[linha + 1][coluna];
                 Peca peca3 = A[linha + 2][coluna];
                 Peca peca4 = A[linha + 3][coluna];
-                if (peca1 != null && peca2 != null && peca3 != null && peca4 != null &&
-                        peca1.getCor().equals(corVencendo) && peca2.getCor().equals(corVencendo) && peca3.getCor().equals(corVencendo)) {
+                if (peca1 != null && peca2 != null && peca3 != null && peca4 != null && peca1.getCor().equals(peca2.getCor()) && peca2.getCor().equals(peca3.getCor()) && peca3.getCor().equals(peca4.getCor())) {
                     return true;
                 }
 
@@ -123,7 +97,7 @@ public class Tabuleiro {
         }
         return false;
     }
-    public boolean verificarDiagonal1(String corVencendo){
+    private boolean verificarDiagonal1(){
         Peca[][] A = this.tabuleiro;
 
         for (int linha = 0; linha < A.length - 3; linha++) {
@@ -132,8 +106,7 @@ public class Tabuleiro {
                 Peca peca2 = A[linha + 1][coluna + 1];
                 Peca peca3 = A[linha + 2][coluna + 2];
                 Peca peca4 = A[linha + 3][coluna + 3];
-                if (peca1 != null && peca2 != null && peca3 != null && peca4 != null &&
-                        peca1.getCor().equals(corVencendo) && peca2.getCor().equals(corVencendo) && peca3.getCor().equals(corVencendo)) {
+                if (peca1 != null && peca2 != null && peca3 != null && peca4 != null && peca1.getCor().equals(peca2.getCor()) && peca2.getCor().equals(peca3.getCor()) && peca3.getCor().equals(peca4.getCor())) {
                     return true;
                 }
 
@@ -141,7 +114,7 @@ public class Tabuleiro {
         }
         return false;
     }
-    public boolean verificarDiagonal2(String corVencendo){
+    private boolean verificarDiagonal2(){
         Peca[][] A = this.tabuleiro;
 
         for (int linha = A.length - 1; linha >= 3; linha--) {
@@ -150,8 +123,7 @@ public class Tabuleiro {
                 Peca peca2 = A[linha - 1][coluna + 1];
                 Peca peca3 = A[linha - 2][coluna + 2];
                 Peca peca4 = A[linha - 3][coluna + 3];
-                if (peca1 != null && peca2 != null && peca3 != null && peca4 != null &&
-                        peca1.getCor().equals(corVencendo) && peca2.getCor().equals(corVencendo) && peca3.getCor().equals(corVencendo)) {
+                if (peca1 != null && peca2 != null && peca3 != null && peca4 != null && peca1.getCor().equals(peca2.getCor()) && peca2.getCor().equals(peca3.getCor()) && peca3.getCor().equals(peca4.getCor())) {
                     return true;
                 }
 
@@ -159,8 +131,8 @@ public class Tabuleiro {
         }
         return false;
     }
-    public boolean verificarGanhandor(String corVencendo){
-        if(verificarVertical(corVencendo)==true|| verificarHorizontal(corVencendo) == true || verificarDiagonal1(corVencendo) == true || verificarDiagonal2(corVencendo) == true){
+    public boolean verificarGanhador(){
+        if(verificarVertical()==true|| verificarHorizontal() == true || verificarDiagonal1() == true || verificarDiagonal2() == true){
             return true;
         }
         else  {

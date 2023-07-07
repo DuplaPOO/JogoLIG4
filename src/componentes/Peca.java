@@ -4,7 +4,7 @@ public class Peca {
     private String cor;
     
 
-    public Peca() {
+    Peca(){
         this.cor = null;
     }
 
@@ -17,7 +17,7 @@ public class Peca {
         return this.cor;
     }
 
-    public void setCor(String cor){
+    void setCor(String cor){
         this.cor = cor;
     }
 

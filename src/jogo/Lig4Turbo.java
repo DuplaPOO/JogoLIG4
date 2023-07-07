@@ -1,26 +1,34 @@
 package jogo;
 
+import java.util.Random;
 import java.util.Scanner;
 
+import componentes.Jogador;
+import componentes.Tabuleiro;
+import componentes.TabuleiroTurbo;
+
 public class Lig4Turbo extends Lig4Jogo {
-    
+
+    private TabuleiroTurbo tabuleiroTurbo;
 
 
-    public Lig4Turbo(String cor1, String cor2){
-        super(cor1, cor2);
+    Lig4Turbo(){
+        super();
+        this.tabuleiroTurbo = new TabuleiroTurbo();
     }
 
-    public void jogarPartida(){
+    
+    protected void jogarPartida(Jogador jogador1, Jogador jogador2){
         while (true){
             limparTela();
-            tabuleiro.imprimirTabuleiro();
+            tabuleiroTurbo.imprimirTabuleiro();
             String cor;
             if(jogador){
-                cor = cor1;
-                System.out.println("Vez da cor " + cor1);
+                cor = jogador1.getCor();
+                System.out.println("Vez de " + jogador1.getNome());
             } else {
-                cor = cor2;
-                System.out.println("Vez da cor " + cor2);
+                cor = jogador2.getCor();
+                System.out.println("Vez de " + jogador2.getNome());
             }
 
             System.out.println("Digite a coluna");
@@ -30,34 +38,32 @@ public class Lig4Turbo extends Lig4Jogo {
             coluna--;
 
 
-            boolean pecaAdicionada = tabuleiro.registrarPeca(coluna, cor);
-            tabuleiro.modificarPecasVizinhas(cor, coluna);
-            limparTela();
-            tabuleiro.imprimirTabuleiro();
+            boolean pecaAdicionada = tabuleiroTurbo.registrarPeca(coluna, cor);
+            tabuleiroTurbo.modificarPecasVizinhas(cor, coluna);
 
             if(pecaAdicionada){
                 jogadas++;
-                if(checarVencedor()){
-                    tabuleiro.imprimirTabuleiro();
+                if(tabuleiroTurbo.verificarGanhador()){
+                    limparTela();
+                    tabuleiroTurbo.imprimirTabuleiro();
                     if(jogador){
-                        System.out.println("componentes.Jogador" +cor1 +"venceu");
+                        jogador1.aumentarPontuacao();
+                        System.out.println(jogador1.getNome() +" venceu");
                     } else {
-                        System.out.println("componentes.Jogador" +cor2 + "venceu");
+                        jogador2.aumentarPontuacao();
+                        System.out.println(jogador1.getNome() + " venceu");
                     }
 
-                    System.out.println("Quer jogar novamente entre os mesmo jogadores?");
+                    System.out.println("Deseja revanche?");
                     System.out.println("1 - SIM");
-                    System.out.println("2 - PONTUAÇÃO");
-                    System.out.println("3 - MENU");
-                    System.out.println("4 - SAIR - 4");
+                    System.out.println("2 - NAO");
                     Scanner leitura2 = new Scanner(System.in);
                     int opcao = leitura2.nextInt();
 
                     if(opcao == 1){
-                        reset();
-                    } if (opcao == 3){
-                        menu(cor1,cor2);
-                    } if (opcao == 4){
+                        resetTurbo();
+                    } else if (opcao == 2){
+                        resetTurbo();
                         break;
                     }
                 }
@@ -65,8 +71,19 @@ public class Lig4Turbo extends Lig4Jogo {
                     break;
                 }
                 jogador = !jogador;
-
+                
             }
         }
     }
+
+    private void resetTurbo(){
+        this.tabuleiroTurbo= new TabuleiroTurbo();
+        jogador= (new Random()).nextBoolean();
+    }
+
+
+
+
+
+
 }
