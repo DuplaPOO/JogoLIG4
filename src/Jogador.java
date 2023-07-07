@@ -8,6 +8,9 @@ public class Jogador {
         this.vitorias = 0;
     }
 
+    public void addVitorias(){
+        this.vitorias++;
+    }
     
 
 }

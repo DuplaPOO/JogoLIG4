@@ -47,15 +47,15 @@ public class Tabuleiro {
                 return pecaAdicionar;
             } else {
                 //coluna cheia
-                System.out.println("++++++++++++++++++");
-                System.out.println("COLUNA ESTÁ CHEIA");
-                System.out.println("++++++++++++++++++");
+                System.err.println("++++++++++++++++++");
+                System.err.println("COLUNA ESTÁ CHEIA");
+                System.err.println("++++++++++++++++++");
                 return false;
             }
         } else {
-            System.out.println("++++++++++++++++++++++");
-            System.out.println("DIGITE UM NUMERO DE 1 A 7");
-            System.out.println("++++++++++++++++++++++");
+            System.err.println("++++++++++++++++++++++");
+            System.err.println("DIGITE UM NUMERO DE 1 A 7");
+            System.err.println("++++++++++++++++++++++");
             return false;
         }
     }
@@ -97,7 +97,7 @@ public class Tabuleiro {
                 Peca peca4 = A[linha][coluna + 3];
                 if (peca1 != null && peca2 != null && peca3 != null && peca4 != null &&
                         peca1.getCor().equals(corVencendo) && peca2.getCor().equals(corVencendo) && peca3.getCor().equals(corVencendo)) {
-                    return true;
+
                 }
 
             }

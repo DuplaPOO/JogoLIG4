@@ -6,10 +6,7 @@ public class Lig4Turbo extends Lig4Jogo {
 
     public Lig4Turbo(String cor1, String cor2){
         super(cor1, cor2);
-        jogarPartida();
     }
-
-
 
     public void jogarPartida(){
         while (true){
@@ -37,19 +34,36 @@ public class Lig4Turbo extends Lig4Jogo {
             tabuleiro.imprimirTabuleiro();
 
             if(pecaAdicionada){
+                jogadas++;
                 if(checarVencedor()){
+                    tabuleiro.imprimirTabuleiro();
                     if(jogador){
-                        System.out.println("Jogador da cor 1 venceu");
-                        break;
+                        System.out.println("Jogador" +cor1 +"venceu");
                     } else {
-                        System.out.println("Jogador da cor 2 venceu");
+                        System.out.println("Jogador" +cor2 + "venceu");
+                    }
+
+                    System.out.println("Quer jogar novamente entre os mesmo jogadores?");
+                    System.out.println("1 - SIM");
+                    System.out.println("2 - PONTUAÇÃO");
+                    System.out.println("3 - MENU");
+                    System.out.println("4 - SAIR - 4");
+                    Scanner leitura2 = new Scanner(System.in);
+                    int opcao = leitura2.nextInt();
+
+                    if(opcao == 1){
+                        reset();
+                    } if (opcao == 3){
+                        menu(cor1,cor2);
+                    } if (opcao == 4){
                         break;
                     }
                 }
                 if(this.jogadas >= 42){
                     break;
                 }
-                jogador =! jogador;
+                jogador = !jogador;
+
             }
         }
     }
