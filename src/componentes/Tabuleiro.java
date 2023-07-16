@@ -97,7 +97,7 @@ public class Tabuleiro {
         }
         return false;
     }
-    private boolean verificarDiagonal1(){
+    private boolean verificarDiagonalD(){
         Peca[][] A = this.tabuleiro;
 
         for (int linha = 0; linha < A.length - 3; linha++) {
@@ -114,7 +114,7 @@ public class Tabuleiro {
         }
         return false;
     }
-    private boolean verificarDiagonal2(){
+    private boolean verificarDiagonalA(){
         Peca[][] A = this.tabuleiro;
 
         for (int linha = A.length - 1; linha >= 3; linha--) {
@@ -132,7 +132,7 @@ public class Tabuleiro {
         return false;
     }
     public boolean verificarGanhador(){
-        if(verificarVertical()==true|| verificarHorizontal() == true || verificarDiagonal1() == true || verificarDiagonal2() == true){
+        if(verificarVertical()==true|| verificarHorizontal() == true || verificarDiagonalD() == true || verificarDiagonalA() == true){
             return true;
         }
         else  {
@@ -149,6 +149,8 @@ public class Tabuleiro {
         }
 
     }
+
+    
 
 
 

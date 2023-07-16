@@ -10,14 +10,13 @@ import java.util.Scanner;
 public class Lig4Jogo {
     protected Tabuleiro tabuleiro;
     protected Jogador[] jogadores = null;
-    protected boolean jogador;  // true = vez do jogador 1 // false= vez do jogador2
+    protected boolean vezDoJogador;  // true = vez do jogador 1 // false= vez do jogador2
     protected int jogadas;
-    private jogo.Lig4Turbo lig4Turbo;
 
     Lig4Jogo(){
         this.tabuleiro = new Tabuleiro();
         this.jogadas = 0;
-        jogador = (new Random()).nextBoolean();
+        vezDoJogador = (new Random()).nextBoolean();
     }
 
 
@@ -26,7 +25,7 @@ public class Lig4Jogo {
             limparTela();
             tabuleiro.imprimirTabuleiro();
             String cor;
-            if(jogador){
+            if(vezDoJogador){
                 cor = jogador1.getCor();
                 System.out.println("Vez de " + jogador1.getNome());
             } else {
@@ -47,11 +46,11 @@ public class Lig4Jogo {
                 if(tabuleiro.verificarGanhador()){
                     limparTela();
                     tabuleiro.imprimirTabuleiro();
-                    if(jogador){
-                        jogador1.aumentarPontuacao();
+                    if(vezDoJogador){
+                        jogador1.addVitoria();
                         System.out.println("O jogador "+jogador1.getNome() +" venceu");
                     } else {
-                        jogador2.aumentarPontuacao();
+                        jogador2.addVitoria();
                         System.out.println("O jogador "+ jogador2.getNome() + " venceu");
                     }
 
@@ -71,7 +70,7 @@ public class Lig4Jogo {
                 if(this.jogadas >= 42){
                     break;
                 }
-                jogador = !jogador;
+                vezDoJogador = !vezDoJogador;
                 
             }
         }
@@ -90,12 +89,12 @@ public class Lig4Jogo {
                 limparTela();
                 System.out.print("Jogador 1: ");
                 String nome1 = scanner2.nextLine();
-                addJogador(new Jogador(nome1, new Peca("A")));
+                addJogador(new Jogador(nome1, "A"));
                 System.out.println("");
 
                 System.out.print("Jogador 2: ");
                 String nome2 = scanner2.nextLine();
-                addJogador(new Jogador(nome2, new Peca("V")));
+                addJogador(new Jogador(nome2, "V"));
                 Lig4Jogo jogo = new Lig4Jogo();
             }
             switch(opcao){
@@ -116,10 +115,10 @@ public class Lig4Jogo {
 
     private void reset(){
         this.tabuleiro= new Tabuleiro();
-        jogador= (new Random()).nextBoolean();
+        vezDoJogador= (new Random()).nextBoolean();
     }
 
-    protected void addJogador(Jogador jogador) {
+    private void addJogador(Jogador jogador) {
         if(jogadores == null){
             jogadores = new Jogador[1];
             jogadores[0] = jogador;

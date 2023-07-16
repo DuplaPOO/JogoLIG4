@@ -6,13 +6,13 @@ public class Jogador {
     private Peca peca;
     private int vitorias;
 
-    public Jogador(String nome, Peca peca){
+    public Jogador(String nome, String peca){
         this.nome = nome;
-        this.peca = peca;
+        this.peca = new Peca(peca);
         this.vitorias = 0;
     }
 
-    public void addVitorias(){
+    public void addVitoria(){
         this.vitorias++;
     }
     
@@ -24,9 +24,5 @@ public class Jogador {
         return this.peca.getCor();
     }
 
-    public void aumentarPontuacao(){
-        this.vitorias++;
-    }
-    
 
 }

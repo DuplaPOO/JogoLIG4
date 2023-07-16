@@ -8,12 +8,11 @@ public class Peca {
         this.cor = null;
     }
 
-    
-    public Peca(String cor){
+    Peca(String cor){
         this.cor = cor;
     }
 
-    public String getCor(){
+    String getCor(){
         return this.cor;
     }
 

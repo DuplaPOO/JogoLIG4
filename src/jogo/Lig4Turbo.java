@@ -23,7 +23,7 @@ public class Lig4Turbo extends Lig4Jogo {
             limparTela();
             tabuleiroTurbo.imprimirTabuleiro();
             String cor;
-            if(jogador){
+            if(vezDoJogador){
                 cor = jogador1.getCor();
                 System.out.println("Vez de " + jogador1.getNome());
             } else {
@@ -46,11 +46,11 @@ public class Lig4Turbo extends Lig4Jogo {
                 if(tabuleiroTurbo.verificarGanhador()){
                     limparTela();
                     tabuleiroTurbo.imprimirTabuleiro();
-                    if(jogador){
-                        jogador1.aumentarPontuacao();
+                    if(vezDoJogador){
+                        jogador1.addVitoria();
                         System.out.println(jogador1.getNome() +" venceu");
                     } else {
-                        jogador2.aumentarPontuacao();
+                        jogador2.addVitoria();
                         System.out.println(jogador1.getNome() + " venceu");
                     }
 
@@ -61,24 +61,24 @@ public class Lig4Turbo extends Lig4Jogo {
                     int opcao = leitura2.nextInt();
 
                     if(opcao == 1){
-                        resetTurbo();
+                        reset();
                     } else if (opcao == 2){
-                        resetTurbo();
+                        reset();
                         break;
                     }
                 }
                 if(this.jogadas >= 42){
                     break;
                 }
-                jogador = !jogador;
+                vezDoJogador = !vezDoJogador;
                 
             }
         }
     }
 
-    private void resetTurbo(){
+    private void reset(){
         this.tabuleiroTurbo= new TabuleiroTurbo();
-        jogador= (new Random()).nextBoolean();
+        vezDoJogador= (new Random()).nextBoolean();
     }
 
 
