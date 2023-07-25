@@ -7,7 +7,7 @@ import componentes.Jogador;
 import componentes.Tabuleiro;
 import componentes.TabuleiroTurbo;
 
-public class Lig4Turbo extends Lig4Jogo {
+public class Lig4Turbo extends Lig4 {
 
     private TabuleiroTurbo tabuleiroTurbo;
 
@@ -76,7 +76,7 @@ public class Lig4Turbo extends Lig4Jogo {
         }
     }
 
-    private void reset(){
+    protected void reset(){
         this.tabuleiroTurbo= new TabuleiroTurbo();
         vezDoJogador= (new Random()).nextBoolean();
     }

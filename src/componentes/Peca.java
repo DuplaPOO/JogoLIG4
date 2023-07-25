@@ -3,20 +3,21 @@ package componentes;
 public class Peca {
     private String cor;
     
+//Tudo public para os arquivos do subpacote tabuleiro conseguirem acessar os métodos
 
-    Peca(){
+    public Peca(){
         this.cor = null;
     }
 
-    Peca(String cor){
+    public Peca(String cor){
         this.cor = cor;
     }
 
-    String getCor(){
+    public String getCor(){
         return this.cor;
     }
 
-    void setCor(String cor){
+    public void setCor(String cor){
         this.cor = cor;
     }
 

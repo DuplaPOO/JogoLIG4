@@ -1,32 +1,33 @@
 package jogo;
 
+
 import java.util.Random;
 import java.util.Scanner;
 
 import componentes.Jogador;
-import componentes.Peca;
 import componentes.Tabuleiro;
+import componentes.TabuleiroTurboMaluco;
 
-public class Lig4Jogo extends Lig4 {
+public class Lig4TurboMaluco extends Lig4{
 
-    protected Tabuleiro tabuleiro;
+    private TabuleiroTurboMaluco tabuleiroTurboMaluco;
 
-    protected Lig4Jogo(){
+    Lig4TurboMaluco(){
         super();
-        this.tabuleiro = new Tabuleiro();
+        this.tabuleiroTurboMaluco = new TabuleiroTurboMaluco();
     }
-    
+
     protected void jogarPartida(Jogador jogador1, Jogador jogador2){
         while (true){
             limparTela();
-            tabuleiro.imprimirTabuleiro();
+            tabuleiroTurboMaluco.imprimirTabuleiro();
             String cor;
             if(vezDoJogador){
                 cor = jogador1.getCor();
-                System.out.println("Vez de " + jogador1.getNome());
+                System.out.println("Vez de " + jogador1.getNome() + "\t\tMaluquice: " + String.format("%.1f", tabuleiroTurboMaluco.getMaluquice()*100) + "%");
             } else {
                 cor = jogador2.getCor();
-                System.out.println("Vez de " + jogador2.getNome());
+                System.out.println("Vez de " + jogador2.getNome() + "\t\tMaluquice: " + String.format("%.1f", tabuleiroTurboMaluco.getMaluquice()*100) + "%");
             }
 
             System.out.println("Digite a coluna");
@@ -36,18 +37,21 @@ public class Lig4Jogo extends Lig4 {
             coluna--;
 
 
-            boolean pecaAdicionada = tabuleiro.registrarPeca(coluna, cor);
+            boolean pecaAdicionada = tabuleiroTurboMaluco.registrarPeca(coluna, cor);
+            tabuleiroTurboMaluco.modificarPecasVizinhas(cor, coluna);
+            tabuleiroTurboMaluco.atualizarMaluquice();
+
             if(pecaAdicionada){
                 jogadas++;
-                if(tabuleiro.verificarGanhador()){
+                if(tabuleiroTurboMaluco.verificarGanhador()){
                     limparTela();
-                    tabuleiro.imprimirTabuleiro();
+                    tabuleiroTurboMaluco.imprimirTabuleiro();
                     if(vezDoJogador){
                         jogador1.addVitoria();
-                        System.out.println("O jogador "+jogador1.getNome() +" venceu");
+                        System.out.println(jogador1.getNome() +" venceu");
                     } else {
                         jogador2.addVitoria();
-                        System.out.println("O jogador "+ jogador2.getNome() + " venceu");
+                        System.out.println(jogador1.getNome() + " venceu");
                     }
 
                     System.out.println("Deseja revanche?");
@@ -73,7 +77,8 @@ public class Lig4Jogo extends Lig4 {
     }
 
     protected void reset(){
-        this.tabuleiro= new Tabuleiro();
+        this.tabuleiroTurboMaluco = new TabuleiroTurboMaluco();
         vezDoJogador= (new Random()).nextBoolean();
     }
+    
 }
