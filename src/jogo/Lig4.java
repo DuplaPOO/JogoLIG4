@@ -1,8 +1,7 @@
 package jogo;
 
 import componentes.Jogador;
-import componentes.Peca;
-import componentes.Tabuleiro;
+
 
 import java.util.Random;
 import java.util.Scanner;
@@ -30,28 +29,19 @@ public abstract class Lig4 {
             System.out.println("4 - Encerrar jogo");
             Scanner scanner = new Scanner(System.in);
             int opcao = scanner.nextInt();
-            if(opcao == 1 || opcao == 2 || opcao == 3){
-                Scanner scanner2 = new Scanner(System.in);
-                limparTela();
-                System.out.print("Jogador 1: ");
-                String nome1 = scanner2.nextLine();
-                addJogador(new Jogador(nome1, "A"));
-                System.out.println("");
-
-                System.out.print("Jogador 2: ");
-                String nome2 = scanner2.nextLine();
-                addJogador(new Jogador(nome2, "V"));
-                Lig4 jogo = new Lig4Jogo();
-            }
             switch(opcao){
                 case 1:
-                    jogarPartida(jogadores[0],jogadores[1]);
+                    perguntarJogadores();
+                    Lig4Jogo lig4Normal = new Lig4Jogo();
+                    lig4Normal.jogarPartida(jogadores[0],jogadores[1]);
                     break;
                 case 2:
+                    perguntarJogadores();
                     Lig4Turbo lig4Turbo = new Lig4Turbo();
                     lig4Turbo.jogarPartida(jogadores[0],jogadores[1]);
                     break;
                 case 3:
+                    perguntarJogadores();
                     Lig4TurboMaluco turboMaluco = new Lig4TurboMaluco();
                     turboMaluco.jogarPartida(jogadores[0], jogadores[1]);
                     break;
@@ -80,7 +70,27 @@ public abstract class Lig4 {
     protected void limparTela(){
             System.out.print("\033[H\033[2J");
             System.out.flush();
-        }
+    }
+
+    public void pausarTela() {
+        Scanner scanner3 = new Scanner(System.in);
+        System.out.println("Pressione Enter para continuar...");
+        scanner3.nextLine();
+    }
+
+    public void perguntarJogadores(){
+        //Futuramente Apresentar os jogadores que já estão resgistrados e perguntar se quer criar algum novo(ou jogar como um existente)
+        Scanner scanner2 = new Scanner(System.in);
+        limparTela();
+        System.out.print("Jogador 1: ");
+        String nome1 = scanner2.nextLine();
+        addJogador(new Jogador(nome1, "A"));
+        System.out.println("");
+        System.out.print("Jogador 2: ");
+        String nome2 = scanner2.nextLine();
+        addJogador(new Jogador(nome2, "V"));
+        //Futuramente colocar a exception "O jogador já existe"
+    }
 
 
 }

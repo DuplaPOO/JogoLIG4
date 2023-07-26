@@ -1,6 +1,10 @@
-package componentes;
+package componentes.tabuleiro;
 
-public class Tabuleiro {
+import componentes.Peca;
+import exceptions.ColunaCheiaException;
+import exceptions.ColunaInvalidaException;
+
+public class Tabuleiro implements InterfaceTabuleiro{
 
     public static final int linhas = 6;
     public static final int colunas = 7;
@@ -34,7 +38,7 @@ public class Tabuleiro {
 
     }
     //TROUXE O REGISTRAR PEÇA DO JOGADOR PARA O TABULEIRO, O JOGADOR APENAS REALIZA A JOGADA, MAS O TABULEIRO QUE REGISTRA
-    public boolean registrarPeca(int colunaAdicionar, String cor) {
+    public boolean registrarPeca(int colunaAdicionar, String cor) throws ColunaInvalidaException, ColunaCheiaException {
 
         if (colunaAdicionar >= 0 && colunaAdicionar < colunas) {
             if (tabuleiro[0][colunaAdicionar] == null) {
@@ -48,17 +52,12 @@ public class Tabuleiro {
                 }
                 return pecaAdicionar;
             } else {
-                //coluna cheia
-                System.err.println("++++++++++++++++++");
-                System.err.println("COLUNA ESTÁ CHEIA");
-                System.err.println("++++++++++++++++++");
-                return false;
+                ColunaCheiaException e = new ColunaCheiaException(colunaAdicionar+1);
+                throw e;
             }
         } else {
-            System.err.println("++++++++++++++++++++++");
-            System.err.println("DIGITE UM NUMERO DE 1 A 7");
-            System.err.println("++++++++++++++++++++++");
-            return false;
+            ColunaInvalidaException e = new ColunaInvalidaException(colunaAdicionar+1);
+            throw e;
         }
     }
 
