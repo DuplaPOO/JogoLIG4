@@ -1,4 +1,6 @@
-package componentes;
+package componentes.tabuleiro;
+
+import componentes.Peca;
 
 public class TabuleiroTurbo extends Tabuleiro{
     

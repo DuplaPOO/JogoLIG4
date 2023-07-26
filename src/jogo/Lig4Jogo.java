@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import componentes.Jogador;
-import componentes.Tabuleiro;
+import componentes.tabuleiro.Tabuleiro;
 import exceptions.ColunaCheiaException;
 import exceptions.ColunaInvalidaException;
 
@@ -36,7 +36,6 @@ public class Lig4Jogo extends Lig4 {
                 Scanner leitura = new Scanner(System.in);
                 int coluna = leitura.nextInt();
                 coluna--;
-
 
                 boolean pecaAdicionada = tabuleiro.registrarPeca(coluna, cor);
                 if(pecaAdicionada){

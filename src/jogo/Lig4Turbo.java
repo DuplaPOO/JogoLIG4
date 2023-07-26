@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import componentes.Jogador;
-import componentes.TabuleiroTurbo;
+import componentes.tabuleiro.TabuleiroTurbo;
 import exceptions.ColunaCheiaException;
 import exceptions.ColunaInvalidaException;
 
@@ -18,10 +18,9 @@ public class Lig4Turbo extends Lig4 {
         this.tabuleiroTurbo = new TabuleiroTurbo();
     }
 
-    
     protected void jogarPartida(Jogador jogador1, Jogador jogador2){
-        try{
-            while (true){
+        while(true){
+            try{
                 limparTela();
                 tabuleiroTurbo.imprimirTabuleiro();
                 String cor;
@@ -38,7 +37,6 @@ public class Lig4Turbo extends Lig4 {
                 Scanner leitura = new Scanner(System.in);
                 int coluna = leitura.nextInt();
                 coluna--;
-
 
                 boolean pecaAdicionada = tabuleiroTurbo.registrarPeca(coluna, cor);
                 tabuleiroTurbo.modificarPecasVizinhas(cor, coluna);
@@ -75,11 +73,16 @@ public class Lig4Turbo extends Lig4 {
                     vezDoJogador = !vezDoJogador;
                     
                 }
+            
+            } catch(ColunaCheiaException e){
+                System.out.println(e.getMessage());
+                pausarTela();
+                continue;
+            } catch(ColunaInvalidaException e){
+                System.out.println(e.getMessage());
+                pausarTela();
+                continue;
             }
-        } catch(ColunaCheiaException e){
-            System.out.println(e.getMessage());
-        } catch(ColunaInvalidaException e){
-            System.out.println(e.getMessage());
         }
     }
 

@@ -1,4 +1,4 @@
-package componentes;
+package componentes.tabuleiro;
 
 import java.util.Random;
 

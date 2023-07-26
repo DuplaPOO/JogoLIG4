@@ -1,5 +1,6 @@
-package componentes;
+package componentes.tabuleiro;
 
+import componentes.Peca;
 import exceptions.ColunaCheiaException;
 import exceptions.ColunaInvalidaException;
 
