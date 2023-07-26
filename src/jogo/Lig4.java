@@ -1,8 +1,7 @@
 package jogo;
 
 import componentes.Jogador;
-import componentes.Peca;
-import componentes.Tabuleiro;
+
 
 import java.util.Random;
 import java.util.Scanner;
@@ -80,7 +79,13 @@ public abstract class Lig4 {
     protected void limparTela(){
             System.out.print("\033[H\033[2J");
             System.out.flush();
-        }
+    }
+
+    public void pausarTela() {
+        Scanner scanner3 = new Scanner(System.in);
+        System.out.println("Pressione Enter para continuar...");
+        scanner3.nextLine();
+    }
 
 
 }
