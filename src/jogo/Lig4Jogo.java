@@ -11,12 +11,20 @@ import exceptions.ColunaInvalidaException;
 public class Lig4Jogo extends Lig4 {
 
     protected Tabuleiro tabuleiro;
+    private String cor1;////
+    private String cor2;///////
 
-    protected Lig4Jogo(){
+    public Lig4Jogo(){
         super();
         this.tabuleiro = new Tabuleiro();
+        this.cor1 = cor1;
+        this.cor2 = cor2;
     }
-    
+
+    public boolean vezDoJogador(){
+        return vezDoJogador;
+    }
+
     protected void jogarPartida(Jogador jogador1, Jogador jogador2){
         while(true){
             try{
@@ -82,6 +90,8 @@ public class Lig4Jogo extends Lig4 {
             }
         }
     }
+
+
 
     protected void reset(){
         this.tabuleiro= new Tabuleiro();

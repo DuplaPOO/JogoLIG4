@@ -17,8 +17,6 @@ public class Tabuleiro implements InterfaceTabuleiro{
             }
         }
     }
-
-
     public void imprimirTabuleiro(){
 
         for (int i = 0; i < linhas ; i++) {
@@ -60,9 +58,6 @@ public class Tabuleiro implements InterfaceTabuleiro{
             throw e;
         }
     }
-
-
-    
     private boolean verificarHorizontal() {
         Peca[][] A = this.tabuleiro;
         for (int linha = 0; linha < A.length; linha++) {
@@ -138,8 +133,6 @@ public class Tabuleiro implements InterfaceTabuleiro{
             return false;
         }
     }
-
-
     public void zerarTabuleiro(){
         for (int i = 0; i < tabuleiro.length ; i++) {
             for (int j = 0; j < tabuleiro[i].length; j++) {

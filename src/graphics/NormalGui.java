@@ -1,4 +1,6 @@
-package jogo;
+package graphics;
+
+import jogo.Lig4Jogo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,70 +8,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 
-public class Gui extends JFrame implements ActionListener {
-
-    private Container cp;
-
-    int linhas = 6;
-    int colunas = 7;
-
-    JPanel panel;
-    JButton sair;
-    JButton jogar;
-    JLabel jLabel;
+public class NormalGui extends JFrame {
     private  String imgBrancaNome = "images/branco.png";
     private  String imgVemelhaNome = "images/vermelho.png";
     private  String imgAmarelaNome = "images/amarelo.png";
     private ImageIcon iconBranco = null;
     private ImageIcon iconVermelho = null;
     private ImageIcon iconAmarelo = null;
+    private Container cp;
+    int linhas = 6;
+    int colunas = 7;
+    private Lig4Jogo lig4Jogo;
 
-    public Gui(){
-        setVisible(true);
-        setSize(750,650);
-        setTitle("LIG 4 -- ");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setLayout(null);
-
-        jLabel = new JLabel("menu");
-        jLabel.setBounds(300,0,180,50);
-        jLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        add(jLabel);
-
-        menu();
-
-    }
-
-    public void menu(){
-
-        jogar = new JButton();
-        jogar.setText("JOGAR PARTIDA");
-        jogar.setBounds(0,400,250,50);
-        jogar.setFont(new Font("Arial", Font.BOLD, 15));
-        jogar.setForeground(new Color(255, 255, 255));
-        jogar.setBackground(new Color(0, 0, 0));
-        add(jogar);
-        jogar.addActionListener(this::imprimirTabuleiro);
-
-        sair = new JButton();
-        sair.setText("SAIR");
-        sair.setBounds(450,400,250,50);
-        sair.setFont(new Font("Arial", Font.BOLD, 15));
-        sair.setForeground(new Color(255, 255, 255));
-        sair.setBackground(new Color(0, 0, 0));
-        add(sair);
-
-        panel = new JPanel();
-        //panel.add(jogar);
-
-    }
-
-    private void imprimirTabuleiro(ActionEvent actionEvent) {
-       // remove(sair);
-        //remove(jogar);
-
+    public NormalGui(){
+        lig4Jogo = new Lig4Jogo();
         setVisible(true);
         setSize(750,650);
         setTitle("LIG 4 -- ");
@@ -106,34 +58,22 @@ public class Gui extends JFrame implements ActionListener {
                 JButton button = new JButton();
                 button.setIcon(iconBranco);
                 button.setPreferredSize(new Dimension(100,100));
+
+
+                button.setName(Integer.toString(linha*10 + coluna));
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        atualizarPeca(button);
+                    }
+                });
+
                 cp.add(button);
             }
-
         }
     }
 
-
-
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
+    private void atualizarPeca(JButton button) {
 
     }
-
-
-
-
-
-
-
-    public static void main(String[] args) {
-
-        Gui gui = new Gui();
-
-    }
-
-
-
 }

@@ -20,6 +20,8 @@ public abstract class Lig4 {
 
     protected abstract void reset();
 
+
+
     protected void menu(){
         while(true){
             limparTela();
