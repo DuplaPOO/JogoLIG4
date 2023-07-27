@@ -1,5 +1,8 @@
 package componentes.tabuleiro;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import componentes.Peca;
 import exceptions.ColunaCheiaException;
 import exceptions.ColunaInvalidaException;
@@ -17,6 +20,8 @@ public class Tabuleiro implements InterfaceTabuleiro{
             }
         }
     }
+
+
     public void imprimirTabuleiro(){
 
         for (int i = 0; i < linhas ; i++) {
@@ -35,8 +40,28 @@ public class Tabuleiro implements InterfaceTabuleiro{
         System.out.println();
 
     }
+
+    public void imprimirPecasTabuleiro(Graphics g){
+
+        for(int lin = 0; lin < 6; lin++) {
+            for(int col = 0; col < 7; col++){
+                if(tabuleiro[lin][col] != null){
+                    if(tabuleiro[lin][col].getCor().equals("A")){
+                        g.setColor(Color.blue);
+                        g.fillOval(130+col*100, 130+ lin*100, 50, 50);
+                    } else if(tabuleiro[lin][col].getCor().equals("V")){
+                        g.setColor(Color.red);
+                        g.fillOval(130+col*100, 130+ lin*100, 50, 50);
+                    }
+                    
+                }
+                
+            }
+        }
+
+    }
     //TROUXE O REGISTRAR PEÇA DO JOGADOR PARA O TABULEIRO, O JOGADOR APENAS REALIZA A JOGADA, MAS O TABULEIRO QUE REGISTRA
-    public boolean registrarPeca(int colunaAdicionar, String cor) throws ColunaInvalidaException, ColunaCheiaException {
+    public boolean registrarPeca(int colunaAdicionar, String cor) {
 
         if (colunaAdicionar >= 0 && colunaAdicionar < colunas) {
             if (tabuleiro[0][colunaAdicionar] == null) {
@@ -50,12 +75,10 @@ public class Tabuleiro implements InterfaceTabuleiro{
                 }
                 return pecaAdicionar;
             } else {
-                ColunaCheiaException e = new ColunaCheiaException(colunaAdicionar+1);
-                throw e;
+                    return false;
             }
         } else {
-            ColunaInvalidaException e = new ColunaInvalidaException(colunaAdicionar+1);
-            throw e;
+            return false;
         }
     }
     private boolean verificarHorizontal() {
@@ -142,6 +165,14 @@ public class Tabuleiro implements InterfaceTabuleiro{
 
     }
 
+    public String getTabuleiroPeca(int linha, int coluna) {
+        // Verifica se as coordenadas estão dentro dos limites do tabuleiro
+        if (linha >= 0 && linha < linhas && coluna >= 0 && coluna < colunas) {
+            return (tabuleiro[linha][coluna]).getCor();
+        } else {
+            return null;
+        }
+    }
     
 
 

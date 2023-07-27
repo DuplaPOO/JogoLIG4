@@ -20,7 +20,7 @@ public class Lig4TurboMaluco extends Lig4{
 
     protected void jogarPartida(Jogador jogador1, Jogador jogador2){
         while(true){
-            try{
+            
                 limparTela();
                 tabuleiroTurboMaluco.imprimirTabuleiro();
                 String cor;
@@ -75,13 +75,7 @@ public class Lig4TurboMaluco extends Lig4{
                     
                 }
     
-            } catch(ColunaCheiaException e){
-                System.out.println(e.getMessage());
-                pausarTela();
-            } catch(ColunaInvalidaException e){
-                System.out.println(e.getMessage());
-                pausarTela();
-            }
+            
         }
     }
 

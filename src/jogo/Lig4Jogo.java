@@ -27,7 +27,7 @@ public class Lig4Jogo extends Lig4 {
 
     protected void jogarPartida(Jogador jogador1, Jogador jogador2){
         while(true){
-            try{
+            
                 limparTela();
                 tabuleiro.imprimirTabuleiro();
                 String cor;
@@ -79,15 +79,7 @@ public class Lig4Jogo extends Lig4 {
                     
                 }
             
-            } catch(ColunaCheiaException e){
-                System.err.println(e.getMessage());
-                pausarTela();
-                continue;
-            } catch(ColunaInvalidaException e){
-                System.err.println(e.getMessage());
-                pausarTela();
-                continue;
-            }
+            
         }
     }
 
