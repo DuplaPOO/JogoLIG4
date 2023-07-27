@@ -49,6 +49,16 @@ public class JogoJanela extends JPanel implements MouseListener{
 
         tabuleiro.imprimirPecasTabuleiro(g);
 
+        if(tabuleiro.verificarGanhador()){
+                if(vezDoJogador){
+                    g.setColor(Color.blue);
+                    g.drawString("Azul Venceu", 50, 50);
+                } else{
+                    g.setColor(Color.red);
+                    g.drawString("Vermelho Venceu", 50, 50);
+                }
+            }
+
         
         
     }
@@ -58,7 +68,6 @@ public class JogoJanela extends JPanel implements MouseListener{
         boolean jogadaFeita = false;
 
         if(e.getX()>=100 && e.getX() <=800 && e.getY()>=100 && e.getY() <=700){
-            Graphics g;
             int coluna = (e.getX())/100;
             System.out.println("Clicou na coluna "+coluna);
             if(vezDoJogador){
@@ -66,13 +75,11 @@ public class JogoJanela extends JPanel implements MouseListener{
             } else{
                 jogadaFeita = tabuleiro.registrarPeca(coluna-1, "A");
             }
-                
+            
             if(jogadaFeita){
                 vezDoJogador = !vezDoJogador;
             }
 
-            //tabuleiro.verificarGanhador();
-            
             repaint();
     
         }

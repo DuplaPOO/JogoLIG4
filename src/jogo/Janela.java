@@ -14,6 +14,7 @@ public class Janela {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        
 
         JogoJanela velha = new JogoJanela();
         velha.setBounds(0, 0, 600, 600);
