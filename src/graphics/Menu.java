@@ -5,11 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Gui extends JFrame implements ActionListener {
+public class Menu extends JFrame implements ActionListener {
     JButton sair;
     JButton jogar;JButton jogarTurbo;JButton jogarMaluco;
     JLabel jLabel;
-    public Gui(){
+    public Menu(){
         setVisible(true);
         setSize(750,650);
         setTitle("LIG 4 -- ");
@@ -43,7 +43,7 @@ public class Gui extends JFrame implements ActionListener {
         jogarTurbo.setForeground(new Color(0, 0, 0));
         jogarTurbo.setBackground(new Color(255, 255, 255));
         add(jogarTurbo);
-        jogarTurbo.addActionListener(this::jogoNormal);
+        jogarTurbo.addActionListener(this::jogoTurbo);
 
         jogarMaluco = new JButton();
         jogarMaluco.setText("JOGO MALUCO");
@@ -52,7 +52,7 @@ public class Gui extends JFrame implements ActionListener {
         jogarMaluco.setForeground(new Color(0, 0, 0));
         jogarMaluco.setBackground(new Color(255, 255, 255));
         add(jogarMaluco);
-        jogarMaluco.addActionListener(this::jogoNormal);
+        jogarMaluco.addActionListener(this::jogoMaluco);
 
         sair = new JButton();
         sair.setText("SAIR");
@@ -64,27 +64,25 @@ public class Gui extends JFrame implements ActionListener {
         sair.addActionListener(this::sair);
     }
 
+    private void jogoNormal(ActionEvent actionEvent) {
+        Janela janela= new Janela();
+        this.dispose();
+        janela.janelaNormal();
+    }
+    private void jogoTurbo(ActionEvent actionEvent) {
+    }
+    private void jogoMaluco(ActionEvent actionEvent) {
+    }
     private void sair(ActionEvent actionEvent) {
         System.exit(0);
     }
-    private void jogoNormal(ActionEvent actionEvent) {
-        NormalGui normalGui = new NormalGui();
-        this.dispose();
-        normalGui.setVisible(true);
-    }
+
+
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    }
-
-
-
-    public static void main(String[] args) {
-
-        Gui gui = new Gui();
 
     }
-
-
-
 }

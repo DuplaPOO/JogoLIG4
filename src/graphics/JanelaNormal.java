@@ -1,4 +1,4 @@
-package jogo;
+package graphics;
 
 import javax.swing.*;
 
@@ -8,16 +8,14 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class JogoJanela extends JPanel implements MouseListener{
+public class JanelaNormal extends JPanel implements MouseListener{
 
     protected Tabuleiro tabuleiro;
     protected boolean vezDoJogador;
-
     Font minhaFont = new Font("Arial", Font.BOLD , 30 );
     int[][] matriz = new int[6][7];
 
-    public JogoJanela(){
-
+    public JanelaNormal(){
         this.tabuleiro = new Tabuleiro();
         this.vezDoJogador = true;
 
@@ -28,7 +26,6 @@ public class JogoJanela extends JPanel implements MouseListener{
             System.out.println();
         }
     }
-
     @Override
     public void paintComponent(Graphics g){
 
@@ -58,9 +55,6 @@ public class JogoJanela extends JPanel implements MouseListener{
                     g.drawString("Vermelho Venceu", 50, 50);
                 }
             }
-
-        
-        
     }
 
     @Override

@@ -1,28 +1,27 @@
-package jogo;
+package graphics;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
 import javax.swing.*;
 
-public class Janela {
+public class Janela extends JFrame {
+    JFrame frame;
 
-    public static void main(String[] args){
-
-        JFrame frame = new JFrame("Lig4");
+    public void janelaNormal(){
+        frame = new JFrame();
+        frame.setTitle("lig 4");
         frame.setSize(900, 900);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        
-
-        JogoJanela velha = new JogoJanela();
+        JanelaNormal velha = new JanelaNormal();
         velha.setBounds(0, 0, 600, 600);
         frame.add(velha);
-
         frame.addMouseListener(velha);
     }
 
-	
-    
+
+
+
+
+
+
 }
