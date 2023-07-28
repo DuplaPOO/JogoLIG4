@@ -8,7 +8,7 @@ public class TabuleiroTurbo extends Tabuleiro{
         super();
     }
 
-    public void modificarPecasVizinhas(String cor, int coluna){
+    public void modificarPecasVizinhas(int coluna, String cor){
         int i;
         for (i = 0; i <= 4; i++) {
                     if (tabuleiro[i][coluna] != null) {

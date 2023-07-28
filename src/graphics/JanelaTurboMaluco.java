@@ -1,6 +1,5 @@
 package graphics;
 
-import componentes.tabuleiro.Tabuleiro;
 import componentes.tabuleiro.TabuleiroTurboMaluco;
 
 import javax.swing.*;
@@ -13,7 +12,7 @@ public class JanelaTurboMaluco extends JPanel implements MouseListener, MouseMot
 
     protected TabuleiroTurboMaluco tabuleiro;
     protected boolean vezDoJogador;
-    Font minhaFont = new Font("Consolas", Font.BOLD , 30 );
+    Font minhaFont = new Font("Arial", Font.BOLD , 30 );
     int col=0;
     Menu menu;
 
@@ -31,45 +30,49 @@ public class JanelaTurboMaluco extends JPanel implements MouseListener, MouseMot
     @Override
     public void paintComponent(Graphics g){
 
-        g.setFont(minhaFont);
 
-        g.setColor(Color.darkGray);
-        g.fillRect(0, 0, 900, 900);
-
-        if(col >=1 & col<=7){
-            g.setColor(Color.gray);
-            g.fillRect(col*100, 100, 100, 600);
-        }
-
-
-
-
-        g.setColor(Color.white);
-        
-        for(int i=0; i<=700; i+=100){
-            g.drawLine(100, i, 800, i);
-        }
-
-        for (int i = 0; i <= 800; i+=100) {
-            g.drawLine(i, 100, i, 700);
-        }
-
+        //funções como desing tabuleiro, verificar ganhador, talvez dê para economizar código
+        designTabuleiro(g);
 
         g.setColor(Color.yellow);
         g.drawString("Maluquice: " + String.format("%.1f", tabuleiro.getMaluquice()*100) + "%", 550, 50);
 
-        tabuleiro.imprimirPecasTabuleiro(g);
+        if(vezDoJogador){
+            g.setColor(Color.blue);
+            g.drawString("Vez do Azul", 50, 750);
+        } else{
+            g.setColor(Color.yellow);
+            g.drawString("Vez do amarelo", 50, 750);
+        }
 
-        if(tabuleiro.verificarGanhador()){
-                if(vezDoJogador){
-                    g.setColor(Color.blue);
-                    g.drawString("Azul Venceu", 50, 50);
-                } else{
-                    g.setColor(Color.red);
-                    g.drawString("Vermelho Venceu", 50, 50);
-                }
-            }
+        tabuleiro.verificarGanhador(vezDoJogador, g);
+
     }
+
+
+    public void designTabuleiro(Graphics g){
+        g.setFont(minhaFont);
+
+        Color vinho = new Color(128, 0, 0);
+        Color azulClaro = new Color(135, 185, 205);
+
+        //Fundo da janela
+        g.setColor(azulClaro);
+        g.fillRect(0, 0, 900, 900);
+
+        //Fundo do tabuleiro
+        g.setColor(Color.red);
+        g.fillRect(100, 100, 700, 600);
+
+        //coluna que o mouse passa por cima
+        if(col >=1 & col<=7){
+            g.setColor(vinho);
+            g.fillRect(col*100, 100, 100, 600);
+        }
+
+        tabuleiro.imprimirPecasTabuleiro(g);
+    }
+
 
     @Override
     public void mouseClicked(MouseEvent e){
@@ -77,19 +80,17 @@ public class JanelaTurboMaluco extends JPanel implements MouseListener, MouseMot
 
         if(e.getX()>=100 && e.getX() <=800 && e.getY()>=100 && e.getY() <=700){
             int coluna = (e.getX())/100;
-            System.out.println("Clicou na coluna "+coluna);
             if(vezDoJogador){
-                jogadaFeita = tabuleiro.registrarPeca(coluna-1, "V");
-                tabuleiro.modificarPecasVizinhas("V", coluna-1);
-                tabuleiro.atualizarMaluquice();
+                jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Amarelo");
+                tabuleiro.modificarPecasVizinhas(coluna-1, "Amarelo");
             } else{
-                jogadaFeita = tabuleiro.registrarPeca(coluna-1, "A");
-                tabuleiro.modificarPecasVizinhas("A", coluna-1);
-                tabuleiro.atualizarMaluquice();
+                jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Azul");
+                tabuleiro.modificarPecasVizinhas(coluna-1, "Azul");
             }
             
             if(jogadaFeita){
                 vezDoJogador = !vezDoJogador;
+                tabuleiro.atualizarMaluquice();
             }
 
             repaint();
@@ -131,5 +132,7 @@ public class JanelaTurboMaluco extends JPanel implements MouseListener, MouseMot
     @Override
     public void mouseDragged(MouseEvent e) {
     }
+
+    
     
 }

@@ -7,14 +7,16 @@ import exceptions.ColunaInvalidaException;
 
 public interface InterfaceTabuleiro {
 
-    boolean registrarPeca(int colunaAdicionar, String cor);
+    //método que poderia lançar exceções se fosse no console
+    public boolean registrarPeca(int colunaAdicionar, String cor);
     
-    boolean verificarGanhador();
-    
-    void zerarTabuleiro();
-    
-    void imprimirPecasTabuleiro(Graphics g);
+    public void verificarGanhador(boolean vezDoJogador, Graphics g);
 
-    void imprimirTabuleiro();
+    public void zerarTabuleiro();
+    
+    public void imprimirPecasTabuleiro(Graphics g);
+
+    public void imprimirTabuleiro();
+
 
 }

@@ -20,7 +20,7 @@ public class Janela extends JFrame {
 
     public void janelaTurbo(){
         frame1 = new JFrame();
-        frame1.setTitle("lig 4");
+        frame1.setTitle("lig 4 Turbo");
         frame1.setSize(900, 900);
         frame1.setLocationRelativeTo(null);
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,7 +33,7 @@ public class Janela extends JFrame {
 
     public void JanelaTurboMaluco(){
         frame2 = new JFrame();
-        frame2.setTitle("lig 4");
+        frame2.setTitle("lig 4 Turbo Maluco");
         frame2.setSize(900, 900);
         frame2.setLocationRelativeTo(null);
         frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

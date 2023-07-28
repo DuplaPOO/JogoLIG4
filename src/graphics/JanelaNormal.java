@@ -1,7 +1,6 @@
 package graphics;
 
 import componentes.tabuleiro.Tabuleiro;
-import componentes.tabuleiro.TabuleiroTurbo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +19,7 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
     public JanelaNormal(){
         addMouseMotionListener(this);
         addMouseListener(this);
-        this.tabuleiro = new TabuleiroTurbo();
+        this.tabuleiro = new Tabuleiro();
         this.vezDoJogador = true;
         menu = new Menu();
 
@@ -31,43 +30,46 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
     @Override
     public void paintComponent(Graphics g){
 
+
+        //funções como desing tabuleiro, verificar ganhador, talvez dê para economizar código
+        designTabuleiro(g);
+
+        if(vezDoJogador){
+            g.setColor(Color.blue);
+            g.drawString("Vez do Azul", 50, 750);
+        } else{
+            g.setColor(Color.yellow);
+            g.drawString("Vez do amarelo", 50, 750);
+        }
+
+        tabuleiro.verificarGanhador(vezDoJogador, g);
+
+    }
+
+
+    public void designTabuleiro(Graphics g){
         g.setFont(minhaFont);
 
-        g.setColor(Color.darkGray);
+        Color vinho = new Color(128, 0, 0);
+        Color azulClaro = new Color(135, 185, 205);
+
+        //Fundo da janela
+        g.setColor(azulClaro);
         g.fillRect(0, 0, 900, 900);
 
+        //Fundo do tabuleiro
+        g.setColor(Color.red);
+        g.fillRect(100, 100, 700, 600);
+
+        //coluna que o mouse passa por cima
         if(col >=1 & col<=7){
-            g.setColor(Color.gray);
+            g.setColor(vinho);
             g.fillRect(col*100, 100, 100, 600);
         }
 
-        
-        
-
-        g.setColor(Color.white);
-        
-        for(int i=0; i<=700; i+=100){
-            g.drawLine(100, i, 800, i);
-        }
-
-        for (int i = 0; i <= 800; i+=100) {
-            g.drawLine(i, 100, i, 700);
-        }
-
-
-
         tabuleiro.imprimirPecasTabuleiro(g);
-
-        if(tabuleiro.verificarGanhador()){
-                if(vezDoJogador){
-                    g.setColor(Color.blue);
-                    g.drawString("Azul Venceu", 50, 50);
-                } else{
-                    g.setColor(Color.red);
-                    g.drawString("Vermelho Venceu", 50, 50);
-                }
-            }
     }
+
 
     @Override
     public void mouseClicked(MouseEvent e){
@@ -75,11 +77,10 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
 
         if(e.getX()>=100 && e.getX() <=800 && e.getY()>=100 && e.getY() <=700){
             int coluna = (e.getX())/100;
-            System.out.println("Clicou na coluna "+coluna);
             if(vezDoJogador){
-                jogadaFeita = tabuleiro.registrarPeca(coluna-1, "V");
+                jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Amarelo");
             } else{
-                jogadaFeita = tabuleiro.registrarPeca(coluna-1, "A");
+                jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Azul");
             }
             
             if(jogadaFeita){
@@ -125,5 +126,7 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
     @Override
     public void mouseDragged(MouseEvent e) {
     }
+
+    
     
 }

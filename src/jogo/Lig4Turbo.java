@@ -39,7 +39,7 @@ public class Lig4Turbo extends Lig4 {
                 coluna--;
 
                 boolean pecaAdicionada = tabuleiroTurbo.registrarPeca(coluna, cor);
-                tabuleiroTurbo.modificarPecasVizinhas(cor, coluna);
+                tabuleiroTurbo.modificarPecasVizinhas(coluna, cor);
 
                 if(pecaAdicionada){
                     jogadas++;

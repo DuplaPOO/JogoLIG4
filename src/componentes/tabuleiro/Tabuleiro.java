@@ -2,6 +2,11 @@ package componentes.tabuleiro;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import componentes.Peca;
 import exceptions.ColunaCheiaException;
@@ -12,6 +17,9 @@ public class Tabuleiro implements InterfaceTabuleiro{
     public static final int linhas = 6;
     public static final int colunas = 7;
     protected Peca[][] tabuleiro = new Peca[linhas][colunas];
+    private Image imgCirculoBranco;
+    private Image imgCirculoAzul;
+    private Image imgCirculoAmarelo;
     
     public Tabuleiro(){
         for (int i = 0; i < linhas; i++) {
@@ -19,7 +27,18 @@ public class Tabuleiro implements InterfaceTabuleiro{
                 tabuleiro[i][j] = null;
             }
         }
+        carregarImagens();
     }
+
+    private void carregarImagens() {
+    try {
+        imgCirculoBranco = ImageIO.read(getClass().getResource("/images/Circulo_branco.png"));
+        imgCirculoAzul = ImageIO.read(getClass().getResource("/images/Circulo_azul.png"));
+        imgCirculoAmarelo = ImageIO.read(getClass().getResource("/images/Circulo_amarelo.png"));
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 
 
     public void imprimirTabuleiro(){
@@ -45,15 +64,18 @@ public class Tabuleiro implements InterfaceTabuleiro{
 
         for(int lin = 0; lin < 6; lin++) {
             for(int col = 0; col < 7; col++){
+                int x = 127 + col * 100;
+                int y = 125 + lin * 100;
                 if(tabuleiro[lin][col] != null){
-                    if(tabuleiro[lin][col].getCor().equals("A")){
-                        g.setColor(Color.blue);
-                        g.fillOval(130+col*100, 130+ lin*100, 50, 50);
-                    } else if(tabuleiro[lin][col].getCor().equals("V")){
-                        g.setColor(Color.red);
-                        g.fillOval(130+col*100, 130+ lin*100, 50, 50);
+                    if(tabuleiro[lin][col].getCor().equals("Azul")){
+                        g.drawImage(imgCirculoAzul, x, y, 50, 50, null);
+                    } else if(tabuleiro[lin][col].getCor().equals("Amarelo")){
+                        g.drawImage(imgCirculoAmarelo, x, y, 50, 50, null);
                     }
                     
+                } else{
+                    //espaço vazio
+                    g.drawImage(imgCirculoBranco, x, y, 50, 50, null);
                 }
                 
             }
@@ -148,12 +170,15 @@ public class Tabuleiro implements InterfaceTabuleiro{
         }
         return false;
     }
-    public boolean verificarGanhador(){
+    public void verificarGanhador(boolean vezDoJogador, Graphics g){
         if(verificarVertical()==true|| verificarHorizontal() == true || verificarDiagonalD() == true || verificarDiagonalA() == true){
-            return true;
-        }
-        else  {
-            return false;
+            if(vezDoJogador){
+                g.setColor(Color.blue);
+                g.drawString("Azul Venceu", 50, 50);
+            } else{
+                g.setColor(Color.yellow);
+                g.drawString("Amarelo Venceu", 50, 50);
+            }
         }
     }
     public void zerarTabuleiro(){
