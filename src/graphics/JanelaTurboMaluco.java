@@ -1,7 +1,7 @@
 package graphics;
 
 import componentes.tabuleiro.Tabuleiro;
-import componentes.tabuleiro.TabuleiroTurbo;
+import componentes.tabuleiro.TabuleiroTurboMaluco;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,19 +9,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class JanelaTurbo extends JPanel implements MouseListener, MouseMotionListener{
+public class JanelaTurboMaluco extends JPanel implements MouseListener, MouseMotionListener{
 
-    protected TabuleiroTurbo tabuleiro;
+    protected TabuleiroTurboMaluco tabuleiro;
     protected boolean vezDoJogador;
-    Font minhaFont = new Font("Arial", Font.BOLD , 30 );
-    int[][] matriz = new int[6][7];
+    Font minhaFont = new Font("Consolas", Font.BOLD , 30 );
     int col=0;
     Menu menu;
 
-    public JanelaTurbo(){
+    public JanelaTurboMaluco(){
         addMouseMotionListener(this);
         addMouseListener(this);
-        this.tabuleiro = new TabuleiroTurbo();
+        this.tabuleiro = new TabuleiroTurboMaluco();
         this.vezDoJogador = true;
         menu = new Menu();
 
@@ -42,8 +41,8 @@ public class JanelaTurbo extends JPanel implements MouseListener, MouseMotionLis
             g.fillRect(col*100, 100, 100, 600);
         }
 
-        
-        
+
+
 
         g.setColor(Color.white);
         
@@ -56,6 +55,8 @@ public class JanelaTurbo extends JPanel implements MouseListener, MouseMotionLis
         }
 
 
+        g.setColor(Color.yellow);
+        g.drawString("Maluquice: " + String.format("%.1f", tabuleiro.getMaluquice()*100) + "%", 550, 50);
 
         tabuleiro.imprimirPecasTabuleiro(g);
 
@@ -80,9 +81,11 @@ public class JanelaTurbo extends JPanel implements MouseListener, MouseMotionLis
             if(vezDoJogador){
                 jogadaFeita = tabuleiro.registrarPeca(coluna-1, "V");
                 tabuleiro.modificarPecasVizinhas("V", coluna-1);
+                tabuleiro.atualizarMaluquice();
             } else{
                 jogadaFeita = tabuleiro.registrarPeca(coluna-1, "A");
                 tabuleiro.modificarPecasVizinhas("A", coluna-1);
+                tabuleiro.atualizarMaluquice();
             }
             
             if(jogadaFeita){

@@ -1,46 +1,48 @@
 package graphics;
 
-import javax.swing.*;
-
 import componentes.tabuleiro.Tabuleiro;
+import componentes.tabuleiro.TabuleiroTurbo;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class JanelaNormal extends JPanel implements MouseListener{
+public class JanelaNormal extends JPanel implements MouseListener, MouseMotionListener{
 
     protected Tabuleiro tabuleiro;
     protected boolean vezDoJogador;
     Font minhaFont = new Font("Arial", Font.BOLD , 30 );
-    int[][] matriz = new int[6][7];
-
+    int col=0;
     Menu menu;
 
     public JanelaNormal(){
-        this.tabuleiro = new Tabuleiro();
+        addMouseMotionListener(this);
+        addMouseListener(this);
+        this.tabuleiro = new TabuleiroTurbo();
         this.vezDoJogador = true;
         menu = new Menu();
 
-        for(int lin = 0; lin<6;lin++){
-            for(int col = 0; col<7; col++){
-                System.out.print(matriz[lin][col]);
-            }
-            System.out.println();
-        }
         JButton voltar = menu.buttonVoltar();
         voltar.setBounds(400, 50, 250, 50);
         add(voltar);
-
     }
     @Override
     public void paintComponent(Graphics g){
-        menu = new Menu();
 
         g.setFont(minhaFont);
 
         g.setColor(Color.darkGray);
         g.fillRect(0, 0, 900, 900);
+
+        if(col >=1 & col<=7){
+            g.setColor(Color.gray);
+            g.fillRect(col*100, 100, 100, 600);
+        }
+
+        
+        
 
         g.setColor(Color.white);
         
@@ -52,39 +54,18 @@ public class JanelaNormal extends JPanel implements MouseListener{
             g.drawLine(i, 100, i, 700);
         }
 
+
+
         tabuleiro.imprimirPecasTabuleiro(g);
-
-
-
 
         if(tabuleiro.verificarGanhador()){
                 if(vezDoJogador){
                     g.setColor(Color.blue);
                     g.drawString("Azul Venceu", 50, 50);
-
-
-                    JButton sair = menu.buttonSair();
-                    sair.setBounds(400, 0, 250, 50);
-                    add(sair);
-                    JButton voltar = menu.buttonVoltar();
-                    voltar.setBounds(400, 50, 250, 50);
-                    add(voltar);
-
                 } else{
                     g.setColor(Color.red);
                     g.drawString("Vermelho Venceu", 50, 50);
-
-
-
-                    JButton sair = menu.buttonSair();
-                    sair.setBounds(400, 0, 250, 50);
-                    add(sair);
-                    JButton voltar = menu.buttonVoltar();
-                    voltar.setBounds(400, 50, 250, 50);
-                    add(voltar);
-
                 }
-
             }
     }
 
@@ -104,8 +85,14 @@ public class JanelaNormal extends JPanel implements MouseListener{
             if(jogadaFeita){
                 vezDoJogador = !vezDoJogador;
             }
+
             repaint();
+    
         }
+        
+        
+
+
     }
 
     @Override
@@ -126,6 +113,17 @@ public class JanelaNormal extends JPanel implements MouseListener{
     @Override
     public void mouseReleased(MouseEvent e){
 
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        if(e.getPoint().getX()>=100 && e.getPoint().getX() <=800 && e.getPoint().getY()>=100 && e.getPoint().getY() <=700){
+            col=(int)e.getPoint().getX()/100;
+        }
+        repaint();
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
     }
     
 }

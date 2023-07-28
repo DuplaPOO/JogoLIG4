@@ -11,7 +11,7 @@ public class TabuleiroTurboMaluco extends TabuleiroTurbo{
         super();
         this.incrementoLinha = 0;
         this.incrementoColuna = 0;
-        this.maluquice = 0.1;
+        this.maluquice = 0.2;
     }
 
     public void calcularIncrementos(int linha, int coluna){
@@ -27,7 +27,7 @@ public class TabuleiroTurboMaluco extends TabuleiroTurbo{
     }
 
     public void atualizarMaluquice() {
-        maluquice += 0.02;
+        maluquice += 0.04;
 
         if (maluquice > 1) {
             maluquice = 1;

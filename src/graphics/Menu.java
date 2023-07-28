@@ -129,9 +129,11 @@ public class Menu extends JFrame implements ActionListener {
         Janela janela2= new Janela();
         this.dispose();
         janela2.janelaTurbo();
-
     }
     private void jogoMaluco(ActionEvent actionEvent) {
+        Janela janela3= new Janela();
+        this.dispose();
+        janela3.JanelaTurboMaluco();
     }
     private void sair(ActionEvent actionEvent) {
         System.exit(0);
