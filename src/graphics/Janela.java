@@ -3,7 +3,7 @@ package graphics;
 import javax.swing.*;
 
 public class Janela extends JFrame {
-    JFrame frame;
+    JFrame frame,frame1;
 
     public void janelaNormal(){
         frame = new JFrame();
@@ -16,6 +16,19 @@ public class Janela extends JFrame {
         velha.setBounds(0, 0, 600, 600);
         frame.add(velha);
         frame.addMouseListener(velha);
+    }
+
+    public void janelaTurbo(){
+        frame1 = new JFrame();
+        frame1.setTitle("lig 4");
+        frame1.setSize(900, 900);
+        frame1.setLocationRelativeTo(null);
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.setVisible(true);
+        JanelaTurbo velha2 = new JanelaTurbo();
+        velha2.setBounds(0, 0, 600, 600);
+        frame1.add(velha2);
+        frame1.addMouseListener(velha2);
     }
 
 

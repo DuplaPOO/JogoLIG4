@@ -76,10 +76,7 @@ public class Lig4Jogo extends Lig4 {
                         break;
                     }
                     vezDoJogador = !vezDoJogador;
-                    
                 }
-            
-            
         }
     }
 
