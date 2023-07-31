@@ -1,5 +1,6 @@
 package graphics;
 
+import componentes.tabuleiro.InterfaceTabuleiro;
 import componentes.tabuleiro.TabuleiroTurboMaluco;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ import java.awt.event.MouseMotionListener;
 
 public class JanelaTurboMaluco extends JPanel implements MouseListener, MouseMotionListener{
 
-    protected TabuleiroTurboMaluco tabuleiro;
+    protected InterfaceTabuleiro tabuleiro;
     protected boolean vezDoJogador;
     Font minhaFont = new Font("Arial", Font.BOLD , 30 );
     int col=0;
@@ -37,7 +38,7 @@ public class JanelaTurboMaluco extends JPanel implements MouseListener, MouseMot
         g.setColor(Color.yellow);
         g.drawString("Maluquice: " + String.format("%.1f", tabuleiro.getMaluquice()*100) + "%", 550, 50);
 
-        if(vezDoJogador){
+        if(!vezDoJogador){
             g.setColor(Color.blue);
             g.drawString("Vez do Azul", 50, 750);
         } else{
@@ -123,6 +124,7 @@ public class JanelaTurboMaluco extends JPanel implements MouseListener, MouseMot
     }
 
     public void mouseMoved(MouseEvent e) {
+        col = -1;
         if(e.getPoint().getX()>=100 && e.getPoint().getX() <=800 && e.getPoint().getY()>=100 && e.getPoint().getY() <=700){
             col=(int)e.getPoint().getX()/100;
         }

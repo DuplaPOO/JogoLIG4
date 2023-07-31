@@ -1,12 +1,13 @@
 package jogo;
 
 import componentes.Jogador;
-
+import componentes.tabuleiro.InterfaceTabuleiro;
 
 import java.util.Random;
 import java.util.Scanner;
 
 public abstract class Lig4 {
+    protected InterfaceTabuleiro tabuleiro;
     protected Jogador[] jogadores = null;
     protected boolean vezDoJogador;  // true = vez do jogador 1 // false= vez do jogador2
     protected int jogadas;

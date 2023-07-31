@@ -5,13 +5,14 @@ import java.util.Random;
 import java.util.Scanner;
 
 import componentes.Jogador;
+import componentes.tabuleiro.InterfaceTabuleiro;
 import componentes.tabuleiro.TabuleiroTurboMaluco;
 import exceptions.ColunaCheiaException;
 import exceptions.ColunaInvalidaException;
 
 public class Lig4TurboMaluco extends Lig4{
 
-    private TabuleiroTurboMaluco tabuleiroTurboMaluco;
+    private InterfaceTabuleiro tabuleiroTurboMaluco;
 
     Lig4TurboMaluco(){
         super();
@@ -20,9 +21,9 @@ public class Lig4TurboMaluco extends Lig4{
 
     protected void jogarPartida(Jogador jogador1, Jogador jogador2){
         while(true){
-            
+            try{
                 limparTela();
-                tabuleiroTurboMaluco.imprimirTabuleiro();
+                tabuleiroTurboMaluco.imprimirTabuleiroConsole();
                 String cor;
                 if(vezDoJogador){
                     cor = jogador1.getCor();
@@ -36,23 +37,24 @@ public class Lig4TurboMaluco extends Lig4{
                 System.out.println("Escolha entre 1 a 7");
                 Scanner leitura = new Scanner(System.in);
                 int coluna = leitura.nextInt();
+                //A intenção era lançar o exception numero inteiro aqui, mas o scanner já tem um erro próprio para isso
                 coluna--;
 
-                boolean pecaAdicionada = tabuleiroTurboMaluco.registrarPeca(coluna, cor);
+                boolean pecaAdicionada = tabuleiroTurboMaluco.registrarPecaConsole(coluna, cor);
                 tabuleiroTurboMaluco.modificarPecasVizinhas(coluna, cor);
                 tabuleiroTurboMaluco.atualizarMaluquice();
-
+                
                 if(pecaAdicionada){
                     jogadas++;
-                    if(tabuleiroTurboMaluco.verificarGanhador()){
+                    if(tabuleiroTurboMaluco.verificarGanhadorConsole()){
                         limparTela();
-                        tabuleiroTurboMaluco.imprimirTabuleiro();
+                        tabuleiroTurboMaluco.imprimirTabuleiroConsole();
                         if(vezDoJogador){
                             jogador1.addVitoria();
-                            System.out.println(jogador1.getNome() +" venceu");
+                            System.out.println("O jogador "+jogador1.getNome() +" venceu");
                         } else {
                             jogador2.addVitoria();
-                            System.out.println(jogador1.getNome() + " venceu");
+                            System.out.println("O jogador "+ jogador2.getNome() + " venceu");
                         }
 
                         System.out.println("Deseja revanche?");
@@ -72,10 +74,16 @@ public class Lig4TurboMaluco extends Lig4{
                         break;
                     }
                     vezDoJogador = !vezDoJogador;
-                    
                 }
-    
-            
+            } catch(ColunaCheiaException e){
+                System.err.println(e.getMessage());
+                pausarTela();
+                continue;
+            } catch(ColunaInvalidaException e){
+                System.err.println(e.getMessage());
+                pausarTela();
+                continue;
+            }
         }
     }
 

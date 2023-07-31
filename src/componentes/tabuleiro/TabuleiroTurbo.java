@@ -2,7 +2,7 @@ package componentes.tabuleiro;
 
 import componentes.Peca;
 
-public class TabuleiroTurbo extends Tabuleiro{
+public class TabuleiroTurbo extends Tabuleiro implements InterfaceTabuleiro{
     
     public TabuleiroTurbo(){
         super();

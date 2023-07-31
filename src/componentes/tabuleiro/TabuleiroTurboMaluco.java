@@ -2,7 +2,7 @@ package componentes.tabuleiro;
 
 import java.util.Random;
 
-public class TabuleiroTurboMaluco extends TabuleiroTurbo{
+public class TabuleiroTurboMaluco extends TabuleiroTurbo implements InterfaceTabuleiro{
     private double maluquice;
     private int incrementoLinha;
     private int incrementoColuna;
@@ -20,7 +20,7 @@ public class TabuleiroTurboMaluco extends TabuleiroTurbo{
             this.incrementoLinha = new Random().nextInt(3) - 1;
             this.incrementoColuna = new Random().nextInt(3) - 1;
 
-            if(linha+incrementoLinha >=0 && linha+incrementoLinha < tabuleiro.length && coluna+incrementoColuna >=0 && coluna+incrementoColuna < tabuleiro[linha].length){
+            if(linha+incrementoLinha >=0 && linha+incrementoLinha < tabuleiro.length && coluna+incrementoColuna >=0 && coluna+incrementoColuna < tabuleiro[0].length){
                 break;
             }
         }
@@ -46,8 +46,8 @@ public class TabuleiroTurboMaluco extends TabuleiroTurbo{
 
         if(numeroAleatorio <= (maluquice * 100)){
             calcularIncrementos(linha, coluna);
-            if(tabuleiro[linha+incrementoColuna][coluna+incrementoColuna] != null){
-                tabuleiro[linha+incrementoColuna][coluna+incrementoColuna].setCor(cor);
+            if(tabuleiro[linha+this.incrementoLinha][coluna+this.incrementoColuna] != null){
+                tabuleiro[linha+this.incrementoLinha][coluna+this.incrementoColuna].setCor(cor);
             }
         }
 
@@ -55,5 +55,13 @@ public class TabuleiroTurboMaluco extends TabuleiroTurbo{
 
     public double getMaluquice(){
         return this.maluquice;
+    }
+
+    public int getIncrementoL(){
+        return incrementoLinha;
+    }
+
+    public int getIncrementoC(){
+        return incrementoColuna;
     }
 }

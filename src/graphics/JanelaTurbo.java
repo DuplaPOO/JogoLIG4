@@ -1,5 +1,6 @@
 package graphics;
 
+import componentes.tabuleiro.InterfaceTabuleiro;
 import componentes.tabuleiro.TabuleiroTurbo;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ import java.awt.event.MouseMotionListener;
 
 public class JanelaTurbo extends JPanel implements MouseListener, MouseMotionListener{
 
-    protected TabuleiroTurbo tabuleiro;
+    protected InterfaceTabuleiro tabuleiro;
     protected boolean vezDoJogador;
     Font minhaFont = new Font("Arial", Font.BOLD , 30 );
     int col=0;
@@ -33,7 +34,7 @@ public class JanelaTurbo extends JPanel implements MouseListener, MouseMotionLis
         //em funções como desing tabuleiro ou verificar ganhador, talvez dê para economizar código(todas as janelas usam)
         designTabuleiro(g);
 
-        if(vezDoJogador){
+        if(!vezDoJogador){
             g.setColor(Color.blue);
             g.drawString("Vez do Azul", 50, 750);
         } else{
@@ -118,6 +119,7 @@ public class JanelaTurbo extends JPanel implements MouseListener, MouseMotionLis
     }
 
     public void mouseMoved(MouseEvent e) {
+        col = -1;
         if(e.getPoint().getX()>=100 && e.getPoint().getX() <=800 && e.getPoint().getY()>=100 && e.getPoint().getY() <=700){
             col=(int)e.getPoint().getX()/100;
         }

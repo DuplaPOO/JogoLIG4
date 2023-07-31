@@ -4,13 +4,14 @@ import java.util.Random;
 import java.util.Scanner;
 
 import componentes.Jogador;
+import componentes.tabuleiro.InterfaceTabuleiro;
 import componentes.tabuleiro.TabuleiroTurbo;
 import exceptions.ColunaCheiaException;
 import exceptions.ColunaInvalidaException;
 
 public class Lig4Turbo extends Lig4 {
 
-    private TabuleiroTurbo tabuleiroTurbo;
+    private InterfaceTabuleiro tabuleiroTurbo;
 
 
     Lig4Turbo(){
@@ -20,9 +21,9 @@ public class Lig4Turbo extends Lig4 {
 
     protected void jogarPartida(Jogador jogador1, Jogador jogador2){
         while(true){
-            
+            try{
                 limparTela();
-                tabuleiroTurbo.imprimirTabuleiro();
+                tabuleiroTurbo.imprimirTabuleiroConsole();
                 String cor;
                 if(vezDoJogador){
                     cor = jogador1.getCor();
@@ -36,22 +37,23 @@ public class Lig4Turbo extends Lig4 {
                 System.out.println("Escolha entre 1 a 7");
                 Scanner leitura = new Scanner(System.in);
                 int coluna = leitura.nextInt();
+                //A intenção era lançar o exception numero inteiro aqui, mas o scanner já tem um erro próprio para isso
                 coluna--;
 
-                boolean pecaAdicionada = tabuleiroTurbo.registrarPeca(coluna, cor);
+                boolean pecaAdicionada = tabuleiroTurbo.registrarPecaConsole(coluna, cor);
                 tabuleiroTurbo.modificarPecasVizinhas(coluna, cor);
-
+                
                 if(pecaAdicionada){
                     jogadas++;
-                    if(tabuleiroTurbo.verificarGanhador()){
+                    if(tabuleiroTurbo.verificarGanhadorConsole()){
                         limparTela();
-                        tabuleiroTurbo.imprimirTabuleiro();
+                        tabuleiroTurbo.imprimirTabuleiroConsole();
                         if(vezDoJogador){
                             jogador1.addVitoria();
-                            System.out.println(jogador1.getNome() +" venceu");
+                            System.out.println("O jogador "+jogador1.getNome() +" venceu");
                         } else {
                             jogador2.addVitoria();
-                            System.out.println(jogador1.getNome() + " venceu");
+                            System.out.println("O jogador "+ jogador2.getNome() + " venceu");
                         }
 
                         System.out.println("Deseja revanche?");
@@ -71,10 +73,16 @@ public class Lig4Turbo extends Lig4 {
                         break;
                     }
                     vezDoJogador = !vezDoJogador;
-                    
                 }
-            
-            
+            } catch(ColunaCheiaException e){
+                System.err.println(e.getMessage());
+                pausarTela();
+                continue;
+            } catch(ColunaInvalidaException e){
+                System.err.println(e.getMessage());
+                pausarTela();
+                continue;
+            }
         }
     }
 

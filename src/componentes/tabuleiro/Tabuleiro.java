@@ -41,7 +41,7 @@ public class Tabuleiro implements InterfaceTabuleiro{
 }
 
 
-    public void imprimirTabuleiro(){
+    public void imprimirTabuleiroConsole(){
 
         for (int i = 0; i < linhas ; i++) {
             System.out.print("|");
@@ -101,6 +101,29 @@ public class Tabuleiro implements InterfaceTabuleiro{
             }
         } else {
             return false;
+        }
+    }
+
+    public boolean registrarPecaConsole(int colunaAdicionar, String cor) throws ColunaCheiaException, ColunaInvalidaException{
+
+        if (colunaAdicionar >= 0 && colunaAdicionar < colunas) {
+            if (tabuleiro[0][colunaAdicionar] == null) {
+                boolean pecaAdicionar = false;
+                for (int i = linhas - 1; i >= 0; i--) {
+                    if (tabuleiro[i][colunaAdicionar] == null) {
+                        tabuleiro[i][colunaAdicionar] = new Peca(cor);
+                        pecaAdicionar = true;
+                        break;
+                    }
+                }
+                return pecaAdicionar;
+            } else {
+                ColunaCheiaException e = new ColunaCheiaException(colunaAdicionar+1);
+                throw e;
+            }
+        } else {
+            ColunaInvalidaException e = new ColunaInvalidaException(colunaAdicionar+1);
+            throw e;
         }
     }
     private boolean verificarHorizontal() {
@@ -181,6 +204,14 @@ public class Tabuleiro implements InterfaceTabuleiro{
             }
         }
     }
+
+    public boolean verificarGanhadorConsole(){
+        if(verificarVertical()==true|| verificarHorizontal() == true || verificarDiagonalD() == true || verificarDiagonalA() == true){
+            return true;
+        } else {
+            return false;
+        }
+    }
     public void zerarTabuleiro(){
         for (int i = 0; i < tabuleiro.length ; i++) {
             for (int j = 0; j < tabuleiro[i].length; j++) {
@@ -198,8 +229,6 @@ public class Tabuleiro implements InterfaceTabuleiro{
             return null;
         }
     }
-    
-
 
 
 }

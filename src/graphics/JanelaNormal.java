@@ -1,5 +1,7 @@
 package graphics;
 
+
+import componentes.tabuleiro.InterfaceTabuleiro;
 import componentes.tabuleiro.Tabuleiro;
 
 import javax.swing.*;
@@ -10,7 +12,7 @@ import java.awt.event.MouseMotionListener;
 
 public class JanelaNormal extends JPanel implements MouseListener, MouseMotionListener{
 
-    protected Tabuleiro tabuleiro;
+    protected InterfaceTabuleiro tabuleiro;
     protected boolean vezDoJogador;
     Font minhaFont = new Font("Arial", Font.BOLD , 30 );
     int col=0;
@@ -34,7 +36,7 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
         //funções como desing tabuleiro, verificar ganhador, talvez dê para economizar código
         designTabuleiro(g);
 
-        if(vezDoJogador){
+        if(!vezDoJogador){
             g.setColor(Color.blue);
             g.drawString("Vez do Azul", 50, 750);
         } else{
@@ -117,6 +119,7 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
     }
 
     public void mouseMoved(MouseEvent e) {
+        col = -1;
         if(e.getPoint().getX()>=100 && e.getPoint().getX() <=800 && e.getPoint().getY()>=100 && e.getPoint().getY() <=700){
             col=(int)e.getPoint().getX()/100;
         }
