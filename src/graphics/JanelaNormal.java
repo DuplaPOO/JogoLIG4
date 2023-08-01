@@ -6,6 +6,8 @@ import componentes.tabuleiro.Tabuleiro;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -27,8 +29,23 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
 
         JButton voltar = menu.buttonVoltar();
         voltar.setBounds(400, 50, 250, 50);
+        voltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fecharEAbrirMenu();
+            }
+        });
         add(voltar);
     }
+
+    private void fecharEAbrirMenu() {
+        
+        menu.telaMenu();
+
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.dispose();
+    }
+
     @Override
     public void paintComponent(Graphics g){
 

@@ -1,7 +1,6 @@
 package componentes.tabuleiro;
 
 import java.awt.Graphics;
-import java.util.Random;
 
 import exceptions.ColunaCheiaException;
 import exceptions.ColunaInvalidaException;

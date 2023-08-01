@@ -3,7 +3,6 @@ package componentes.tabuleiro;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -146,7 +145,7 @@ public class Tabuleiro implements InterfaceTabuleiro{
     private boolean verificarVertical() {
         Peca[][] A = this.tabuleiro;
         for (int linha = 0; linha < A.length - 3; linha++) {
-            for (int coluna = 0; coluna < A[linha].length-3; coluna++) {
+            for (int coluna = 0; coluna < A[linha].length; coluna++) {
                 Peca peca1 = A[linha][coluna];
                 Peca peca2 = A[linha + 1][coluna];
                 Peca peca3 = A[linha + 2][coluna];

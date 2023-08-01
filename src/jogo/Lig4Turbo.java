@@ -4,26 +4,23 @@ import java.util.Random;
 import java.util.Scanner;
 
 import componentes.Jogador;
-import componentes.tabuleiro.InterfaceTabuleiro;
 import componentes.tabuleiro.TabuleiroTurbo;
 import exceptions.ColunaCheiaException;
 import exceptions.ColunaInvalidaException;
 
 public class Lig4Turbo extends Lig4 {
 
-    private InterfaceTabuleiro tabuleiroTurbo;
-
 
     Lig4Turbo(){
         super();
-        this.tabuleiroTurbo = new TabuleiroTurbo();
+        this.tabuleiro = new TabuleiroTurbo();
     }
 
     protected void jogarPartida(Jogador jogador1, Jogador jogador2){
         while(true){
             try{
                 limparTela();
-                tabuleiroTurbo.imprimirTabuleiroConsole();
+                tabuleiro.imprimirTabuleiroConsole();
                 String cor;
                 if(vezDoJogador){
                     cor = jogador1.getCor();
@@ -40,14 +37,14 @@ public class Lig4Turbo extends Lig4 {
                 //A intenção era lançar o exception numero inteiro aqui, mas o scanner já tem um erro próprio para isso
                 coluna--;
 
-                boolean pecaAdicionada = tabuleiroTurbo.registrarPecaConsole(coluna, cor);
-                tabuleiroTurbo.modificarPecasVizinhas(coluna, cor);
+                boolean pecaAdicionada = tabuleiro.registrarPecaConsole(coluna, cor);
+                tabuleiro.modificarPecasVizinhas(coluna, cor);
                 
                 if(pecaAdicionada){
                     jogadas++;
-                    if(tabuleiroTurbo.verificarGanhadorConsole()){
+                    if(tabuleiro.verificarGanhadorConsole()){
                         limparTela();
-                        tabuleiroTurbo.imprimirTabuleiroConsole();
+                        tabuleiro.imprimirTabuleiroConsole();
                         if(vezDoJogador){
                             jogador1.addVitoria();
                             System.out.println("O jogador "+jogador1.getNome() +" venceu");
@@ -87,7 +84,7 @@ public class Lig4Turbo extends Lig4 {
     }
 
     protected void reset(){
-        this.tabuleiroTurbo= new TabuleiroTurbo();
+        this.tabuleiro= new TabuleiroTurbo();
         vezDoJogador= (new Random()).nextBoolean();
     }
 

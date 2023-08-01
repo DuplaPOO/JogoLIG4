@@ -5,32 +5,29 @@ import java.util.Random;
 import java.util.Scanner;
 
 import componentes.Jogador;
-import componentes.tabuleiro.InterfaceTabuleiro;
 import componentes.tabuleiro.TabuleiroTurboMaluco;
 import exceptions.ColunaCheiaException;
 import exceptions.ColunaInvalidaException;
 
 public class Lig4TurboMaluco extends Lig4{
 
-    private InterfaceTabuleiro tabuleiroTurboMaluco;
-
     Lig4TurboMaluco(){
         super();
-        this.tabuleiroTurboMaluco = new TabuleiroTurboMaluco();
+        this.tabuleiro = new TabuleiroTurboMaluco();
     }
 
     protected void jogarPartida(Jogador jogador1, Jogador jogador2){
         while(true){
             try{
                 limparTela();
-                tabuleiroTurboMaluco.imprimirTabuleiroConsole();
+                tabuleiro.imprimirTabuleiroConsole();
                 String cor;
                 if(vezDoJogador){
                     cor = jogador1.getCor();
-                    System.out.println("Vez de " + jogador1.getNome() + "\t\tMaluquice: " + String.format("%.1f", tabuleiroTurboMaluco.getMaluquice()*100) + "%");
+                    System.out.println("Vez de " + jogador1.getNome() + "\t\tMaluquice: " + String.format("%.1f", tabuleiro.getMaluquice()*100) + "%");
                 } else {
                     cor = jogador2.getCor();
-                    System.out.println("Vez de " + jogador2.getNome() + "\t\tMaluquice: " + String.format("%.1f", tabuleiroTurboMaluco.getMaluquice()*100) + "%");
+                    System.out.println("Vez de " + jogador2.getNome() + "\t\tMaluquice: " + String.format("%.1f", tabuleiro.getMaluquice()*100) + "%");
                 }
 
                 System.out.println("Digite a coluna");
@@ -40,15 +37,15 @@ public class Lig4TurboMaluco extends Lig4{
                 //A intenção era lançar o exception numero inteiro aqui, mas o scanner já tem um erro próprio para isso
                 coluna--;
 
-                boolean pecaAdicionada = tabuleiroTurboMaluco.registrarPecaConsole(coluna, cor);
-                tabuleiroTurboMaluco.modificarPecasVizinhas(coluna, cor);
-                tabuleiroTurboMaluco.atualizarMaluquice();
+                boolean pecaAdicionada = tabuleiro.registrarPecaConsole(coluna, cor);
+                tabuleiro.modificarPecasVizinhas(coluna, cor);
+                tabuleiro.atualizarMaluquice();
                 
                 if(pecaAdicionada){
                     jogadas++;
-                    if(tabuleiroTurboMaluco.verificarGanhadorConsole()){
+                    if(tabuleiro.verificarGanhadorConsole()){
                         limparTela();
-                        tabuleiroTurboMaluco.imprimirTabuleiroConsole();
+                        tabuleiro.imprimirTabuleiroConsole();
                         if(vezDoJogador){
                             jogador1.addVitoria();
                             System.out.println("O jogador "+jogador1.getNome() +" venceu");
@@ -88,7 +85,7 @@ public class Lig4TurboMaluco extends Lig4{
     }
 
     protected void reset(){
-        this.tabuleiroTurboMaluco = new TabuleiroTurboMaluco();
+        this.tabuleiro = new TabuleiroTurboMaluco();
         vezDoJogador= (new Random()).nextBoolean();
     }
     

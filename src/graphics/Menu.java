@@ -9,111 +9,124 @@ public class Menu extends JFrame implements ActionListener {
     JButton sair;
     JButton jogar;JButton jogarTurbo;JButton jogarMaluco, voltar,rank;
     JLabel jLabel;
+    Janela janela;
+
     public Menu(){
 
     }
 
     public void telaMenu(){
         setVisible(true);
-        setSize(750,650);
+        setSize(900,900);
         setTitle("LIG 4 -- ");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
         setLayout(null);
+        getContentPane().setBackground(new Color(135, 185, 205));
 
         jLabel = new JLabel("LIG 4");
-        jLabel.setBounds(300,0,180,50);
-        jLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        jLabel.setBounds(375,0,300,60);
+        jLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 50));
+        jLabel.setForeground(Color.red);
         add(jLabel);
         menu();
     }
 
     public void menu(){
-        Menu menu = new Menu();
+        janela = new Janela();
 
-        jogar = menu.buttonJogar();
-        jogar.setBounds(220,100,250,50);
+        setLayout(null);
+        jogar = buttonJogar();
+        jogar.setBounds(295,150,300,60);
         add(jogar);
 
-        jogarTurbo = menu.buttonJogarTurbo();
-        jogarTurbo.setBounds(220,200,250,50);
+        jogarTurbo = buttonJogarTurbo();
+        jogarTurbo.setBounds(295,250,300,60);
         add(jogarTurbo);
 
-        jogarMaluco = menu.buttonJogarTurboMaluco();
-        jogarMaluco.setBounds(220,300,250,50);
+        jogarMaluco = buttonJogarTurboMaluco();
+        jogarMaluco.setBounds(295,350,300,60);
         add(jogarMaluco);
 
-        rank =menu.buttonRanking();
-        rank.setBounds(220,400,250,50);
+        rank = buttonRanking();
+        rank.setBounds(295,450,300,60);
         add(rank);
 
-        sair = menu.buttonSair();
-        sair.setBounds(220, 500, 250, 50);
+        sair = buttonSair();
+        sair.setBounds(295,550,300,60);
         add(sair);
 
     }
 
-
     //BOTÕES
-    public JButton buttonVoltar(){
-        voltar = new JButton();
+    public JButton buttonVoltar() {
+        JButton voltar = new JButton();
         voltar.setText("VOLTAR");
         voltar.setFont(new Font("Arial", Font.BOLD, 15));
         voltar.setForeground(new Color(0, 0, 0));
         voltar.setBackground(new Color(255, 255, 255));
 
-        voltar.addActionListener(this::voltar);
+        voltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                voltar();
+            }
+        });
         return voltar;
     }
-    public JButton buttonRanking(){
+    private JButton buttonRanking() {
         rank = new JButton();
         rank.setText("RANKING");
-        rank.setFont(new Font("Arial", Font.BOLD, 15));
-        rank.setForeground(new Color(0, 0, 0));
-        rank.setBackground(new Color(255, 255, 255));
+        rank.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
+        rank.setForeground(Color.WHITE);
+        rank.setBackground(Color.darkGray);
         add(rank);
         rank.addActionListener(this::ranking);
         return rank;
     }
-    public JButton buttonSair(){
+
+    private JButton buttonSair() {
         sair = new JButton();
         sair.setText("SAIR");
-        sair.setFont(new Font("Arial", Font.BOLD, 15));
-        sair.setForeground(new Color(255, 255, 255));
-        sair.setBackground(new Color(222, 20, 20));
+        sair.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
+        sair.setForeground(Color.WHITE);
+        sair.setBackground(Color.black);
         add(sair);
         sair.addActionListener(this::sair);
         return sair;
     }
-    public JButton buttonJogar(){
+
+    private JButton buttonJogar() {
         jogar = new JButton();
         jogar.setText("JOGO NORMAL");
-        jogar.setFont(new Font("Arial", Font.BOLD, 15));
-        jogar.setForeground(new Color(0, 0, 0));
-        jogar.setBackground(new Color(255, 255, 255));
+        jogar.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
+        jogar.setForeground(Color.white);
+        jogar.setBackground(Color.BLUE);
         add(jogar);
         jogar.addActionListener(this::jogoNormal);
         return jogar;
     }
-    public JButton buttonJogarTurbo(){
+
+    private JButton buttonJogarTurbo() {
         jogarTurbo = new JButton();
         jogarTurbo.setText("JOGO TURBO");
-        jogarTurbo.setBounds(220,200,250,50);
-        jogarTurbo.setFont(new Font("Arial", Font.BOLD, 15));
-        jogarTurbo.setForeground(new Color(0, 0, 0));
-        jogarTurbo.setBackground(new Color(255, 255, 255));
+        jogarTurbo.setBounds(220, 200, 250, 50);
+        jogarTurbo.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
+        jogarTurbo.setForeground(Color.white);
+        jogarTurbo.setBackground(Color.red);
         add(jogarTurbo);
         jogarTurbo.addActionListener(this::jogoTurbo);
         return jogarTurbo;
     }
-    public JButton buttonJogarTurboMaluco(){
+
+    private JButton buttonJogarTurboMaluco() {
         jogarMaluco = new JButton();
         jogarMaluco.setText("JOGO MALUCO");
-        jogarMaluco.setBounds(220,300,250,50);
-        jogarMaluco.setFont(new Font("Arial", Font.BOLD, 15));
-        jogarMaluco.setForeground(new Color(0, 0, 0));
-        jogarMaluco.setBackground(new Color(255, 255, 255));
+        jogarMaluco.setBounds(220, 300, 250, 50);
+        jogarMaluco.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
+        jogarMaluco.setForeground(Color.white);
+        jogarMaluco.setBackground(Color.orange);
         add(jogarMaluco);
         jogarMaluco.addActionListener(this::jogoMaluco);
         return jogarMaluco;
@@ -121,30 +134,31 @@ public class Menu extends JFrame implements ActionListener {
 
     //EVENTOS DOS CLICKS DOS BOTOES
     private void jogoNormal(ActionEvent actionEvent) {
-        Janela janela= new Janela();
-        this.dispose();
         janela.janelaNormal();
+        this.dispose();
     }
+
     private void jogoTurbo(ActionEvent actionEvent) {
-        Janela janela2= new Janela();
+        janela.janelaTurbo();
         this.dispose();
-        janela2.janelaTurbo();
     }
+
     private void jogoMaluco(ActionEvent actionEvent) {
-        Janela janela3= new Janela();
+        janela.JanelaTurboMaluco();
         this.dispose();
-        janela3.JanelaTurboMaluco();
     }
     private void sair(ActionEvent actionEvent) {
         System.exit(0);
     }
     private void ranking(ActionEvent actionEvent) {
     }
-    private void voltar(ActionEvent actionEvent) {
-        Menu menu =new Menu();
-        this.dispose();
+    private void voltar() {
+        Menu menu = new Menu();
         menu.telaMenu();
+
+        this.dispose();
     }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
 
