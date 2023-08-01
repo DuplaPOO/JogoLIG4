@@ -5,8 +5,8 @@ import graphics.Menu;
 public class Main {
 
     public static void main(String[] args) {
-        Menu gui = new Menu();
-        gui.telaMenu();
+        Lig4 jogo = new Lig4Jogo();
+        jogo.menu();
     }
 }
 

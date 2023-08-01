@@ -56,12 +56,4 @@ public class TabuleiroTurboMaluco extends TabuleiroTurbo implements InterfaceTab
     public double getMaluquice(){
         return this.maluquice;
     }
-
-    public int getIncrementoL(){
-        return incrementoLinha;
-    }
-
-    public int getIncrementoC(){
-        return incrementoColuna;
-    }
 }
