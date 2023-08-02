@@ -10,9 +10,16 @@ public class Menu extends JFrame implements ActionListener {
     JButton jogar;JButton jogarTurbo;JButton jogarMaluco, voltar,rank;
     JLabel jLabel;
     Janela janela;
+    JPanel jPanel;
+
 
     public Menu(){
 
+    }
+
+    public void inicioJogo(){
+        janela = new Janela();
+        janela.janelaNomeJogador();
     }
 
     public void telaMenu(){
@@ -57,6 +64,7 @@ public class Menu extends JFrame implements ActionListener {
         sair.setBounds(295,550,300,60);
         add(sair);
 
+
     }
 
     //BOTÕES
@@ -75,6 +83,11 @@ public class Menu extends JFrame implements ActionListener {
         });
         return voltar;
     }
+
+
+
+
+
     private JButton buttonRanking() {
         rank = new JButton();
         rank.setText("RANKING");
@@ -85,7 +98,6 @@ public class Menu extends JFrame implements ActionListener {
         rank.addActionListener(this::ranking);
         return rank;
     }
-
     private JButton buttonSair() {
         sair = new JButton();
         sair.setText("SAIR");
@@ -96,7 +108,6 @@ public class Menu extends JFrame implements ActionListener {
         sair.addActionListener(this::sair);
         return sair;
     }
-
     private JButton buttonJogar() {
         jogar = new JButton();
         jogar.setText("JOGO NORMAL");
@@ -107,7 +118,6 @@ public class Menu extends JFrame implements ActionListener {
         jogar.addActionListener(this::jogoNormal);
         return jogar;
     }
-
     private JButton buttonJogarTurbo() {
         jogarTurbo = new JButton();
         jogarTurbo.setText("JOGO TURBO");
@@ -119,7 +129,6 @@ public class Menu extends JFrame implements ActionListener {
         jogarTurbo.addActionListener(this::jogoTurbo);
         return jogarTurbo;
     }
-
     private JButton buttonJogarTurboMaluco() {
         jogarMaluco = new JButton();
         jogarMaluco.setText("JOGO MALUCO");
@@ -132,17 +141,17 @@ public class Menu extends JFrame implements ActionListener {
         return jogarMaluco;
     }
 
+
+
     //EVENTOS DOS CLICKS DOS BOTOES
     private void jogoNormal(ActionEvent actionEvent) {
-        janela.janelaNormal();
+        janela.janelaNomeJogador();
         this.dispose();
     }
-
     private void jogoTurbo(ActionEvent actionEvent) {
         janela.janelaTurbo();
         this.dispose();
     }
-
     private void jogoMaluco(ActionEvent actionEvent) {
         janela.JanelaTurboMaluco();
         this.dispose();
@@ -158,6 +167,8 @@ public class Menu extends JFrame implements ActionListener {
 
         this.dispose();
     }
+
+
     
     @Override
     public void actionPerformed(ActionEvent e) {

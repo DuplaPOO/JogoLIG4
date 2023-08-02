@@ -3,7 +3,8 @@ package graphics;
 import javax.swing.*;
 
 public class Janela extends JFrame {
-    JFrame frame,frame1,frame2;
+    JFrame frame;
+
 
     public void janelaNormal(){
         frame = new JFrame();
@@ -42,6 +43,17 @@ public class Janela extends JFrame {
         velha.setBounds(0, 0, 600, 600);
         frame.add(velha);
         frame.addMouseListener(velha);
+    }
+
+    public void janelaNomeJogador(){
+        frame = new JFrame();
+        frame.setTitle("REGISTRAR JOGADORES DO MODO NORMAL");
+        frame.setSize(400, 200);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        JanelaNomeJogador velha = new JanelaNomeJogador();
+        frame.add(velha);
     }
 
 

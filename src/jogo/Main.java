@@ -1,5 +1,6 @@
 package jogo;
 
+import graphics.JanelaNomeJogador;
 import graphics.Menu;
 
 public class Main {
@@ -12,6 +13,7 @@ public class Main {
         //Interface gráfica:
         Menu gui = new Menu();
         gui.telaMenu();
+
          
     }
 }

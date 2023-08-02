@@ -20,7 +20,10 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
     int col=0;
     Menu menu;
 
+
+
     public JanelaNormal(){
+
         addMouseMotionListener(this);
         addMouseListener(this);
         this.tabuleiro = new Tabuleiro();
@@ -55,7 +58,7 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
 
         if(!vezDoJogador){
             g.setColor(Color.blue);
-            g.drawString("Vez do Azul", 50, 750);
+            g.drawString("Vez do Azul"  , 50, 750);
         } else{
             g.setColor(Color.yellow);
             g.drawString("Vez do amarelo", 50, 750);
