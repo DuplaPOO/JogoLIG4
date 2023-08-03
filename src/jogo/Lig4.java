@@ -24,38 +24,86 @@ public abstract class Lig4 {
 
 
     protected void menu(){
+        int i =0;
+        int j = 1;
+
         while(true){
+
+
+
             limparTela();
             System.out.println("1 - Partida Normal");
             System.out.println("2 - Lig4 turbo");
             System.out.println("3 - Lig4 turbo maluco");
-            System.out.println("4 - Encerrar jogo");
+            System.out.println("4 - Ranking");
+            System.out.println("5 - Sair") ;
+
             Scanner scanner = new Scanner(System.in);
             int opcao = scanner.nextInt();
             switch(opcao){
                 case 1:
                     perguntarJogadores();
                     Lig4Jogo lig4Normal = new Lig4Jogo();
-                    lig4Normal.jogarPartida(jogadores[0],jogadores[1]);
+                    lig4Normal.jogarPartida(jogadores[i],jogadores[j]);
                     break;
                 case 2:
                     perguntarJogadores();
                     Lig4Turbo lig4Turbo = new Lig4Turbo();
-                    lig4Turbo.jogarPartida(jogadores[0],jogadores[1]);
+                    lig4Turbo.jogarPartida(jogadores[i],jogadores[j]);
                     break;
                 case 3:
                     perguntarJogadores();
                     Lig4TurboMaluco turboMaluco = new Lig4TurboMaluco();
-                    turboMaluco.jogarPartida(jogadores[0], jogadores[1]);
+                    turboMaluco.jogarPartida(jogadores[i], jogadores[j]);
                     break;
+
                 case 4:
+                    rankingJogadores();
+                    System.out.println("1 - voltar ao menu");
+                    opcao = scanner.nextInt();
+                    if(opcao == 1 ){
+                        menu();
+                    } else {
+                        menu();
+                    }
+                case 5:
                     System.out.println("Jogo encerrado");
                     System.exit(0);
                     break;
             }
+            i+=2;
+            j+=2;
+
         }
     }
 
+    public void rankingJogadores() {
+        int tamanho = jogadores.length;
+        if (tamanho > 10){
+            tamanho = 10;
+        }
+        Jogador[] jogadorRank = new Jogador[tamanho];
+        for (int i = 0; i < tamanho; i++) {
+            jogadorRank[i] = jogadores[i];
+        }
+        for (int i = 0; i < tamanho - 1; i++) {
+            int maior = i;
+            for (int j = i + 1; j < tamanho; j++) {
+                if (jogadorRank[j].getVitorias() > jogadorRank[maior].getVitorias()) {
+                    maior = j;
+                }
+            }
+            Jogador temp = jogadorRank[i];
+            jogadorRank[i] = jogadorRank[maior];
+            jogadorRank[maior] = temp;
+        }
+
+        for (int i = 0; i < tamanho; i++) {
+            jogadores[i] =  jogadorRank[i];
+            System.out.println(i+1 + "º LUGAR -"+ jogadores[i].getNome() + " PONTUAÇÃO " + jogadores[i].getVitorias());
+        }
+
+    }
     private void addJogador(Jogador jogador) {
         if(jogadores == null){
             jogadores = new Jogador[1];

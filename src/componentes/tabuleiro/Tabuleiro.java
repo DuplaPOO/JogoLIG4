@@ -26,7 +26,7 @@ public class Tabuleiro implements InterfaceTabuleiro{
                 tabuleiro[i][j] = null;
             }
         }
-        carregarImagens();
+        //carregarImagens();
     }
 
     private void carregarImagens() {
@@ -103,7 +103,7 @@ public class Tabuleiro implements InterfaceTabuleiro{
         }
     }
 
-    public boolean registrarPecaConsole(int colunaAdicionar, String cor) throws ColunaCheiaException, ColunaInvalidaException{
+    public boolean registrarPecaConsole(int colunaAdicionar, String cor) throws ColunaCheiaException, ColunaInvalidaException {
 
         if (colunaAdicionar >= 0 && colunaAdicionar < colunas) {
             if (tabuleiro[0][colunaAdicionar] == null) {
@@ -120,10 +120,12 @@ public class Tabuleiro implements InterfaceTabuleiro{
                 ColunaCheiaException e = new ColunaCheiaException(colunaAdicionar+1);
                 throw e;
             }
-        } else {
+
+        } else{
             ColunaInvalidaException e = new ColunaInvalidaException(colunaAdicionar+1);
             throw e;
         }
+
     }
     private boolean verificarHorizontal() {
         Peca[][] A = this.tabuleiro;

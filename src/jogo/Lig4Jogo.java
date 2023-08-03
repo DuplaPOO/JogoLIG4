@@ -1,5 +1,6 @@
 package jogo;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -65,13 +66,12 @@ public class Lig4Jogo extends Lig4 {
                         System.out.println("2 - NAO");
                         Scanner leitura2 = new Scanner(System.in);
                         int opcao = leitura2.nextInt();
-
-                        if(opcao == 1){
-                            reset();
-                        } else if (opcao == 2){
-                            reset();
-                            break;
-                        }
+                            if(opcao == 1){
+                                reset();
+                            } else if (opcao == 2){
+                                reset();
+                                break;
+                            }
                     }
                     if(this.jogadas >= 42){
                         break;
@@ -84,6 +84,10 @@ public class Lig4Jogo extends Lig4 {
                 continue;
             } catch(ColunaInvalidaException e){
                 System.err.println(e.getMessage());
+                pausarTela();
+                continue;
+            } catch (InputMismatchException e){
+                System.err.println("Você não digitou um número :( ");
                 pausarTela();
                 continue;
             }
