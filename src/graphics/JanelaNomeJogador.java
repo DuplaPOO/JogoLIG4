@@ -34,6 +34,10 @@ public class JanelaNomeJogador extends JPanel{
         jogador2.setBackground(Color.blue);
         jogador1.setPreferredSize(new Dimension(200, 30));
         jogador2.setPreferredSize(new Dimension(200, 30));
+        jogador1.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+        jogador2.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+        jogador1.setForeground(Color.red);
+        jogador2.setForeground(Color.red);
         jPanel.add(jogador1);
         jPanel.add(jogador2);
         jPanel.add(registrar);

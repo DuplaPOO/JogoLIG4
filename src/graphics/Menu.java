@@ -30,12 +30,12 @@ public class Menu extends JFrame implements ActionListener {
         setResizable(false);
         setLocationRelativeTo(null);
         setLayout(null);
-        getContentPane().setBackground(new Color(135, 185, 205));
+        getContentPane().setBackground(Color.red);
 
         jLabel = new JLabel("LIG 4");
         jLabel.setBounds(375,0,300,60);
         jLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 50));
-        jLabel.setForeground(Color.red);
+        jLabel.setForeground(Color.yellow);
         add(jLabel);
         menu();
     }
@@ -60,9 +60,6 @@ public class Menu extends JFrame implements ActionListener {
         rank.setBounds(295,450,300,60);
         add(rank);
 
-        sair = buttonSair();
-        sair.setBounds(295,550,300,60);
-        add(sair);
 
 
     }
@@ -92,8 +89,8 @@ public class Menu extends JFrame implements ActionListener {
         rank = new JButton();
         rank.setText("RANKING");
         rank.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
-        rank.setForeground(Color.WHITE);
-        rank.setBackground(Color.darkGray);
+        rank.setForeground(Color.YELLOW);
+        rank.setBackground(Color.BLUE);
         add(rank);
         rank.addActionListener(this::ranking);
         return rank;
@@ -102,8 +99,8 @@ public class Menu extends JFrame implements ActionListener {
         sair = new JButton();
         sair.setText("SAIR");
         sair.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
-        sair.setForeground(Color.WHITE);
-        sair.setBackground(Color.black);
+        sair.setForeground(Color.YELLOW);
+        sair.setBackground(Color.BLACK);
         add(sair);
         sair.addActionListener(this::sair);
         return sair;
@@ -112,7 +109,7 @@ public class Menu extends JFrame implements ActionListener {
         jogar = new JButton();
         jogar.setText("JOGO NORMAL");
         jogar.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
-        jogar.setForeground(Color.white);
+        jogar.setForeground(Color.YELLOW);
         jogar.setBackground(Color.BLUE);
         add(jogar);
         jogar.addActionListener(this::jogoNormal);
@@ -123,8 +120,8 @@ public class Menu extends JFrame implements ActionListener {
         jogarTurbo.setText("JOGO TURBO");
         jogarTurbo.setBounds(220, 200, 250, 50);
         jogarTurbo.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
-        jogarTurbo.setForeground(Color.white);
-        jogarTurbo.setBackground(Color.red);
+        jogarTurbo.setForeground(Color.YELLOW);
+        jogarTurbo.setBackground(Color.BLUE);
         add(jogarTurbo);
         jogarTurbo.addActionListener(this::jogoTurbo);
         return jogarTurbo;
@@ -134,8 +131,8 @@ public class Menu extends JFrame implements ActionListener {
         jogarMaluco.setText("JOGO MALUCO");
         jogarMaluco.setBounds(220, 300, 250, 50);
         jogarMaluco.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
-        jogarMaluco.setForeground(Color.white);
-        jogarMaluco.setBackground(Color.orange);
+        jogarMaluco.setForeground(Color.YELLOW);
+        jogarMaluco.setBackground(Color.BLUE);
         add(jogarMaluco);
         jogarMaluco.addActionListener(this::jogoMaluco);
         return jogarMaluco;

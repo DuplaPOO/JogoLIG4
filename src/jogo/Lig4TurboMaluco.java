@@ -43,7 +43,7 @@ public class Lig4TurboMaluco extends Lig4{
                 
                 if(pecaAdicionada){
                     jogadas++;
-                    if(tabuleiro.verificarGanhadorConsole()){
+                    if(tabuleiro.verificarGanhador()){
                         limparTela();
                         tabuleiro.imprimirTabuleiroConsole();
                         if(vezDoJogador){

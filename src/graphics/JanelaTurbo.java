@@ -15,25 +15,29 @@ public class JanelaTurbo extends JanelaNormal{
     
     @Override
     public void mouseClicked(MouseEvent e){
-        boolean jogadaFeita = false;
+        if(!partidaFinalizada){
+            boolean jogadaFeita = false;
+            if(e.getX()>=100 && e.getX() <=800 && e.getY()>=100 && e.getY() <=700){
+                int coluna = (e.getX())/100;
+                if(vezDoJogador){
+                    jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Amarelo");
+                    tabuleiro.modificarPecasVizinhas(coluna-1, "Amarelo");
+                } else{
+                    jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Azul");
+                    tabuleiro.modificarPecasVizinhas(coluna-1, "Azul");
+                }
+                
+                if(jogadaFeita){
+                    vezDoJogador = !vezDoJogador;
+                }
 
-        if(e.getX()>=100 && e.getX() <=800 && e.getY()>=100 && e.getY() <=700){
-            int coluna = (e.getX())/100;
-            if(vezDoJogador){
-                jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Amarelo");
-                tabuleiro.modificarPecasVizinhas(coluna-1, "Amarelo");
-            } else{
-                jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Azul");
-                tabuleiro.modificarPecasVizinhas(coluna-1, "Azul");
+                repaint();
+        
             }
-            
-            if(jogadaFeita){
-                vezDoJogador = !vezDoJogador;
-            }
-
-            repaint();
-    
+        } else{
+            fecharEAbrirMenu();
         }
+        
         
     }
   

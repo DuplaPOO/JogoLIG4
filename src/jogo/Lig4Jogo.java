@@ -50,7 +50,7 @@ public class Lig4Jogo extends Lig4 {
                 
                 if(pecaAdicionada){
                     jogadas++;
-                    if(tabuleiro.verificarGanhadorConsole()){
+                    if(tabuleiro.verificarGanhador()){
                         limparTela();
                         tabuleiro.imprimirTabuleiroConsole();
                         if(vezDoJogador){

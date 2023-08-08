@@ -26,7 +26,7 @@ public class Tabuleiro implements InterfaceTabuleiro{
                 tabuleiro[i][j] = null;
             }
         }
-        //carregarImagens();
+        carregarImagens();
     }
 
     private void carregarImagens() {
@@ -38,6 +38,14 @@ public class Tabuleiro implements InterfaceTabuleiro{
         e.printStackTrace();
     }
 }
+
+    public Image getCirculoAzul(){
+        return imgCirculoAzul;
+    }
+
+    public Image getCirculoAmarelo(){
+        return imgCirculoAmarelo;
+    }
 
 
     public void imprimirTabuleiroConsole(){
@@ -103,7 +111,7 @@ public class Tabuleiro implements InterfaceTabuleiro{
         }
     }
 
-    public boolean registrarPecaConsole(int colunaAdicionar, String cor) throws ColunaCheiaException, ColunaInvalidaException {
+    public boolean registrarPecaConsole(int colunaAdicionar, String cor) throws ColunaCheiaException, ColunaInvalidaException{
 
         if (colunaAdicionar >= 0 && colunaAdicionar < colunas) {
             if (tabuleiro[0][colunaAdicionar] == null) {
@@ -120,12 +128,10 @@ public class Tabuleiro implements InterfaceTabuleiro{
                 ColunaCheiaException e = new ColunaCheiaException(colunaAdicionar+1);
                 throw e;
             }
-
-        } else{
+        } else {
             ColunaInvalidaException e = new ColunaInvalidaException(colunaAdicionar+1);
             throw e;
         }
-
     }
     private boolean verificarHorizontal() {
         Peca[][] A = this.tabuleiro;
@@ -194,19 +200,8 @@ public class Tabuleiro implements InterfaceTabuleiro{
         }
         return false;
     }
-    public void verificarGanhador(boolean vezDoJogador, Graphics g){
-        if(verificarVertical()==true|| verificarHorizontal() == true || verificarDiagonalD() == true || verificarDiagonalA() == true){
-            if(vezDoJogador){
-                g.setColor(Color.blue);
-                g.drawString("Azul Venceu", 50, 50);
-            } else{
-                g.setColor(Color.yellow);
-                g.drawString("Amarelo Venceu", 50, 50);
-            }
-        }
-    }
-
-    public boolean verificarGanhadorConsole(){
+    
+    public boolean verificarGanhador(){
         if(verificarVertical()==true|| verificarHorizontal() == true || verificarDiagonalD() == true || verificarDiagonalA() == true){
             return true;
         } else {
