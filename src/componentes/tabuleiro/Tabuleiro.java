@@ -26,7 +26,7 @@ public class Tabuleiro implements InterfaceTabuleiro{
                 tabuleiro[i][j] = null;
             }
         }
-        carregarImagens();
+        //carregarImagens();
     }
 
     private void carregarImagens() {

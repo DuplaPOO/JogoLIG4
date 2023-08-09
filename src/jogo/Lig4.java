@@ -1,16 +1,27 @@
 package jogo;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import componentes.Jogador;
+import componentes.JogadorData;
 import componentes.tabuleiro.InterfaceTabuleiro;
 
-import java.util.Random;
-import java.util.Scanner;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.*;
 
 public abstract class Lig4 {
     protected InterfaceTabuleiro tabuleiro;
     protected Jogador[] jogadores = null;
     protected boolean vezDoJogador;  // true = vez do jogador 1 // false= vez do jogador2
     protected int jogadas;
+    protected  List<JogadorData> jogadorList;
+
+    protected JogadorData jogadorData1, jogadorData2;
+
 
     Lig4(){
         this.jogadas = 0;
@@ -20,16 +31,11 @@ public abstract class Lig4 {
     protected abstract void jogarPartida(Jogador jogador1, Jogador jogador2);
 
     protected abstract void reset();
-
-
-
-    protected void menu(){
+    protected void menu() throws IOException {
         int i =0;
         int j = 1;
 
         while(true){
-
-
 
             limparTela();
             System.out.println("1 - Partida Normal");
@@ -44,6 +50,8 @@ public abstract class Lig4 {
                 case 1:
                     perguntarJogadores();
                     Lig4Jogo lig4Normal = new Lig4Jogo();
+                   // String jsonUser = new Gson().toJson(jogadores);
+                  //  System.out.println(jsonUser);
                     lig4Normal.jogarPartida(jogadores[i],jogadores[j]);
                     break;
                 case 2:
@@ -56,7 +64,6 @@ public abstract class Lig4 {
                     Lig4TurboMaluco turboMaluco = new Lig4TurboMaluco();
                     turboMaluco.jogarPartida(jogadores[i], jogadores[j]);
                     break;
-
                 case 4:
                     rankingJogadores();
                     System.out.println("1 - voltar ao menu");
@@ -77,34 +84,47 @@ public abstract class Lig4 {
         }
     }
 
-    public void rankingJogadores() {
-        int tamanho = jogadores.length;
-        if (tamanho > 10){
-            tamanho = 10;
-        }
-        Jogador[] jogadorRank = new Jogador[tamanho];
-        for (int i = 0; i < tamanho; i++) {
-            jogadorRank[i] = jogadores[i];
-        }
-        for (int i = 0; i < tamanho - 1; i++) {
-            int maior = i;
-            for (int j = i + 1; j < tamanho; j++) {
-                if (jogadorRank[j].getVitorias() > jogadorRank[maior].getVitorias()) {
-                    maior = j;
-                }
-            }
-            Jogador temp = jogadorRank[i];
-            jogadorRank[i] = jogadorRank[maior];
-            jogadorRank[maior] = temp;
-        }
+    protected void salvarJogadoresNoJSON(List<JogadorData> jogadoresList) {
 
-        for (int i = 0; i < tamanho; i++) {
-            jogadores[i] =  jogadorRank[i];
-            System.out.println(i+1 + "º LUGAR -"+ jogadores[i].getNome() + " PONTUAÇÃO " + jogadores[i].getVitorias());
+        try (FileWriter fileWriter = new FileWriter("dados.json")) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(jogadoresList, fileWriter);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
     }
-    private void addJogador(Jogador jogador) {
+
+
+    protected void rankingJogadores() {
+        jogadorList = carregarJogadoresDoJSON();
+
+        jogadorList.sort(Comparator.comparingInt(JogadorData::getVitorias).reversed());
+
+        // Imprima o ranking
+        int posicao = 1;
+        for (JogadorData jogador : jogadorList) {
+            System.out.println(posicao + "º Lugar - " + jogador.getNome() + " - Vitórias: " + jogador.getVitorias());
+            posicao++;
+        }
+    }
+
+    protected ArrayList<JogadorData> carregarJogadoresDoJSON() {
+        ArrayList<JogadorData> jogadoresList = new ArrayList<>();
+
+        try (FileReader fileReader = new FileReader("dados.json")) {
+            Type jogadorListType = new TypeToken<ArrayList<JogadorData>>(){}.getType();
+            Gson gson = new Gson();
+            jogadoresList = gson.fromJson(fileReader, jogadorListType);
+        } catch (IOException e) {
+            // Arquivo JSON não existe ou ocorreu um erro ao ler o arquivo
+            // Pode ser o caso de ser a primeira vez que o jogo está sendo executado
+            // Ou de que ainda não há jogadores registrados
+        }
+
+        return jogadoresList;
+    }
+    private void addJogador(Jogador jogador) throws IOException {
+        jogadorList = new ArrayList<JogadorData>();
         if(jogadores == null){
             jogadores = new Jogador[1];
             jogadores[0] = jogador;
@@ -112,24 +132,22 @@ public abstract class Lig4 {
             Jogador[] novoArray = new Jogador[jogadores.length + 1];
             for (int i = 0; i < jogadores.length; i++) {
                 novoArray[i] = jogadores[i];
+
             }
             novoArray[jogadores.length] = jogador;
             jogadores = novoArray;
         }
     }
-
     protected void limparTela(){
             System.out.print("\033[H\033[2J");
             System.out.flush();
     }
-
     public void pausarTela() {
         Scanner scanner3 = new Scanner(System.in);
         System.out.println("Pressione Enter para continuar...");
         scanner3.nextLine();
     }
-
-    public void perguntarJogadores(){
+    public void perguntarJogadores() throws IOException {
         //Futuramente Apresentar os jogadores que já estão resgistrados e perguntar se quer criar algum novo(ou jogar como um existente)
         Scanner scanner2 = new Scanner(System.in);
         limparTela();
@@ -142,6 +160,10 @@ public abstract class Lig4 {
         addJogador(new Jogador(nome2, "V"));
         //Futuramente colocar a exception "O jogador já existe"
     }
+
+
+
+
 
 
 }

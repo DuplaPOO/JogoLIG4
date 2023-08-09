@@ -1,9 +1,11 @@
 package jogo;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 import componentes.Jogador;
+import componentes.JogadorData;
 import componentes.tabuleiro.TabuleiroTurbo;
 import exceptions.ColunaCheiaException;
 import exceptions.ColunaInvalidaException;
@@ -17,6 +19,22 @@ public class Lig4Turbo extends Lig4 {
     }
 
     protected void jogarPartida(Jogador jogador1, Jogador jogador2){
+        jogadorList = new ArrayList<JogadorData>();
+        jogadorList = carregarJogadoresDoJSON();
+
+        for (JogadorData jogadorData : jogadorList) {
+            if (jogadorData.getNome().equals(jogador1.getNome())) {
+                jogadorData1 = jogadorData;
+                break;
+            }
+        }
+        for (JogadorData jogadorData : jogadorList) {
+            if (jogadorData.getNome().equals(jogador2.getNome())) {
+                jogadorData2 = jogadorData;
+                break;
+            }
+        }
+
         while(true){
             try{
                 limparTela();
@@ -47,11 +65,27 @@ public class Lig4Turbo extends Lig4 {
                         tabuleiro.imprimirTabuleiroConsole();
                         if(vezDoJogador){
                             jogador1.addVitoria();
+                            if (jogadorData1 != null) {
+                                jogadorData1.incrementVitorias();
+                            } else {
+                                jogadorData1= new JogadorData(jogador1.getNome(), jogador1.getVitorias());
+                                jogadorList.add(jogadorData1);
+                            }
                             System.out.println("O jogador "+jogador1.getNome() +" venceu");
                         } else {
                             jogador2.addVitoria();
+                            if (jogadorData2 != null) {
+                                jogadorData2.incrementVitorias();
+                            } else {
+                                jogadorData2= new JogadorData(jogador2.getNome(), jogador2.getVitorias());
+                                jogadorList.add(jogadorData2);
+                            }
                             System.out.println("O jogador "+ jogador2.getNome() + " venceu");
                         }
+
+                        salvarJogadoresNoJSON(jogadorList);
+
+
 
                         System.out.println("Deseja revanche?");
                         System.out.println("1 - SIM");
