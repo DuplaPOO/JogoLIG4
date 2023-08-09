@@ -7,19 +7,28 @@ import componentes.tabuleiro.Tabuleiro;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 
-public class JanelaNormal extends JPanel implements MouseListener, MouseMotionListener{
+
+public class JanelaNormal extends JPanel implements MouseListener, MouseMotionListener, ActionListener{
 
     protected InterfaceTabuleiro tabuleiro;
     protected boolean vezDoJogador;
     protected boolean partidaFinalizada;
     Font minhaFont = new Font("Arial", Font.BOLD , 30 );
     protected Image imgTrofeu;
-    int col=0;
+    protected int yInicial;
+    protected int yAtual;
+    protected int linha;
+    protected boolean jogadaFeita;
+    protected int coluna;
+
+    
     Menu menu;
 
 
@@ -30,6 +39,10 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
         addMouseListener(this);
         this.tabuleiro = new Tabuleiro();
         this.vezDoJogador = true;
+        this.yInicial = 40;
+        this.jogadaFeita = false;
+        this.linha = -1;
+        this.coluna = -1;
         menu = new Menu();
 
         try{
@@ -50,9 +63,8 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
     @Override
     public void paintComponent(Graphics g){
 
-
         designTabuleiro(g);
-        
+
         partidaFinalizada = tabuleiro.verificarGanhador();
 
         if(partidaFinalizada){
@@ -63,7 +75,7 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
             g.fillRect(100, 100, 700, 250);
             g.drawImage(imgTrofeu, 100, 100, 250, 250, null);
 
-            if(vezDoJogador){
+            if(!vezDoJogador){
                 g.setColor(Color.blue);
                 g.setFont(new Font("Comic Sans MS", Font.PLAIN, 60));
                 g.drawString("Azul venceu!", 360, 250);
@@ -93,39 +105,79 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
         //Fundo da janela
         g.setColor(azulClaro);
         g.fillRect(0, 0, 900, 900);
-
+        
         //Fundo do tabuleiro
         g.setColor(Color.red);
         g.fillRect(100, 100, 700, 600);
 
         //coluna que o mouse passa por cima
-        if(col >=1 & col<=7){
+        if(coluna >=1 & coluna<=7){
             g.setColor(vinho);
-            g.fillRect(col*100, 100, 100, 600);
-            if(!vezDoJogador){
-                g.drawImage(tabuleiro.getCirculoAzul(), 127 + (col-1) * 100, 40, 50, 50, null);
-            } else{
-                g.drawImage(tabuleiro.getCirculoAmarelo(), 127 + (col-1) * 100, 40, 50, 50, null);
+            g.fillRect(coluna*100, 100, 100, 600);
+            if(!jogadaFeita){
+                if(tabuleiro.pegarLinha(coluna-1)!=-1){
+                    if(vezDoJogador){
+                        g.drawImage(tabuleiro.getCirculoAzul(), 127 + (coluna-1) * 100, 40, 50, 50, null);
+                    } else{
+                        g.drawImage(tabuleiro.getCirculoAmarelo(), 127 + (coluna-1) * 100, 40, 50, 50, null);
+                    }
+                }
+
             }
         }
-
         tabuleiro.imprimirPecasTabuleiro(g);
+
+        if(this.jogadaFeita){
+            if(vezDoJogador){
+                g.drawImage(tabuleiro.getCirculoAmarelo(), 127 + (coluna-1) * 100, yAtual, 50, 50, null);
+            } else{
+                g.drawImage(tabuleiro.getCirculoAzul(), 127 + (coluna-1) * 100, yAtual, 50, 50, null);
+            }
+        }
     }
+
+    @Override
+	public void actionPerformed(ActionEvent e) {
+		
+		repaint();
+        yAtual+=5;
+
+        if (yAtual >= 125 + linha * 100) {
+            yAtual = 125 + linha * 100; 
+            ((Timer)e.getSource()).stop(); 
+            jogadaFeita = false; 
+            if(vezDoJogador){
+                        tabuleiro.registrarPeca(coluna-1, "Amarelo");
+                        } else{
+                            tabuleiro.registrarPeca(coluna-1, "Azul");
+                        }
+            repaint(); 
+        }
+        
+	}
 
 
     @Override
     public void mouseClicked(MouseEvent e){
-        if(!partidaFinalizada){
-            boolean jogadaFeita = false;
+        if(!jogadaFeita){
+            if(!partidaFinalizada){
             if(e.getX()>=100 && e.getX() <=800 && e.getY()>=100 && e.getY() <=700){
-                int coluna = (e.getX())/100;
-                if(vezDoJogador){
-                    jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Amarelo");
-                } else{
-                    jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Azul");
+                this.coluna = (e.getX())/100;
+                this.linha = tabuleiro.pegarLinha(coluna-1);
+                if(this.linha!=-1){
+                    this.jogadaFeita = true;
                 }
                 
-                if(jogadaFeita){
+                if(this.jogadaFeita){
+                    this.yAtual = this.yInicial;
+                    Timer timer = new Timer(10,this);
+		            timer.start();
+                    if(this.yAtual== 125 + linha * 100){
+                        timer.stop();
+                        this.jogadaFeita = false;
+                        
+                    }
+                    
                     vezDoJogador = !vezDoJogador;
                 }
 
@@ -134,6 +186,8 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
         } else{
             fecharEAbrirMenu();
         }
+        }
+        
         
     }
 
@@ -158,11 +212,14 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
     }
 
     public void mouseMoved(MouseEvent e) {
-        col = -1;
-        if(e.getPoint().getX()>=100 && e.getPoint().getX() <=800 && e.getPoint().getY()>=100 && e.getPoint().getY() <=700){
-            col=(int)e.getPoint().getX()/100;
+        if(!this.jogadaFeita){
+            this.coluna = -1;
+            if(e.getPoint().getX()>=100 && e.getPoint().getX() <=800 && e.getPoint().getY()>=100 && e.getPoint().getY() <=700){
+                this.coluna=(int)e.getPoint().getX()/100;
+            }
+            repaint();
         }
-        repaint();
+        
     }
 
     @Override

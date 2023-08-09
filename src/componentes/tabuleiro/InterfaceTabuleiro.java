@@ -13,6 +13,8 @@ public interface InterfaceTabuleiro {
 
     public boolean registrarPeca(int colunaAdicionar, String cor);
 
+    public int pegarLinha(int colunaAdicionar);
+
     public boolean verificarGanhador();
 
     public void zerarTabuleiro();
@@ -28,6 +30,7 @@ public interface InterfaceTabuleiro {
 
 
     //métodos opcionais
+    
     default public void modificarPecasVizinhas(int coluna, String cor){}
 
     //Turbo maluco:

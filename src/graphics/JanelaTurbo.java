@@ -2,8 +2,9 @@ package graphics;
 
 import componentes.tabuleiro.TabuleiroTurbo;
 
-import java.awt.event.MouseEvent;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class JanelaTurbo extends JanelaNormal{
 
@@ -12,33 +13,27 @@ public class JanelaTurbo extends JanelaNormal{
         super();
         this.tabuleiro = new TabuleiroTurbo();
     }
-    
-    @Override
-    public void mouseClicked(MouseEvent e){
-        if(!partidaFinalizada){
-            boolean jogadaFeita = false;
-            if(e.getX()>=100 && e.getX() <=800 && e.getY()>=100 && e.getY() <=700){
-                int coluna = (e.getX())/100;
-                if(vezDoJogador){
-                    jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Amarelo");
-                    tabuleiro.modificarPecasVizinhas(coluna-1, "Amarelo");
-                } else{
-                    jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Azul");
-                    tabuleiro.modificarPecasVizinhas(coluna-1, "Azul");
-                }
-                
-                if(jogadaFeita){
-                    vezDoJogador = !vezDoJogador;
-                }
 
-                repaint();
-        
-            }
-        } else{
-            fecharEAbrirMenu();
+    @Override
+	public void actionPerformed(ActionEvent e) {
+		
+		repaint();
+        yAtual+=5;
+
+        if (yAtual >= 125 + linha * 100) {
+            yAtual = 125 + linha * 100; 
+            ((Timer)e.getSource()).stop(); 
+            jogadaFeita = false; 
+            if(vezDoJogador){
+                        tabuleiro.registrarPeca(coluna-1, "Amarelo");
+                        tabuleiro.modificarPecasVizinhas(coluna-1, "Amarelo");
+                        } else{
+                            tabuleiro.registrarPeca(coluna-1, "Azul");
+                            tabuleiro.modificarPecasVizinhas(coluna-1, "Azul");
+                        }
+            repaint(); 
         }
         
-        
-    }
+	}
   
 }

@@ -95,16 +95,7 @@ public class Menu extends JFrame implements ActionListener {
         rank.addActionListener(this::ranking);
         return rank;
     }
-    private JButton buttonSair() {
-        sair = new JButton();
-        sair.setText("SAIR");
-        sair.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
-        sair.setForeground(Color.YELLOW);
-        sair.setBackground(Color.BLACK);
-        add(sair);
-        sair.addActionListener(this::sair);
-        return sair;
-    }
+
     private JButton buttonJogar() {
         jogar = new JButton();
         jogar.setText("JOGO NORMAL");
