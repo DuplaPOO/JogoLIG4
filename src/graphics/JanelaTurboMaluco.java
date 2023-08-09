@@ -2,7 +2,10 @@ package graphics;
 
 import componentes.tabuleiro.TabuleiroTurboMaluco;
 
+
+import javax.swing.*;
 import java.awt.*;
+
 import java.awt.event.MouseEvent;
 
 
@@ -51,29 +54,35 @@ public class JanelaTurboMaluco extends JanelaTurbo{
 
     @Override
     public void mouseClicked(MouseEvent e){
-        if(!partidaFinalizada){
-            boolean jogadaFeita = false;
+        if(!jogadaFeita){
+            if(!partidaFinalizada){
             if(e.getX()>=100 && e.getX() <=800 && e.getY()>=100 && e.getY() <=700){
-                int coluna = (e.getX())/100;
-                if(vezDoJogador){
-                    jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Amarelo");
-                    tabuleiro.modificarPecasVizinhas(coluna-1, "Amarelo");
-                } else{
-                    jogadaFeita = tabuleiro.registrarPeca(coluna-1, "Azul");
-                    tabuleiro.modificarPecasVizinhas(coluna-1, "Azul");
+                this.coluna = (e.getX())/100;
+                this.linha = tabuleiro.pegarLinha(coluna-1);
+                if(this.linha!=-1){
+                    this.jogadaFeita = true;
                 }
                 
-                if(jogadaFeita){
-                    vezDoJogador = !vezDoJogador;
+                if(this.jogadaFeita){
+                    this.yAtual = this.yInicial;
+                    Timer timer = new Timer(10,this);
+		            timer.start();
+                    if(this.yAtual== 125 + linha * 100){
+                        timer.stop();
+                        this.jogadaFeita = false;
+                        
+                    }
                     tabuleiro.atualizarMaluquice();
+                    vezDoJogador = !vezDoJogador;
                 }
 
                 repaint();
-        
             }
-        } else {
+        } else{
             fecharEAbrirMenu();
         }
+        }
+        
         
     }
 

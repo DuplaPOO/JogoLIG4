@@ -89,6 +89,17 @@ public class Tabuleiro implements InterfaceTabuleiro{
         }
 
     }
+
+    public int pegarLinha(int colunaAdicionar){
+        int linha=-1;
+        for (int i = linhas - 1; i >= 0; i--) {
+            if (tabuleiro[i][colunaAdicionar] == null) {
+                linha = i;
+                break;
+            }
+        }
+        return linha;
+    }
     //TROUXE O REGISTRAR PEÇA DO JOGADOR PARA O TABULEIRO, O JOGADOR APENAS REALIZA A JOGADA, MAS O TABULEIRO QUE REGISTRA
     public boolean registrarPeca(int colunaAdicionar, String cor) {
 
