@@ -21,8 +21,7 @@ public class TabuleiroTurbo extends Tabuleiro implements InterfaceTabuleiro{
             if(posicaoEsquerda != null){
                 posicaoEsquerda.setCor(cor);
             }
-        }
-
+        } 
         if(coluna != tabuleiro[0].length-1){
             Peca posicaoDireita = tabuleiro[linha][coluna+1];
             if(posicaoDireita != null){

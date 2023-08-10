@@ -49,15 +49,15 @@ public class Menu extends JFrame implements ActionListener {
         add(jogar);
 
         jogarTurbo = buttonJogarTurbo();
-        jogarTurbo.setBounds(295,250,300,60);
+        jogarTurbo.setBounds(295,300,300,60);
         add(jogarTurbo);
 
         jogarMaluco = buttonJogarTurboMaluco();
-        jogarMaluco.setBounds(295,350,300,60);
+        jogarMaluco.setBounds(295,450,300,60);
         add(jogarMaluco);
 
         rank = buttonRanking();
-        rank.setBounds(295,450,300,60);
+        rank.setBounds(295,600,300,60);
         add(rank);
 
 
@@ -143,9 +143,6 @@ public class Menu extends JFrame implements ActionListener {
     private void jogoMaluco(ActionEvent actionEvent) {
         janela.JanelaTurboMaluco();
         this.dispose();
-    }
-    private void sair(ActionEvent actionEvent) {
-        System.exit(0);
     }
     private void ranking(ActionEvent actionEvent) {
     }

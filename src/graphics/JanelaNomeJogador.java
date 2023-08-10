@@ -18,6 +18,7 @@ public class JanelaNomeJogador extends JPanel{
     }
 
     public void painelInfos() {
+        //É bom usar o LimiteDeCaracteresException aqui
         jPanel =new JPanel();
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
         menu = new Menu();

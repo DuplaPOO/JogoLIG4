@@ -3,6 +3,7 @@ package graphics;
 
 import componentes.tabuleiro.InterfaceTabuleiro;
 import componentes.tabuleiro.Tabuleiro;
+import exceptions.ColunaCheiaException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -125,6 +126,7 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
 
             }
         }
+        
         tabuleiro.imprimirPecasTabuleiro(g);
 
         if(this.jogadaFeita){
@@ -140,17 +142,29 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
 	public void actionPerformed(ActionEvent e) {
 		
 		repaint();
-        yAtual+=5;
+        yAtual+=10;
 
         if (yAtual >= 125 + linha * 100) {
             yAtual = 125 + linha * 100; 
             ((Timer)e.getSource()).stop(); 
             jogadaFeita = false; 
             if(vezDoJogador){
-                        tabuleiro.registrarPeca(coluna-1, "Amarelo");
-                        } else{
-                            tabuleiro.registrarPeca(coluna-1, "Azul");
-                        }
+                try{
+                    tabuleiro.registrarPeca(coluna-1, "Amarelo");
+                } catch(ColunaCheiaException err){
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    System.out.println(err.getMessage());
+                }
+            } else{
+                try{
+                tabuleiro.registrarPeca(coluna-1, "Azul");
+                } catch(ColunaCheiaException err){
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    System.out.println(err.getMessage());
+                }
+            }
             repaint(); 
         }
         
@@ -168,18 +182,12 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
                     this.jogadaFeita = true;
                 }
                 
-                if(this.jogadaFeita){
                     this.yAtual = this.yInicial;
                     Timer timer = new Timer(10,this);
 		            timer.start();
-                    if(this.yAtual== 125 + linha * 100){
-                        timer.stop();
-                        this.jogadaFeita = false;
-                        
-                    }
                     
                     vezDoJogador = !vezDoJogador;
-                }
+                
 
                 repaint();
             }

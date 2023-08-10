@@ -1,6 +1,5 @@
 package componentes.tabuleiro;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
@@ -26,7 +25,7 @@ public class Tabuleiro implements InterfaceTabuleiro{
                 tabuleiro[i][j] = null;
             }
         }
-        //carregarImagens();
+        carregarImagens();
     }
 
     private void carregarImagens() {
@@ -101,7 +100,7 @@ public class Tabuleiro implements InterfaceTabuleiro{
         return linha;
     }
     //TROUXE O REGISTRAR PEÇA DO JOGADOR PARA O TABULEIRO, O JOGADOR APENAS REALIZA A JOGADA, MAS O TABULEIRO QUE REGISTRA
-    public boolean registrarPeca(int colunaAdicionar, String cor) {
+    public boolean registrarPeca(int colunaAdicionar, String cor) throws ColunaCheiaException{
 
         if (colunaAdicionar >= 0 && colunaAdicionar < colunas) {
             if (tabuleiro[0][colunaAdicionar] == null) {
@@ -115,7 +114,8 @@ public class Tabuleiro implements InterfaceTabuleiro{
                 }
                 return pecaAdicionar;
             } else {
-                    return false;
+                    ColunaCheiaException err = new ColunaCheiaException(colunaAdicionar+1);
+                    throw err;
             }
         } else {
             return false;

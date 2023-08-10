@@ -11,7 +11,7 @@ public interface InterfaceTabuleiro {
     //método que poderia lançar exceções se fosse no console
     public boolean registrarPecaConsole(int colunaAdicionar, String cor) throws ColunaCheiaException, ColunaInvalidaException;
 
-    public boolean registrarPeca(int colunaAdicionar, String cor);
+    public boolean registrarPeca(int colunaAdicionar, String cor) throws ColunaCheiaException;
 
     public int pegarLinha(int colunaAdicionar);
 
