@@ -22,7 +22,6 @@ import java.util.ArrayList;
 
 
 public class JanelaNormal extends JPanel implements MouseListener, MouseMotionListener, ActionListener{
-
     protected InterfaceTabuleiro tabuleiro;
     protected boolean vezDoJogador;
     protected boolean partidaFinalizada;
@@ -35,21 +34,16 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
 
     protected int coluna;
     Menu menu;
-
-    JanelaNomeJogador janelaNomeJogador = new JanelaNomeJogador();
+    ArrayList<JogadorData> jogadorList;
+    protected JogadorData jogadorData1,jogadorData2;
+    protected Jogador jogador1,jogador2;
+    JanelaNomeJogador janelaNomeJogador;
     Lig4Jogo lig4Jogo = new Lig4Jogo();
-    Lig4 lig4 = new Lig4() {
-        @Override
-        protected void jogarPartida(Jogador jogador1, Jogador jogador2) {
-
-        }
-
-        @Override
-        protected void reset() {
-
-        }
-    };
+    Lig4 lig4;
     public JanelaNormal(){
+        janelaNomeJogador();
+        jogador1 = janelaNomeJogador.jogador1;
+        jogador2=janelaNomeJogador.jogador2;
         addMouseMotionListener(this);
         addMouseListener(this);
         this.tabuleiro = new Tabuleiro();
@@ -66,6 +60,19 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
             }
     }
 
+
+    public void janelaNomeJogador(){
+        JFrame frame = new JFrame();
+        frame.setTitle("REGISTRAR JOGADORES DO MODO NORMAL");
+        frame.setSize(400, 200);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        janelaNomeJogador = new JanelaNomeJogador();
+        frame.add(janelaNomeJogador);
+    }
+
+
     protected void fecharEAbrirMenu() {
         menu.telaMenu();
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -74,6 +81,23 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
 
     @Override
     public void paintComponent(Graphics g){
+        lig4=new Lig4() {
+            @Override
+            protected void jogarPartida(Jogador jogador1, Jogador jogador2) {
+
+            }
+
+            @Override
+            protected void reset() {
+
+            }
+        };
+
+        jogador1 = janelaNomeJogador.getJogador1();
+        jogador2 = janelaNomeJogador.getJogador2();
+        jogadorList = new ArrayList<JogadorData>();
+        jogadorList = lig4.carregarJogadoresDoJSON();
+
 
 
         designTabuleiro(g);
@@ -86,28 +110,71 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
             g.fillRect(100, 100, 700, 250);
             g.drawImage(imgTrofeu, 100, 100, 250, 250, null);
 
+
             if(!vezDoJogador){
                 g.setColor(Color.blue);
                 g.setFont(new Font("Comic Sans MS", Font.PLAIN, 60));
-                g.drawString("Azul venceu!", 360, 250);
+                g.drawString(jogador1.getNome() + " venceu!", 360, 250);
                 g.setColor(Color.white);
                 g.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
                 g.drawString("Clique em qualquer lugar para voltar...", 300, 650);
+
+                for (JogadorData jogadorData : jogadorList) {
+                    if (jogadorData.getNome().equals(jogador1.getNome())) {
+                        jogadorData1 = jogadorData;
+                        break;
+                    }
+                }
+
+
+
+                jogador1.addVitoria();
+                if (jogadorData1 != null) {
+                    jogadorData1.incrementVitorias();
+                } else {
+                    jogadorData1= new JogadorData(jogador1.getNome(), jogador1.getVitorias());
+                    jogadorList.add(jogadorData1);
+                }
+
+                System.out.println("O jogador "+jogador1.getNome() +" venceu");
 
 
 
             } else{
                 g.setColor(Color.YELLOW);
                 g.setFont(new Font("Comic Sans MS", Font.PLAIN, 60));
-                g.drawString("Amarelo venceu!", 340, 250);
+                g.drawString(jogador2.getNome() + "venceu!", 340, 250);
                 g.setColor(Color.white);
                 g.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
                 g.drawString("Clique em qualquer lugar para voltar...", 300, 650);
+
+
+                for (JogadorData jogadorData : jogadorList) {
+                    if (jogadorData.getNome().equals(jogador2.getNome())) {
+                        jogadorData2 = jogadorData;
+                        break;
+                    }
+                }
+
+
+                jogador2.addVitoria();
+                if (jogadorData2 != null) {
+                    jogadorData2.incrementVitorias();
+                } else {
+                    jogadorData2= new JogadorData(jogador2.getNome(), jogador2.getVitorias());
+                    jogadorList.add(jogadorData2);
+                }
+                System.out.println("O jogador "+ jogador2.getNome() + " venceu");
+
+
             }
+
+            lig4.salvarJogadoresNoJSON(jogadorList);
         }
 
 
     }
+
 
 
     public void designTabuleiro(Graphics g){

@@ -1,42 +1,34 @@
 [
   {
-    "nome": "Arthur",
-    "vitorias": 6
-  },
-  {
-    "nome": "Yoda",
-    "vitorias": 8
-  },
-  {
-    "nome": "Darth Vader",
-    "vitorias": 7
-  },
-  {
-    "nome": "Lucke",
-    "vitorias": 11
-  },
-  {
-    "nome": "Frodo",
+    "nome": "teste1",
     "vitorias": 12
   },
   {
-    "nome": "Messi",
+    "nome": "DARTH VADER",
+    "vitorias": 15
+  },
+  {
+    "nome": "LEIA",
     "vitorias": 10
   },
   {
-    "nome": "Rick",
-    "vitorias": 7
+    "nome": "ANAKIN",
+    "vitorias": 11
   },
   {
-    "nome": "Sem_Nome",
-    "vitorias": 1
+    "nome": "HAN SOLO",
+    "vitorias": 8
   },
   {
-    "nome": "Lucas",
-    "vitorias": 7
+    "nome": "ARTHUR",
+    "vitorias": 4
   },
   {
-    "nome": "Leia",
-    "vitorias": 13
+    "nome": "LUCAS",
+    "vitorias": 386
+  },
+  {
+    "nome": "SILVA",
+    "vitorias": 10
   }
 ]

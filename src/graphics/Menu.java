@@ -116,7 +116,7 @@ public class Menu extends JFrame implements ActionListener {
 
     //EVENTOS DOS CLICKS DOS BOTOES
     private void jogoNormal(ActionEvent actionEvent) {
-        janela.janelaNomeJogador();
+        janela.janelaNormal();
         this.dispose();
     }
     private void jogoTurbo(ActionEvent actionEvent) {

@@ -79,7 +79,6 @@ public abstract class Lig4 {
 
         }
     }
-
     public void salvarJogadoresNoJSON(List<JogadorData> jogadoresList) {
         try (FileWriter fileWriter = new FileWriter("dados.json")) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -88,8 +87,6 @@ public abstract class Lig4 {
             e.printStackTrace();
         }
     }
-
-
     public void rankingJogadores() {
         jogadorList = carregarJogadoresDoJSON();
         jogadorList.sort(Comparator.comparingInt(JogadorData::getVitorias).reversed());
@@ -99,7 +96,6 @@ public abstract class Lig4 {
             posicao++;
         }
     }
-
     public ArrayList<JogadorData> carregarJogadoresDoJSON() {
         ArrayList<JogadorData> jogadoresList = new ArrayList<>();
         try (FileReader fileReader = new FileReader("dados.json")) {

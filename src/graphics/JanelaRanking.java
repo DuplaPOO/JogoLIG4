@@ -39,9 +39,7 @@ public class JanelaRanking {
     }
     private void janelaRanking() {
         menu = new Menu();
-
         jogadorList = rankingJogadores();
-
         JFrame frame = new JFrame();
         frame.setTitle("RANKING JOGADORES");
         frame.setSize(900, 900);

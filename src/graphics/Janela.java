@@ -44,18 +44,6 @@ public class Janela extends JFrame {
         frame.add(velha);
         frame.addMouseListener(velha);
     }
-
-    public void janelaNomeJogador(){
-        frame = new JFrame();
-        frame.setTitle("REGISTRAR JOGADORES DO MODO NORMAL");
-        frame.setSize(400, 200);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        JanelaNomeJogador velha = new JanelaNomeJogador();
-        frame.add(velha);
-    }
-
     public void janelaRanking(){
        JanelaRanking velha = new JanelaRanking();
 
