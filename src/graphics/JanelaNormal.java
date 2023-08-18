@@ -1,9 +1,13 @@
 package graphics;
 
 
+import componentes.Jogador;
+import componentes.JogadorData;
 import componentes.tabuleiro.InterfaceTabuleiro;
 import componentes.tabuleiro.Tabuleiro;
 import exceptions.ColunaCheiaException;
+import jogo.Lig4;
+import jogo.Lig4Jogo;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class JanelaNormal extends JPanel implements MouseListener, MouseMotionListener, ActionListener{
@@ -27,15 +32,24 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
     protected int yAtual;
     protected int linha;
     protected boolean jogadaFeita;
-    protected int coluna;
 
-    
+    protected int coluna;
     Menu menu;
 
+    JanelaNomeJogador janelaNomeJogador = new JanelaNomeJogador();
+    Lig4Jogo lig4Jogo = new Lig4Jogo();
+    Lig4 lig4 = new Lig4() {
+        @Override
+        protected void jogarPartida(Jogador jogador1, Jogador jogador2) {
 
+        }
 
+        @Override
+        protected void reset() {
+
+        }
+    };
     public JanelaNormal(){
-        
         addMouseMotionListener(this);
         addMouseListener(this);
         this.tabuleiro = new Tabuleiro();
@@ -45,7 +59,6 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
         this.linha = -1;
         this.coluna = -1;
         menu = new Menu();
-
         try{
             imgTrofeu = ImageIO.read(getClass().getResource("/images/imgTrofeu.png"));
             } catch (IOException e) {
@@ -54,9 +67,7 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
     }
 
     protected void fecharEAbrirMenu() {
-        
         menu.telaMenu();
-
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         frame.dispose();
     }
@@ -64,10 +75,9 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
     @Override
     public void paintComponent(Graphics g){
 
+
         designTabuleiro(g);
-
         partidaFinalizada = tabuleiro.verificarGanhador();
-
         if(partidaFinalizada){
             Color azulClaro = new Color(135, 185, 205);
             g.setColor(azulClaro);
@@ -83,6 +93,9 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
                 g.setColor(Color.white);
                 g.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
                 g.drawString("Clique em qualquer lugar para voltar...", 300, 650);
+
+
+
             } else{
                 g.setColor(Color.YELLOW);
                 g.setFont(new Font("Comic Sans MS", Font.PLAIN, 60));
@@ -169,6 +182,8 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
         }
         
 	}
+
+
 
 
     @Override

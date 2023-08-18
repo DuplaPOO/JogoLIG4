@@ -1,25 +1,21 @@
 package graphics;
 
+import componentes.JogadorData;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class Menu extends JFrame implements ActionListener {
-    JButton sair;
+
     JButton jogar;JButton jogarTurbo;JButton jogarMaluco, voltar,rank;
     JLabel jLabel;
     Janela janela;
-    JPanel jPanel;
-
 
     public Menu(){
 
-    }
-
-    public void inicioJogo(){
-        janela = new Janela();
-        janela.janelaNomeJogador();
     }
 
     public void telaMenu(){
@@ -59,29 +55,19 @@ public class Menu extends JFrame implements ActionListener {
         rank = buttonRanking();
         rank.setBounds(295,600,300,60);
         add(rank);
-
-
-
     }
 
     //BOTÕES
     public JButton buttonVoltar() {
-        JButton voltar = new JButton();
+        voltar = new JButton();
         voltar.setText("VOLTAR");
         voltar.setFont(new Font("Arial", Font.BOLD, 15));
         voltar.setForeground(new Color(0, 0, 0));
         voltar.setBackground(new Color(255, 255, 255));
-
-        voltar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                voltar();
-            }
-        });
+        add(voltar);
+        voltar.addActionListener(this::voltar);
         return voltar;
     }
-
-
 
 
 
@@ -95,7 +81,6 @@ public class Menu extends JFrame implements ActionListener {
         rank.addActionListener(this::ranking);
         return rank;
     }
-
     private JButton buttonJogar() {
         jogar = new JButton();
         jogar.setText("JOGO NORMAL");
@@ -129,8 +114,6 @@ public class Menu extends JFrame implements ActionListener {
         return jogarMaluco;
     }
 
-
-
     //EVENTOS DOS CLICKS DOS BOTOES
     private void jogoNormal(ActionEvent actionEvent) {
         janela.janelaNomeJogador();
@@ -141,15 +124,16 @@ public class Menu extends JFrame implements ActionListener {
         this.dispose();
     }
     private void jogoMaluco(ActionEvent actionEvent) {
-        janela.JanelaTurboMaluco();
+        janela.janelaTurboMaluco();
         this.dispose();
     }
     private void ranking(ActionEvent actionEvent) {
+        janela.janelaRanking();
+        this.dispose();
     }
-    private void voltar() {
+    public void voltar(ActionEvent actionEvent) {
         Menu menu = new Menu();
         menu.telaMenu();
-
         this.dispose();
     }
 

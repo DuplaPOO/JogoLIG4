@@ -22,13 +22,6 @@ public class Lig4Jogo extends Lig4 {
     private String cor2;///////
 
     private static final String JSON_FILE_PATH = "dados.json";
-    private static Gson gson; // Variável para armazenar o Gson personalizado
-
-
-
-
-
-
 
     public Lig4Jogo(){
         super();

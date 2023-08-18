@@ -1,26 +1,42 @@
 [
   {
     "nome": "Arthur",
+    "vitorias": 6
+  },
+  {
+    "nome": "Yoda",
     "vitorias": 8
   },
   {
-    "nome": "Marcelo",
-    "vitorias": 2
+    "nome": "Darth Vader",
+    "vitorias": 7
   },
   {
-    "nome": "José",
+    "nome": "Lucke",
+    "vitorias": 11
+  },
+  {
+    "nome": "Frodo",
+    "vitorias": 12
+  },
+  {
+    "nome": "Messi",
+    "vitorias": 10
+  },
+  {
+    "nome": "Rick",
+    "vitorias": 7
+  },
+  {
+    "nome": "Sem_Nome",
     "vitorias": 1
   },
   {
-    "nome": "cr7",
-    "vitorias": 10000
+    "nome": "Lucas",
+    "vitorias": 7
   },
   {
-    "nome": "messi",
-    "vitorias": 1
-  },
-  {
-    "nome": "Marty",
-    "vitorias": 2
+    "nome": "Leia",
+    "vitorias": 13
   }
 ]

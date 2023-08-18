@@ -32,7 +32,7 @@ public class Janela extends JFrame {
         frame.addMouseListener(velha);
     }
 
-    public void JanelaTurboMaluco(){
+    public void janelaTurboMaluco(){
         frame = new JFrame();
         frame.setTitle("lig 4 Turbo Maluco");
         frame.setSize(900, 900);
@@ -54,6 +54,11 @@ public class Janela extends JFrame {
         frame.setVisible(true);
         JanelaNomeJogador velha = new JanelaNomeJogador();
         frame.add(velha);
+    }
+
+    public void janelaRanking(){
+       JanelaRanking velha = new JanelaRanking();
+
     }
 
 

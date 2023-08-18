@@ -19,11 +19,9 @@ public abstract class Lig4 {
     protected boolean vezDoJogador;  // true = vez do jogador 1 // false= vez do jogador2
     protected int jogadas;
     protected  List<JogadorData> jogadorList;
-
     protected JogadorData jogadorData1, jogadorData2;
 
-
-    Lig4(){
+    public Lig4(){
         this.jogadas = 0;
         vezDoJogador = (new Random()).nextBoolean();
     }
@@ -50,8 +48,6 @@ public abstract class Lig4 {
                 case 1:
                     perguntarJogadores();
                     Lig4Jogo lig4Normal = new Lig4Jogo();
-                   // String jsonUser = new Gson().toJson(jogadores);
-                  //  System.out.println(jsonUser);
                     lig4Normal.jogarPartida(jogadores[i],jogadores[j]);
                     break;
                 case 2:
@@ -84,8 +80,7 @@ public abstract class Lig4 {
         }
     }
 
-    protected void salvarJogadoresNoJSON(List<JogadorData> jogadoresList) {
-
+    public void salvarJogadoresNoJSON(List<JogadorData> jogadoresList) {
         try (FileWriter fileWriter = new FileWriter("dados.json")) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(jogadoresList, fileWriter);
@@ -95,12 +90,9 @@ public abstract class Lig4 {
     }
 
 
-    protected void rankingJogadores() {
+    public void rankingJogadores() {
         jogadorList = carregarJogadoresDoJSON();
-
         jogadorList.sort(Comparator.comparingInt(JogadorData::getVitorias).reversed());
-
-        // Imprima o ranking
         int posicao = 1;
         for (JogadorData jogador : jogadorList) {
             System.out.println(posicao + "º Lugar - " + jogador.getNome() + " - Vitórias: " + jogador.getVitorias());
@@ -108,22 +100,17 @@ public abstract class Lig4 {
         }
     }
 
-    protected ArrayList<JogadorData> carregarJogadoresDoJSON() {
+    public ArrayList<JogadorData> carregarJogadoresDoJSON() {
         ArrayList<JogadorData> jogadoresList = new ArrayList<>();
-
         try (FileReader fileReader = new FileReader("dados.json")) {
             Type jogadorListType = new TypeToken<ArrayList<JogadorData>>(){}.getType();
             Gson gson = new Gson();
             jogadoresList = gson.fromJson(fileReader, jogadorListType);
         } catch (IOException e) {
-            // Arquivo JSON não existe ou ocorreu um erro ao ler o arquivo
-            // Pode ser o caso de ser a primeira vez que o jogo está sendo executado
-            // Ou de que ainda não há jogadores registrados
         }
-
         return jogadoresList;
     }
-    private void addJogador(Jogador jogador) throws IOException {
+    public void addJogador(Jogador jogador) throws IOException {
         jogadorList = new ArrayList<JogadorData>();
         if(jogadores == null){
             jogadores = new Jogador[1];

@@ -1,9 +1,16 @@
 package graphics;
 
 
+import componentes.Jogador;
+import componentes.JogadorData;
+import jogo.Lig4;
+import jogo.Lig4Jogo;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class JanelaNomeJogador extends JPanel{
 
@@ -11,8 +18,10 @@ public class JanelaNomeJogador extends JPanel{
     JTextField jogador1,jogador2;
    Janela janela;
    JPanel jPanel;
+   Lig4 lig4;
 
    String nome1, nome2;
+   Jogador Jnome1,Jnome2;
     public JanelaNomeJogador(){
         painelInfos();
     }
@@ -42,19 +51,50 @@ public class JanelaNomeJogador extends JPanel{
         jPanel.add(jogador1);
         jPanel.add(jogador2);
         jPanel.add(registrar);
-        registrar.addActionListener(this::registrarNormal);
+        registrar.addActionListener(actionEvent -> {
+            try {
+                registrarNormal(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         jPanel.add(voltar);
         add(jPanel);
     }
 
-    private void registrarNormal(ActionEvent actionEvent) {
+    private void registrarNormal(ActionEvent actionEvent) throws IOException {
+        lig4 = new Lig4() {
+            @Override
+            protected void jogarPartida(Jogador jogador1, Jogador jogador2) {
+
+            }
+
+            @Override
+            protected void reset() {
+
+            }
+        };
+
+
+
+
         janela = new Janela();
         nome1 = jogador1.getText();
         nome2 = jogador2.getText();
+        Jnome1 = new Jogador(nome1, "A");
+        Jnome2 = new Jogador(nome2, "V");
         janela.janelaNormal();
         System.out.println(nome1);
         System.out.println(nome2);
+
+
+        lig4.addJogador(Jnome1);
+
+        lig4.addJogador(Jnome2);
+
     }
+
+
 
 
 
