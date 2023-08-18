@@ -37,13 +37,13 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
     ArrayList<JogadorData> jogadorList;
     protected JogadorData jogadorData1,jogadorData2;
     protected Jogador jogador1,jogador2;
-    JanelaNomeJogador janelaNomeJogador;
+    
     Lig4Jogo lig4Jogo = new Lig4Jogo();
     Lig4 lig4;
-    public JanelaNormal(){
-        janelaNomeJogador();
-        jogador1 = janelaNomeJogador.jogador1;
-        jogador2=janelaNomeJogador.jogador2;
+    public JanelaNormal(Jogador jogador1, Jogador jogador2){
+        
+        this.jogador1 = jogador1;
+        this.jogador2 = jogador2;
         addMouseMotionListener(this);
         addMouseListener(this);
         this.tabuleiro = new Tabuleiro();
@@ -58,18 +58,6 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
             } catch (IOException e) {
                 e.printStackTrace();
             }
-    }
-
-
-    public void janelaNomeJogador(){
-        JFrame frame = new JFrame();
-        frame.setTitle("REGISTRAR JOGADORES DO MODO NORMAL");
-        frame.setSize(400, 200);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        janelaNomeJogador = new JanelaNomeJogador();
-        frame.add(janelaNomeJogador);
     }
 
 
@@ -93,8 +81,7 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
             }
         };
 
-        jogador1 = janelaNomeJogador.getJogador1();
-        jogador2 = janelaNomeJogador.getJogador2();
+        
         jogadorList = new ArrayList<JogadorData>();
         jogadorList = lig4.carregarJogadoresDoJSON();
 
@@ -255,6 +242,7 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
 
     @Override
     public void mouseClicked(MouseEvent e){
+        
         if(!jogadaFeita){
             if(!partidaFinalizada){
             if(e.getX()>=100 && e.getX() <=800 && e.getY()>=100 && e.getY() <=700){
@@ -263,20 +251,22 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
                 if(this.linha!=-1){
                     this.jogadaFeita = true;
                 }
-                
+                    
                     this.yAtual = this.yInicial;
                     Timer timer = new Timer(10,this);
-		            timer.start();
-                    
+                    timer.start();
+                        
                     vezDoJogador = !vezDoJogador;
-                
+                    
 
                 repaint();
             }
-        } else{
-            fecharEAbrirMenu();
+            } else{
+                fecharEAbrirMenu();
+            }
         }
-        }
+        
+        
         
         
     }
@@ -302,12 +292,15 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
     }
 
     public void mouseMoved(MouseEvent e) {
-        if(!this.jogadaFeita){
-            this.coluna = -1;
-            if(e.getPoint().getX()>=100 && e.getPoint().getX() <=800 && e.getPoint().getY()>=100 && e.getPoint().getY() <=700){
-                this.coluna=(int)e.getPoint().getX()/100;
+        
+        if(!partidaFinalizada){
+            if(!this.jogadaFeita){
+                this.coluna = -1;
+                if(e.getPoint().getX()>=100 && e.getPoint().getX() <=800 && e.getPoint().getY()>=100 && e.getPoint().getY() <=700){
+                    this.coluna=(int)e.getPoint().getX()/100;
+                }
+                repaint();
             }
-            repaint();
         }
         
     }

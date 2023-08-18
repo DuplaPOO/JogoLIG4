@@ -13,6 +13,7 @@ public class Menu extends JFrame implements ActionListener {
     JButton jogar;JButton jogarTurbo;JButton jogarMaluco, voltar,rank;
     JLabel jLabel;
     Janela janela;
+    JanelaNomeJogador nomes;
 
     public Menu(){
 
@@ -116,15 +117,18 @@ public class Menu extends JFrame implements ActionListener {
 
     //EVENTOS DOS CLICKS DOS BOTOES
     private void jogoNormal(ActionEvent actionEvent) {
-        janela.janelaNormal();
+        nomes = new JanelaNomeJogador("NORMAL");
+        nomes.painelInfos();
         this.dispose();
     }
     private void jogoTurbo(ActionEvent actionEvent) {
-        janela.janelaTurbo();
+        nomes = new JanelaNomeJogador("TURBO");
+        nomes.painelInfos();
         this.dispose();
     }
     private void jogoMaluco(ActionEvent actionEvent) {
-        janela.janelaTurboMaluco();
+        nomes = new JanelaNomeJogador("TURBO_MALUCO");
+        nomes.painelInfos();
         this.dispose();
     }
     private void ranking(ActionEvent actionEvent) {

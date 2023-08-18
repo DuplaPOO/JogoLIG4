@@ -21,14 +21,18 @@
   },
   {
     "nome": "ARTHUR",
-    "vitorias": 4
+    "vitorias": 5
   },
   {
     "nome": "LUCAS",
-    "vitorias": 386
+    "vitorias": 14
   },
   {
     "nome": "SILVA",
     "vitorias": 10
+  },
+  {
+    "nome": "MESSI",
+    "vitorias": 17
   }
 ]

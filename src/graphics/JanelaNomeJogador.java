@@ -3,6 +3,7 @@ package graphics;
 
 import componentes.Jogador;
 import componentes.JogadorData;
+import exceptions.LimiteDeCaracteresException;
 import jogo.Lig4;
 import jogo.Lig4Jogo;
 
@@ -21,13 +22,27 @@ public class JanelaNomeJogador extends JPanel{
    Lig4 lig4;
    String nome1, nome2;
    Jogador jogador1,jogador2;
+   String modo;
+
+
     public JanelaNomeJogador(){
-        painelInfos();
+
+        
+    }
+
+    public JanelaNomeJogador(String modo){
+        this.modo = modo;
     }
 
     public void painelInfos() {
-        //É bom usar o LimiteDeCaracteresException aqui
+    
         frame = new JFrame();
+
+        frame.setTitle("REGISTRAR JOGADORES");
+        frame.setSize(400, 200);
+        frame.setLocationRelativeTo(null);
+
+       
 
 
         jPanel =new JPanel();
@@ -36,7 +51,7 @@ public class JanelaNomeJogador extends JPanel{
         JButton voltar = menu.buttonVoltar();
         voltar.setBounds(0, 0, 20, 00);
         voltar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JButton registrar = new JButton("REGISTRAR");
+        JButton registrar = new JButton("CONFIRMAR");
         registrar.setAlignmentX(Component.CENTER_ALIGNMENT);
         entradaJogador1 = new JTextField("", 15);
         entradaJogador2 = new JTextField("",15);
@@ -53,6 +68,7 @@ public class JanelaNomeJogador extends JPanel{
         jPanel.add(entradaJogador1);
         jPanel.add(entradaJogador2);
         jPanel.add(registrar);
+            
         registrar.addActionListener(actionEvent -> {
             try {
                 registrarNormal(actionEvent);
@@ -62,14 +78,20 @@ public class JanelaNomeJogador extends JPanel{
         });
         jPanel.add(voltar);
         add(jPanel);
+
+        frame.add(jPanel);
+        frame.setVisible(true);
+            
+        
+        
     }
 
     public Jogador getJogador1() {
-        return jogador1;
+        return this.jogador1;
     }
 
     public Jogador getJogador2() {
-        return jogador2;
+        return this.jogador2;
     }
 
     private void registrarNormal(ActionEvent actionEvent) throws IOException {
@@ -81,14 +103,28 @@ public class JanelaNomeJogador extends JPanel{
             protected void reset() {
             }
         };
-        nome1 = entradaJogador1.getText();
-        nome2 = entradaJogador2.getText();
-        this.jogador1 = new Jogador(nome1, "A");
-        this.jogador2 = new Jogador(nome2, "V");
-        System.out.println(nome1);
-        System.out.println(nome2);
+        this.nome1 = entradaJogador1.getText();
+        this.nome2 = entradaJogador2.getText();
+        
+        this.jogador1 = new Jogador(this.nome1, "A");
+        this.jogador2 = new Jogador(this.nome2, "V");
+        System.out.println(jogador1.getNome());
+        System.out.println(jogador2.getNome());
         lig4.addJogador(this.jogador1);
         lig4.addJogador(this.jogador2);
+        frame.dispose();
+            
+        janela = new Janela();
+        if(modo.equals("NORMAL")){
+            janela.janelaNormal(this.jogador1,this.jogador2);
+        } else if(modo.equals("TURBO")){
+            janela.janelaTurbo(this.jogador1,this.jogador2);
+        } else if(modo.equals("TURBO_MALUCO")){
+            janela.janelaTurboMaluco(this.jogador1,this.jogador2);
+        }
+        
+        
+        
     }
 
 }

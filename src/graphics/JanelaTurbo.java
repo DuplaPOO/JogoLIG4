@@ -1,5 +1,6 @@
 package graphics;
 
+import componentes.Jogador;
 import componentes.tabuleiro.TabuleiroTurbo;
 import exceptions.ColunaCheiaException;
 
@@ -9,8 +10,8 @@ import java.awt.event.ActionEvent;
 public class JanelaTurbo extends JanelaNormal{
 
 
-    public JanelaTurbo(){
-        super();
+    public JanelaTurbo(Jogador jogador1, Jogador jogador2){
+        super(jogador1, jogador2);
         this.tabuleiro = new TabuleiroTurbo();
     }
 

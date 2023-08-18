@@ -1,5 +1,6 @@
 package graphics;
 
+import componentes.Jogador;
 import componentes.tabuleiro.TabuleiroTurboMaluco;
 
 
@@ -11,8 +12,8 @@ import java.awt.event.MouseEvent;
 
 public class JanelaTurboMaluco extends JanelaTurbo{
 
-    public JanelaTurboMaluco(){
-        super();
+    public JanelaTurboMaluco(Jogador jogador1, Jogador jogador2){
+        super(jogador1, jogador2);
         this.tabuleiro = new TabuleiroTurboMaluco();
     }
 
