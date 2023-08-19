@@ -15,10 +15,10 @@ public class Janela extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        JanelaNormal velha = new JanelaNormal(jogador1,jogador2);
-        velha.setBounds(0, 0, 600, 600);
-        frame.add(velha);
-        frame.addMouseListener(velha);
+        JanelaNormal jogoNormal = new JanelaNormal(jogador1,jogador2);
+        jogoNormal.setBounds(0, 0, 600, 600);
+        frame.add(jogoNormal);
+        frame.addMouseListener(jogoNormal);
     }
 
     public void janelaTurbo(Jogador jogador1, Jogador jogador2){
@@ -28,10 +28,10 @@ public class Janela extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        JanelaTurbo velha = new JanelaTurbo(jogador1,jogador2);
-        velha.setBounds(0, 0, 600, 600);
-        frame.add(velha);
-        frame.addMouseListener(velha);
+        JanelaTurbo jogoTurbo = new JanelaTurbo(jogador1,jogador2);
+        jogoTurbo.setBounds(0, 0, 600, 600);
+        frame.add(jogoTurbo);
+        frame.addMouseListener(jogoTurbo);
     }
 
     public void janelaTurboMaluco(Jogador jogador1, Jogador jogador2){
@@ -41,14 +41,21 @@ public class Janela extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        JanelaTurboMaluco velha = new JanelaTurboMaluco(jogador1,jogador2);
-        velha.setBounds(0, 0, 600, 600);
-        frame.add(velha);
-        frame.addMouseListener(velha);
+        JanelaTurboMaluco jogoTurboMaluco = new JanelaTurboMaluco(jogador1,jogador2);
+        jogoTurboMaluco.setBounds(0, 0, 600, 600);
+        frame.add(jogoTurboMaluco);
+        frame.addMouseListener(jogoTurboMaluco);
     }
     public void janelaRanking(){
-       JanelaRanking velha = new JanelaRanking();
-
+        frame = new JFrame();
+        frame.setTitle("lig 4 Turbo Maluco");
+        frame.setSize(900, 900);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        JanelaRanking ranking = new JanelaRanking();
+        ranking.setBounds(0, 0, 600, 600);
+        frame.add(ranking);
     }
 
 

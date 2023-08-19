@@ -1,6 +1,6 @@
 [
   {
-    "nome": "teste1",
+    "nome": "BRUNO",
     "vitorias": 12
   },
   {
@@ -25,7 +25,7 @@
   },
   {
     "nome": "LUCAS",
-    "vitorias": 14
+    "vitorias": 13
   },
   {
     "nome": "SILVA",
@@ -33,6 +33,26 @@
   },
   {
     "nome": "MESSI",
-    "vitorias": 17
+    "vitorias": 19
+  },
+  {
+    "nome": "CR7",
+    "vitorias": 2
+  },
+  {
+    "nome": "NEYMAR",
+    "vitorias": 7
+  },
+  {
+    "nome": "PIPICO",
+    "vitorias": 12
+  },
+  {
+    "nome": "FERNANDO",
+    "vitorias": 3
+  },
+  {
+    "nome": "KJJI",
+    "vitorias": 1
   }
 ]

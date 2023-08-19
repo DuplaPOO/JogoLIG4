@@ -131,7 +131,7 @@ public abstract class Lig4 {
         scanner3.nextLine();
     }
     public void perguntarJogadores() throws IOException {
-        //Futuramente Apresentar os jogadores que já estão resgistrados e perguntar se quer criar algum novo(ou jogar como um existente)
+    
         Scanner scanner2 = new Scanner(System.in);
         limparTela();
         System.out.print("Jogador 1: ");
@@ -141,7 +141,7 @@ public abstract class Lig4 {
         System.out.print("Jogador 2: ");
         String nome2 = scanner2.nextLine();
         addJogador(new Jogador(nome2, "V"));
-        //Futuramente colocar a exception "O jogador já existe"
+        
     }
 
 

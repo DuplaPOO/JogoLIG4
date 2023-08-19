@@ -1,13 +1,15 @@
 package graphics;
 
 import componentes.Jogador;
+import componentes.JogadorData;
 import componentes.tabuleiro.TabuleiroTurboMaluco;
-
+import jogo.Lig4;
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 
 public class JanelaTurboMaluco extends JanelaTurbo{
@@ -19,13 +21,28 @@ public class JanelaTurboMaluco extends JanelaTurbo{
 
     @Override
     public void paintComponent(Graphics g){
+        lig4=new Lig4() {
+            @Override
+            protected void jogarPartida(Jogador jogador1, Jogador jogador2) {
+
+            }
+
+            @Override
+            protected void reset() {
+
+            }
+        };
+
+        
+        jogadorList = new ArrayList<JogadorData>();
+        jogadorList = lig4.carregarJogadoresDoJSON();
+
+
 
         designTabuleiro(g);
         g.setColor(Color.red);
         g.drawString("Maluquice: " + String.format("%.1f", tabuleiro.getMaluquice()*100) + "%", 50, 750);
-
         partidaFinalizada = tabuleiro.verificarGanhador();
-        
         if(partidaFinalizada){
             Color azulClaro = new Color(135, 185, 205);
             g.setColor(azulClaro);
@@ -34,22 +51,78 @@ public class JanelaTurboMaluco extends JanelaTurbo{
             g.fillRect(100, 100, 700, 250);
             g.drawImage(imgTrofeu, 100, 100, 250, 250, null);
 
-            if(vezDoJogador){
+
+            if(!vezDoJogador){
                 g.setColor(Color.blue);
-                g.setFont(new Font("Comic Sans MS", Font.PLAIN, 60));
-                g.drawString("Azul venceu!", 360, 250);
+                g.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
+                g.drawString(jogador1.getNome() + " venceu!", 360, 250);
                 g.setColor(Color.white);
                 g.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-                g.drawString("Clique em qualquer lugar para voltar...", 300, 650);
+                g.drawString("Pressione Enter para voltar...", 300, 650);
+
+                for (JogadorData jogadorData : jogadorList) {
+                    if (jogadorData.getNome().equals(jogador1.getNome())) {
+                        jogadorData1 = jogadorData;
+                        break;
+                    }
+                }
+
+
+
+                jogador1.addVitoria();
+                if (jogadorData1 != null) {
+                    jogadorData1.incrementVitorias();
+                } else {
+                    jogadorData1= new JogadorData(jogador1.getNome(), jogador1.getVitorias());
+                    jogadorList.add(jogadorData1);
+                }
+
+                System.out.println("O jogador "+jogador1.getNome() +" venceu");
+
+
+
             } else{
                 g.setColor(Color.YELLOW);
-                g.setFont(new Font("Comic Sans MS", Font.PLAIN, 60));
-                g.drawString("Amarelo venceu!", 340, 250);
+                g.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
+                g.drawString(jogador2.getNome() + "venceu!", 340, 250);
                 g.setColor(Color.white);
                 g.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-                g.drawString("Clique em qualquer lugar para voltar...", 300, 650);
+                g.drawString("Pressione Enter para voltar...", 300, 650);
+
+
+                for (JogadorData jogadorData : jogadorList) {
+                    if (jogadorData.getNome().equals(jogador2.getNome())) {
+                        jogadorData2 = jogadorData;
+                        break;
+                    }
+                }
+
+
+                jogador2.addVitoria();
+                if (jogadorData2 != null) {
+                    jogadorData2.incrementVitorias();
+                } else {
+                    jogadorData2= new JogadorData(jogador2.getNome(), jogador2.getVitorias());
+                    jogadorList.add(jogadorData2);
+                }
+                System.out.println("O jogador "+ jogador2.getNome() + " venceu");
+
+
             }
+
+            KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+                @Override
+                public boolean dispatchKeyEvent(KeyEvent e) {
+                    if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_ENTER) {
+                        fecharEAbrirMenu();
+                    }
+                    return false;
+                }
+            });
+
+            lig4.salvarJogadoresNoJSON(jogadorList);
         }
+
 
     }
 
@@ -57,33 +130,30 @@ public class JanelaTurboMaluco extends JanelaTurbo{
     public void mouseClicked(MouseEvent e){
         if(!jogadaFeita){
             if(!partidaFinalizada){
-            if(e.getX()>=100 && e.getX() <=800 && e.getY()>=100 && e.getY() <=700){
-                this.coluna = (e.getX())/100;
-                this.linha = tabuleiro.pegarLinha(coluna-1);
-                if(this.linha!=-1){
-                    this.jogadaFeita = true;
-                }
-                
-                if(this.jogadaFeita){
-                    this.yAtual = this.yInicial;
-                    Timer timer = new Timer(10,this);
-		            timer.start();
-                    if(this.yAtual== 125 + linha * 100){
-                        timer.stop();
-                        this.jogadaFeita = false;
-                        
+                if(e.getX()>=100 && e.getX() <=800 && e.getY()>=100 && e.getY() <=700){
+                    this.coluna = (e.getX())/100;
+                    this.linha = tabuleiro.pegarLinha(coluna-1);
+                    if(this.linha!=-1){
+                        this.jogadaFeita = true;
                     }
-                    tabuleiro.atualizarMaluquice();
-                    vezDoJogador = !vezDoJogador;
-                }
+                    
+                    if(this.jogadaFeita){
+                        this.yAtual = this.yInicial;
+                        Timer timer = new Timer(10,this);
+                        timer.start();
+                        if(this.yAtual== 125 + linha * 100){
+                            timer.stop();
+                            this.jogadaFeita = false;
+                            
+                        }
+                        tabuleiro.atualizarMaluquice();
+                        vezDoJogador = !vezDoJogador;
+                    }
 
-                repaint();
-            }
-        } else{
-            fecharEAbrirMenu();
+                    repaint();
+                }
+            } 
         }
-        }
-        
         
     }
 

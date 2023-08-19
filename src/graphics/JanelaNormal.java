@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -100,11 +101,11 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
 
             if(!vezDoJogador){
                 g.setColor(Color.blue);
-                g.setFont(new Font("Comic Sans MS", Font.PLAIN, 60));
+                g.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
                 g.drawString(jogador1.getNome() + " venceu!", 360, 250);
                 g.setColor(Color.white);
                 g.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-                g.drawString("Clique em qualquer lugar para voltar...", 300, 650);
+                g.drawString("Pressione Enter para voltar...", 300, 650);
 
                 for (JogadorData jogadorData : jogadorList) {
                     if (jogadorData.getNome().equals(jogador1.getNome())) {
@@ -129,11 +130,11 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
 
             } else{
                 g.setColor(Color.YELLOW);
-                g.setFont(new Font("Comic Sans MS", Font.PLAIN, 60));
+                g.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
                 g.drawString(jogador2.getNome() + "venceu!", 340, 250);
                 g.setColor(Color.white);
                 g.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-                g.drawString("Clique em qualquer lugar para voltar...", 300, 650);
+                g.drawString("Pressione Enter para voltar...", 300, 650);
 
 
                 for (JogadorData jogadorData : jogadorList) {
@@ -155,6 +156,16 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
 
 
             }
+
+            KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+                @Override
+                public boolean dispatchKeyEvent(KeyEvent e) {
+                    if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_ENTER) {
+                        fecharEAbrirMenu();
+                    }
+                    return false;
+                }
+            });
 
             lig4.salvarJogadoresNoJSON(jogadorList);
         }
@@ -245,24 +256,22 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
         
         if(!jogadaFeita){
             if(!partidaFinalizada){
-            if(e.getX()>=100 && e.getX() <=800 && e.getY()>=100 && e.getY() <=700){
-                this.coluna = (e.getX())/100;
-                this.linha = tabuleiro.pegarLinha(coluna-1);
-                if(this.linha!=-1){
-                    this.jogadaFeita = true;
-                }
-                    
-                    this.yAtual = this.yInicial;
-                    Timer timer = new Timer(10,this);
-                    timer.start();
+                if(e.getX()>=100 && e.getX() <=800 && e.getY()>=100 && e.getY() <=700){
+                    this.coluna = (e.getX())/100;
+                    this.linha = tabuleiro.pegarLinha(coluna-1);
+                    if(this.linha!=-1){
+                        this.jogadaFeita = true;
+                    }
                         
-                    vezDoJogador = !vezDoJogador;
-                    
+                        this.yAtual = this.yInicial;
+                        Timer timer = new Timer(10,this);
+                        timer.start();
+                            
+                        vezDoJogador = !vezDoJogador;
+                        
 
-                repaint();
-            }
-            } else{
-                fecharEAbrirMenu();
+                    repaint();
+                }
             }
         }
         

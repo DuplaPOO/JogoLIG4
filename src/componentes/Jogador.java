@@ -1,12 +1,17 @@
 package componentes;
 
-import org.json.simple.JSONObject;
-public class Jogador  {
 
+public class Jogador {
 
     private String nome;
     private Peca peca;
     private int vitorias;
+
+    public Jogador(){
+
+    }
+
+
     public Jogador(String nome, String peca){
         this.nome = nome;
         this.peca = new Peca(peca);
@@ -20,19 +25,14 @@ public class Jogador  {
     public String getNome(){
         return this.nome;
     }
-    public int getVitorias(){
-        return this.vitorias;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    public void setVitorias(int vitorias) {
-        this.vitorias = vitorias;
-    }
+
     public String getCor(){
         return this.peca.getCor();
     }
 
+    public int getVitorias(){
+        return this.vitorias;
+    }
 
 
 }

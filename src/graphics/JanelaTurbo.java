@@ -19,7 +19,7 @@ public class JanelaTurbo extends JanelaNormal{
 	public void actionPerformed(ActionEvent e) {
 		
 		repaint();
-        yAtual+=5;
+        yAtual+=10;
 
         if (yAtual >= 125 + linha * 100) {
             yAtual = 125 + linha * 100; 

@@ -1,12 +1,9 @@
 package graphics;
 
-import componentes.JogadorData;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class Menu extends JFrame implements ActionListener {
 

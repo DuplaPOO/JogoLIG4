@@ -2,16 +2,13 @@ package graphics;
 
 
 import componentes.Jogador;
-import componentes.JogadorData;
-import exceptions.LimiteDeCaracteresException;
 import jogo.Lig4;
-import jogo.Lig4Jogo;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class JanelaNomeJogador extends JPanel{
     Menu menu;

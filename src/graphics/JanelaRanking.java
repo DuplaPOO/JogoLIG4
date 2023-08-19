@@ -1,9 +1,11 @@
 package graphics;
-import componentes.Jogador;
+
 import componentes.JogadorData;
 import jogo.Lig4;
+import jogo.Lig4Jogo;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,25 +13,21 @@ import java.util.Comparator;
 
 
 
-public class JanelaRanking {
-
+public class JanelaRanking extends JPanel{
     private ArrayList<JogadorData> jogadorList;
-    public Lig4 lig4 = new Lig4() {
-        @Override
-        protected void jogarPartida(Jogador jogador1, Jogador jogador2) {
-
-        }
-
-        @Override
-        protected void reset() {
-
-        }
-    };
+    public Lig4 lig4 = new Lig4Jogo();
+    JLabel jLabel;
 
     public Menu menu;
 
     public JanelaRanking() {
-        janelaRanking();
+        menu = new Menu();
+    }
+
+    protected void fecharEAbrirMenu() {
+        menu.telaMenu();
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.dispose();
     }
 
     public ArrayList<JogadorData> rankingJogadores() {
@@ -37,47 +35,51 @@ public class JanelaRanking {
         jogadoresList.sort(Comparator.comparingInt(JogadorData::getVitorias).reversed());
         return jogadoresList;
     }
-    private void janelaRanking() {
-        menu = new Menu();
+
+    @Override
+    public void paintComponent(Graphics g){
+        //Fundo da janela
+        g.setColor(Color.RED);
+        g.fillRect(0, 0, 900, 900);
+
+        //Fundo da janela
+        g.setColor(Color.BLUE);
+        g.fillRect(100, 50, 700, 700);
+
+        g.setColor(Color.yellow);
+        g.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
+        g.drawString("RANKING", 355, 85);
+
         jogadorList = rankingJogadores();
-        JFrame frame = new JFrame();
-        frame.setTitle("RANKING JOGADORES");
-        frame.setSize(900, 900);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        StringBuilder rankingText = new StringBuilder();
-        int posicao = 1;
+        int indice = 0;
         for (JogadorData jogador : jogadorList) {
-            rankingText.append(posicao).append("º Lugar - ").append(jogador.getNome()).append(" - Vitórias: ").append(jogador.getVitorias()).append("\n");
-            posicao++;
+            g.setColor(Color.yellow);
+            g.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+            g.drawString((indice+1)+"º Lugar - "+jogador.getNome()+" - Vitórias: "+ jogador.getVitorias(), 150, 130 + indice*65);
+            if(indice>=9){
+                break;
+            }
+            indice++;
         }
-        textArea.setText(rankingText.toString());
 
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        panel.add(scrollPane, BorderLayout.NORTH);
+        g.setColor(Color.WHITE);
+        g.drawString("Pressione Enter para voltar...", 300, 780);
 
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+            @Override
+            public boolean dispatchKeyEvent(KeyEvent e) {
+                if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    fecharEAbrirMenu();
+                }
+                return false;
+            }
+        });
+        
 
-        JButton voltarButton = menu.buttonVoltar();
-        voltarButton.setPreferredSize(new Dimension(150, 30));
-        voltarButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
-        buttonPanel.add(Box.createHorizontalGlue());
-        buttonPanel.add(voltarButton);
-        buttonPanel.add(Box.createHorizontalGlue());
-
-        panel.add(buttonPanel);
-
-        frame.add(panel);
-        frame.setVisible(true);
     }
+
+    
 }
 
 
