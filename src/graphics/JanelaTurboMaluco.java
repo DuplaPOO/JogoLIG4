@@ -1,7 +1,6 @@
 package graphics;
 
 import componentes.Jogador;
-import componentes.JogadorData;
 import componentes.tabuleiro.TabuleiroTurboMaluco;
 import jogo.Lig4;
 
@@ -34,7 +33,7 @@ public class JanelaTurboMaluco extends JanelaTurbo{
         };
 
         
-        jogadorList = new ArrayList<JogadorData>();
+        jogadorList = new ArrayList<Jogador>();
         jogadorList = lig4.carregarJogadoresDoJSON();
 
 
@@ -60,7 +59,7 @@ public class JanelaTurboMaluco extends JanelaTurbo{
                 g.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
                 g.drawString("Pressione Enter para voltar...", 300, 650);
 
-                for (JogadorData jogadorData : jogadorList) {
+                for (Jogador jogadorData : jogadorList) {
                     if (jogadorData.getNome().equals(jogador1.getNome())) {
                         jogadorData1 = jogadorData;
                         break;
@@ -71,9 +70,9 @@ public class JanelaTurboMaluco extends JanelaTurbo{
 
                 jogador1.addVitoria();
                 if (jogadorData1 != null) {
-                    jogadorData1.incrementVitorias();
+                    jogadorData1.addVitoria();
                 } else {
-                    jogadorData1= new JogadorData(jogador1.getNome(), jogador1.getVitorias());
+                    jogadorData1= new Jogador(jogador1.getNome(), jogador1.getVitorias());
                     jogadorList.add(jogadorData1);
                 }
 
@@ -90,7 +89,7 @@ public class JanelaTurboMaluco extends JanelaTurbo{
                 g.drawString("Pressione Enter para voltar...", 300, 650);
 
 
-                for (JogadorData jogadorData : jogadorList) {
+                for (Jogador jogadorData : jogadorList) {
                     if (jogadorData.getNome().equals(jogador2.getNome())) {
                         jogadorData2 = jogadorData;
                         break;
@@ -100,9 +99,9 @@ public class JanelaTurboMaluco extends JanelaTurbo{
 
                 jogador2.addVitoria();
                 if (jogadorData2 != null) {
-                    jogadorData2.incrementVitorias();
+                    jogadorData2.addVitoria();
                 } else {
-                    jogadorData2= new JogadorData(jogador2.getNome(), jogador2.getVitorias());
+                    jogadorData2= new Jogador(jogador2.getNome(), jogador2.getVitorias());
                     jogadorList.add(jogadorData2);
                 }
                 System.out.println("O jogador "+ jogador2.getNome() + " venceu");

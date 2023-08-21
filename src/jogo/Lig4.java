@@ -1,25 +1,25 @@
 package jogo;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import componentes.Jogador;
-import componentes.JogadorData;
 import componentes.tabuleiro.InterfaceTabuleiro;
 
+import java.awt.*;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
+import java.util.List;
 
 public abstract class Lig4 {
     protected InterfaceTabuleiro tabuleiro;
     protected Jogador[] jogadores = null;
     protected boolean vezDoJogador;  // true = vez do jogador 1 // false= vez do jogador2
     protected int jogadas;
-    protected  List<JogadorData> jogadorList;
-    protected JogadorData jogadorData1, jogadorData2;
+    protected  List<Jogador> jogadorList;
+    protected Jogador jogadorData1, jogadorData2;
 
     public Lig4(){
         this.jogadas = 0;
@@ -79,35 +79,8 @@ public abstract class Lig4 {
 
         }
     }
-    public void salvarJogadoresNoJSON(List<JogadorData> jogadoresList) {
-        try (FileWriter fileWriter = new FileWriter("dados.json")) {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.toJson(jogadoresList, fileWriter);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void rankingJogadores() {
-        jogadorList = carregarJogadoresDoJSON();
-        jogadorList.sort(Comparator.comparingInt(JogadorData::getVitorias).reversed());
-        int posicao = 1;
-        for (JogadorData jogador : jogadorList) {
-            System.out.println(posicao + "º Lugar - " + jogador.getNome() + " - Vitórias: " + jogador.getVitorias());
-            posicao++;
-        }
-    }
-    public ArrayList<JogadorData> carregarJogadoresDoJSON() {
-        ArrayList<JogadorData> jogadoresList = new ArrayList<>();
-        try (FileReader fileReader = new FileReader("dados.json")) {
-            Type jogadorListType = new TypeToken<ArrayList<JogadorData>>(){}.getType();
-            Gson gson = new Gson();
-            jogadoresList = gson.fromJson(fileReader, jogadorListType);
-        } catch (IOException e) {
-        }
-        return jogadoresList;
-    }
     public void addJogador(Jogador jogador) throws IOException {
-        jogadorList = new ArrayList<JogadorData>();
+        jogadorList = new ArrayList<Jogador>();
         if(jogadores == null){
             jogadores = new Jogador[1];
             jogadores[0] = jogador;
@@ -142,6 +115,55 @@ public abstract class Lig4 {
         String nome2 = scanner2.nextLine();
         addJogador(new Jogador(nome2, "V"));
         
+    }
+
+
+    public void rankingJogadores() {
+        jogadorList = carregarJogadoresDoJSON();
+        jogadorList.sort(Comparator.comparingInt(Jogador::getVitorias).reversed());
+        int posicao = 1;
+        for (Jogador jogador : jogadorList) {
+            System.out.println(posicao + "º Lugar - " + jogador.getNome() + " - Vitórias: " + jogador.getVitorias());
+            posicao++;
+        }
+    }
+    public void salvarJogadoresNoJSON(List<Jogador> jogadoresList) {
+        try (FileWriter fileWriter = new FileWriter("dados.json")) {
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .registerTypeAdapter(Color.class, new ColorSerializer())
+                    .registerTypeAdapter(Color.class, new ColorDeserializer())
+                    .create();
+            gson.toJson(jogadoresList, fileWriter);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public ArrayList<Jogador> carregarJogadoresDoJSON() {
+        try (FileReader fileReader = new FileReader("dados.json")) {
+
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Color.class, new ColorDeserializer())
+                    .create();
+            return gson.fromJson(fileReader, new TypeToken<ArrayList<Jogador>>(){}.getType());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+    private static class ColorSerializer implements JsonSerializer<Color> {
+        @Override
+        public JsonElement serialize(Color color, Type typeOfSrc, JsonSerializationContext context) {
+            return new JsonPrimitive(color.getRGB());
+        }
+    }
+    private static class ColorDeserializer implements JsonDeserializer<Color> {
+        @Override
+        public Color deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            int rgb = json.getAsInt();
+            return new Color(rgb);
+        }
     }
 
 

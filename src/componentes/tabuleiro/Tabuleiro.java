@@ -48,7 +48,6 @@ public class Tabuleiro implements InterfaceTabuleiro{
 
 
     public void imprimirTabuleiroConsole(){
-
         for (int i = 0; i < linhas ; i++) {
             System.out.print("|");
             for (int j = 0; j < colunas; j++) {
@@ -61,9 +60,7 @@ public class Tabuleiro implements InterfaceTabuleiro{
             }
             System.out.println();
         }
-
         System.out.println();
-
     }
 
     public void imprimirPecasTabuleiro(Graphics g){
@@ -228,14 +225,6 @@ public class Tabuleiro implements InterfaceTabuleiro{
 
     }
 
-    public String getTabuleiroPeca(int linha, int coluna) {
-        // Verifica se as coordenadas estão dentro dos limites do tabuleiro
-        if (linha >= 0 && linha < linhas && coluna >= 0 && coluna < colunas) {
-            return (tabuleiro[linha][coluna]).getCor();
-        } else {
-            return null;
-        }
-    }
 
 
 }

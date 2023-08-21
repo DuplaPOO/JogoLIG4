@@ -20,26 +20,16 @@ public class JanelaNomeJogador extends JPanel{
    String nome1, nome2;
    Jogador jogador1,jogador2;
    String modo;
-
-
-    public JanelaNomeJogador(){
-
-        
-    }
-
     public JanelaNomeJogador(String modo){
         this.modo = modo;
     }
 
     public void painelInfos() {
-    
         frame = new JFrame();
 
         frame.setTitle("REGISTRAR JOGADORES");
         frame.setSize(400, 200);
         frame.setLocationRelativeTo(null);
-
-       
 
 
         jPanel =new JPanel();
@@ -78,19 +68,7 @@ public class JanelaNomeJogador extends JPanel{
 
         frame.add(jPanel);
         frame.setVisible(true);
-            
-        
-        
     }
-
-    public Jogador getJogador1() {
-        return this.jogador1;
-    }
-
-    public Jogador getJogador2() {
-        return this.jogador2;
-    }
-
     private void registrarNormal(ActionEvent actionEvent) throws IOException {
         lig4 = new Lig4() {
             @Override
@@ -119,8 +97,6 @@ public class JanelaNomeJogador extends JPanel{
         } else if(modo.equals("TURBO_MALUCO")){
             janela.janelaTurboMaluco(this.jogador1,this.jogador2);
         }
-        
-        
         
     }
 

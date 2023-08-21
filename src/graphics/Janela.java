@@ -6,8 +6,6 @@ import componentes.Jogador;
 
 public class Janela extends JFrame {
     JFrame frame;
-
-
     public void janelaNormal(Jogador jogador1, Jogador jogador2){
         frame = new JFrame();
         frame.setTitle("lig 4");
@@ -20,7 +18,6 @@ public class Janela extends JFrame {
         frame.add(jogoNormal);
         frame.addMouseListener(jogoNormal);
     }
-
     public void janelaTurbo(Jogador jogador1, Jogador jogador2){
         frame = new JFrame();
         frame.setTitle("lig 4 Turbo");
@@ -33,7 +30,6 @@ public class Janela extends JFrame {
         frame.add(jogoTurbo);
         frame.addMouseListener(jogoTurbo);
     }
-
     public void janelaTurboMaluco(Jogador jogador1, Jogador jogador2){
         frame = new JFrame();
         frame.setTitle("lig 4 Turbo Maluco");
@@ -57,11 +53,4 @@ public class Janela extends JFrame {
         ranking.setBounds(0, 0, 600, 600);
         frame.add(ranking);
     }
-
-
-
-
-
-
-
 }

@@ -1,6 +1,6 @@
 package graphics;
 
-import componentes.JogadorData;
+import componentes.Jogador;
 import jogo.Lig4;
 import jogo.Lig4Jogo;
 
@@ -14,28 +14,22 @@ import java.util.Comparator;
 
 
 public class JanelaRanking extends JPanel{
-    private ArrayList<JogadorData> jogadorList;
+    private ArrayList<Jogador> jogadorList;
     public Lig4 lig4 = new Lig4Jogo();
-    JLabel jLabel;
-
     public Menu menu;
-
     public JanelaRanking() {
         menu = new Menu();
     }
-
     protected void fecharEAbrirMenu() {
         menu.telaMenu();
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         frame.dispose();
     }
-
-    public ArrayList<JogadorData> rankingJogadores() {
-        ArrayList<JogadorData> jogadoresList = lig4.carregarJogadoresDoJSON();
-        jogadoresList.sort(Comparator.comparingInt(JogadorData::getVitorias).reversed());
+    public ArrayList<Jogador> rankingJogadores() {
+        ArrayList<Jogador> jogadoresList = lig4.carregarJogadoresDoJSON();
+        jogadoresList.sort(Comparator.comparingInt(Jogador::getVitorias).reversed());
         return jogadoresList;
     }
-
     @Override
     public void paintComponent(Graphics g){
         //Fundo da janela
@@ -53,7 +47,7 @@ public class JanelaRanking extends JPanel{
         jogadorList = rankingJogadores();
 
         int indice = 0;
-        for (JogadorData jogador : jogadorList) {
+        for (Jogador jogador : jogadorList) {
             g.setColor(Color.yellow);
             g.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
             g.drawString((indice+1)+"º Lugar - "+jogador.getNome()+" - Vitórias: "+ jogador.getVitorias(), 150, 130 + indice*65);
@@ -78,8 +72,6 @@ public class JanelaRanking extends JPanel{
         
 
     }
-
-    
 }
 
 

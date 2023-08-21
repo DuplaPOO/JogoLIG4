@@ -1,50 +1,29 @@
 package jogo;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.*;
-import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import componentes.Jogador;
-import componentes.JogadorData;
 import componentes.tabuleiro.Tabuleiro;
 import exceptions.ColunaCheiaException;
 import exceptions.ColunaInvalidaException;
 
 public class Lig4Jogo extends Lig4 {
-
-    private String cor1;////
-    private String cor2;///////
-
     private static final String JSON_FILE_PATH = "dados.json";
-
     public Lig4Jogo(){
         super();
         this.tabuleiro = new Tabuleiro();
-        this.cor1 = cor1;
-        this.cor2 = cor2;
     }
-
-    public boolean vezDoJogador(){
-        return vezDoJogador;
-    }
-
     protected void jogarPartida(Jogador jogador1, Jogador jogador2){
-        jogadorList = new ArrayList<JogadorData>();
+        jogadorList = new ArrayList<Jogador>();
         jogadorList = carregarJogadoresDoJSON();
 
-        for (JogadorData jogadorData : jogadorList) {
+        for (Jogador jogadorData : jogadorList) {
             if (jogadorData.getNome().equals(jogador1.getNome())) {
                 jogadorData1 = jogadorData;
                 break;
             }
         }
-        for (JogadorData jogadorData : jogadorList) {
+        for (Jogador jogadorData : jogadorList) {
             if (jogadorData.getNome().equals(jogador2.getNome())) {
                 jogadorData2 = jogadorData;
                 break;
@@ -67,7 +46,6 @@ public class Lig4Jogo extends Lig4 {
                 System.out.println("Escolha entre 1 a 7");
                 Scanner leitura = new Scanner(System.in);
                 int coluna = leitura.nextInt();
-                //A intenção era lançar o exception numero inteiro aqui, mas o scanner já tem um erro próprio para isso
                 coluna--;
 
                 boolean pecaAdicionada = tabuleiro.registrarPecaConsole(coluna, cor);
@@ -80,18 +58,18 @@ public class Lig4Jogo extends Lig4 {
                         if(vezDoJogador){
                             jogador1.addVitoria();
                             if (jogadorData1 != null) {
-                                jogadorData1.incrementVitorias();
+                                jogadorData1.addVitoria();
                             } else {
-                                jogadorData1= new JogadorData(jogador1.getNome(), jogador1.getVitorias());
+                                jogadorData1= new Jogador(jogador1.getNome(), jogador1.getVitorias());
                                 jogadorList.add(jogadorData1);
                             }
                             System.out.println("O jogador "+jogador1.getNome() +" venceu");
                         } else {
                             jogador2.addVitoria();
                             if (jogadorData2 != null) {
-                                jogadorData2.incrementVitorias();
+                                jogadorData2.addVitoria();
                             } else {
-                                jogadorData2= new JogadorData(jogador2.getNome(), jogador2.getVitorias());
+                                jogadorData2= new Jogador(jogador2.getNome(), jogador2.getVitorias());
                                 jogadorList.add(jogadorData2);
                             }
                             System.out.println("O jogador "+ jogador2.getNome() + " venceu");
@@ -131,8 +109,6 @@ public class Lig4Jogo extends Lig4 {
             }
         }
     }
-
-
     protected void reset(){
         this.tabuleiro= new Tabuleiro();
         vezDoJogador= (new Random()).nextBoolean();

@@ -7,8 +7,9 @@ public class Jogador {
     private Peca peca;
     private int vitorias;
 
-    public Jogador(){
-
+    public Jogador(String nome, int vitorias){
+        this.nome = nome;
+        this.vitorias = vitorias;
     }
 
 

@@ -2,7 +2,6 @@ package graphics;
 
 
 import componentes.Jogador;
-import componentes.JogadorData;
 import componentes.tabuleiro.InterfaceTabuleiro;
 import componentes.tabuleiro.Tabuleiro;
 import exceptions.ColunaCheiaException;
@@ -35,8 +34,8 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
 
     protected int coluna;
     Menu menu;
-    ArrayList<JogadorData> jogadorList;
-    protected JogadorData jogadorData1,jogadorData2;
+    ArrayList<Jogador> jogadorList;
+    protected Jogador jogadorData1,jogadorData2;
     protected Jogador jogador1,jogador2;
     
     Lig4Jogo lig4Jogo = new Lig4Jogo();
@@ -83,7 +82,7 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
         };
 
         
-        jogadorList = new ArrayList<JogadorData>();
+        jogadorList = new ArrayList<Jogador>();
         jogadorList = lig4.carregarJogadoresDoJSON();
 
 
@@ -107,20 +106,18 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
                 g.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
                 g.drawString("Pressione Enter para voltar...", 300, 650);
 
-                for (JogadorData jogadorData : jogadorList) {
+                for (Jogador jogadorData : jogadorList) {
                     if (jogadorData.getNome().equals(jogador1.getNome())) {
                         jogadorData1 = jogadorData;
                         break;
                     }
                 }
 
-
-
                 jogador1.addVitoria();
                 if (jogadorData1 != null) {
-                    jogadorData1.incrementVitorias();
+                    jogadorData1.addVitoria();
                 } else {
-                    jogadorData1= new JogadorData(jogador1.getNome(), jogador1.getVitorias());
+                    jogadorData1= new Jogador(jogador1.getNome(), jogador1.getVitorias());
                     jogadorList.add(jogadorData1);
                 }
 
@@ -137,7 +134,7 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
                 g.drawString("Pressione Enter para voltar...", 300, 650);
 
 
-                for (JogadorData jogadorData : jogadorList) {
+                for (Jogador jogadorData : jogadorList) {
                     if (jogadorData.getNome().equals(jogador2.getNome())) {
                         jogadorData2 = jogadorData;
                         break;
@@ -147,9 +144,9 @@ public class JanelaNormal extends JPanel implements MouseListener, MouseMotionLi
 
                 jogador2.addVitoria();
                 if (jogadorData2 != null) {
-                    jogadorData2.incrementVitorias();
+                    jogadorData2.addVitoria();
                 } else {
-                    jogadorData2= new JogadorData(jogador2.getNome(), jogador2.getVitorias());
+                    jogadorData2= new Jogador(jogador2.getNome(), jogador2.getVitorias());
                     jogadorList.add(jogadorData2);
                 }
                 System.out.println("O jogador "+ jogador2.getNome() + " venceu");
