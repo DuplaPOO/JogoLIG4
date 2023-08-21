@@ -1,6 +1,10 @@
 package graphics;
 
 import javax.swing.*;
+
+import exceptions.LimiteDeCaracteresException;
+import exceptions.MesmoNomeException;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -115,17 +119,35 @@ public class Menu extends JFrame implements ActionListener {
     //EVENTOS DOS CLICKS DOS BOTOES
     private void jogoNormal(ActionEvent actionEvent) {
         nomes = new JanelaNomeJogador("NORMAL");
-        nomes.painelInfos();
+        try{
+            nomes.painelInfos();
+        } catch(LimiteDeCaracteresException e){
+            System.out.println(e.getMessage());
+        } catch(MesmoNomeException e){
+            System.out.println(e.getMessage());
+        }
         this.dispose();
     }
     private void jogoTurbo(ActionEvent actionEvent) {
         nomes = new JanelaNomeJogador("TURBO");
-        nomes.painelInfos();
+        try{
+            nomes.painelInfos();
+        } catch(LimiteDeCaracteresException e){
+            System.out.println(e.getMessage());
+        } catch(MesmoNomeException e){
+            System.out.println(e.getMessage());
+        }
         this.dispose();
     }
     private void jogoMaluco(ActionEvent actionEvent) {
         nomes = new JanelaNomeJogador("TURBO_MALUCO");
-        nomes.painelInfos();
+        try{
+            nomes.painelInfos();
+        } catch(LimiteDeCaracteresException e){
+            System.out.println(e.getMessage());
+        } catch(MesmoNomeException e){
+            System.out.println(e.getMessage());
+        }
         this.dispose();
     }
     private void ranking(ActionEvent actionEvent) {

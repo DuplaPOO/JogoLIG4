@@ -2,6 +2,8 @@ package graphics;
 
 
 import componentes.Jogador;
+import exceptions.LimiteDeCaracteresException;
+import exceptions.MesmoNomeException;
 import jogo.Lig4;
 
 
@@ -24,7 +26,7 @@ public class JanelaNomeJogador extends JPanel{
         this.modo = modo;
     }
 
-    public void painelInfos() {
+    public void painelInfos() throws LimiteDeCaracteresException, MesmoNomeException{
         frame = new JFrame();
 
         frame.setTitle("REGISTRAR JOGADORES");
@@ -55,12 +57,16 @@ public class JanelaNomeJogador extends JPanel{
         jPanel.add(entradaJogador1);
         jPanel.add(entradaJogador2);
         jPanel.add(registrar);
-            
+
         registrar.addActionListener(actionEvent -> {
             try {
                 registrarNormal(actionEvent);
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            } catch(LimiteDeCaracteresException e){
+                System.out.println(e.getMessage());
+            } catch(MesmoNomeException e){
+                System.out.println(e.getMessage());
             }
         });
         jPanel.add(voltar);
@@ -69,7 +75,7 @@ public class JanelaNomeJogador extends JPanel{
         frame.add(jPanel);
         frame.setVisible(true);
     }
-    private void registrarNormal(ActionEvent actionEvent) throws IOException {
+    private void registrarNormal(ActionEvent actionEvent) throws IOException, LimiteDeCaracteresException, MesmoNomeException {
         lig4 = new Lig4() {
             @Override
             protected void jogarPartida(Jogador jogador1, Jogador jogador2) {
@@ -80,6 +86,16 @@ public class JanelaNomeJogador extends JPanel{
         };
         this.nome1 = entradaJogador1.getText();
         this.nome2 = entradaJogador2.getText();
+
+        if(this.nome1.length() > 20 || this.nome2.length() > 20){
+            LimiteDeCaracteresException e = new LimiteDeCaracteresException();
+            throw e;
+        }
+
+        if(this.nome1.equals(this.nome2)){
+            MesmoNomeException e = new MesmoNomeException();
+            throw e;
+        }
         
         this.jogador1 = new Jogador(this.nome1, "A");
         this.jogador2 = new Jogador(this.nome2, "V");
